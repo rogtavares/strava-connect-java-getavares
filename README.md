@@ -1,7 +1,7 @@
 # 🏃♂️ getavares-strava-api
 
 Integração local com a **API do Strava**, desenvolvida em **Java (IntelliJ IDEA)**, para explorar dados de atleta, atividades e estatísticas via autenticação **OAuth 2.0**.  
-Projeto criado por [Rogério Tavares](https://github.com/rogtavares) — 🎨
+Projeto criado por [Rogério Tavares](https://github.com/rogtavares) em 2025
 
 ---
 
@@ -16,7 +16,6 @@ Ele serve como base para futuras integrações com análise de performance, moni
 - **Java 17+**
 - **Maven**
 - **IntelliJ IDEA**
-- **Gson (Google)** — manipulação de JSON  
 - **Apache HttpClient 5** — comunicação HTTP  
 - **Strava API v3**
 
@@ -78,7 +77,7 @@ No código Java, leia via System.getenv("STRAVA_CLIENT_ID") ou Properties.
 
 ---
 
-## ▶️ Fluxo rápido para testar localmente
+## ▶️ Fluxo rápido para testar localmente.
 
 1. Gere a URL de autorização no navegador:
    https://www.strava.com/oauth/authorize?client_id=YOUR_CLIENT_ID&response_type=code&redirect_uri=REDIRECT_URI&scope=read,activity:read_all&approval_prompt=auto
@@ -91,7 +90,10 @@ curl -X POST https://www.strava.com/oauth/token \
   -d client_id=YOUR_CLIENT_ID \
   -d client_secret=YOUR_CLIENT_SECRET \
   -d code=AUTHORIZATION_CODE \
-  -d grant_type=authorization_code
+  -d grant_type=authorization_code## 📚 Documentação Oficial
+  
+  - [https://developers.strava.com/](https://developers.strava.com/)
+  - [https://communityhub.strava.com/](https://communityhub.strava.com/)
 ```
 
 4. Use o access token nas requisições:
@@ -138,4 +140,5 @@ A API V3 do Strava utiliza verbos HTTP apropriados para cada ação:
 
 ## 📚 Documentação Oficial
 
-Para mais informações sobre a API do Strava, consulte: [https://developers.strava.com/](https://developers.strava.com/)
+- [https://developers.strava.com/](https://developers.strava.com/)
+- [https://communityhub.strava.com/](https://communityhub.strava.com/)
