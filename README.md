@@ -110,10 +110,32 @@ curl -X POST https://www.strava.com/oauth/token \
 
 ---
 
-## 📚 Referências oficiais
+## 🔄 Métodos HTTP da API
 
-- Referência da API (endpoints, parâmetros e exemplos): https://developers.strava.com/docs/reference/  
-- Documentação geral (autenticação, webhooks, escopos): https://developers.strava.com/docs/  
-- Consulte a seção de Rate Limits na documentação para evitar erros 429.
+A API V3 do Strava utiliza verbos HTTP apropriados para cada ação:
 
-Use esses links para validar endpoints, parâmetros e fluxos ao desenvolver a integração.
+- **HEAD** — Obter apenas informações do cabeçalho HTTP
+- **GET** — Recuperar recursos
+- **POST** — Criar recursos ou executar ações personalizadas
+- **PUT** — Atualizar ou substituir recursos
+- **DELETE** — Remover recursos
+
+---
+
+## 📊 Códigos de Status HTTP
+
+| Código | Descrição |
+| ------ | --------- |
+| **200** | Solicitação bem-sucedida |
+| **201** | Recurso criado com sucesso |
+| **401** | Não autorizado |
+| **403** | Proibido; você não pode acessar |
+| **404** | Não encontrado; o recurso não existe ou você não está autorizado |
+| **429** | Muitas solicitações; você excedeu os limites de taxa |
+| **500** | Erro no servidor Strava — verifique [status.strava.com](https://status.strava.com) |
+
+---
+
+## 📚 Documentação Oficial
+
+Para mais informações sobre a API do Strava, consulte: [https://developers.strava.com/](https://developers.strava.com/)
