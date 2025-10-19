@@ -1,7 +1,7 @@
 # 🏃♂️ getavares-strava-api
 
 Integração local com a **API do Strava**, desenvolvida em **Java (IntelliJ IDEA)**, para explorar dados de atleta, atividades e estatísticas via autenticação **OAuth 2.0**.  
-Projeto criado por [Rogério Tavares](https://github.com/rogtavares) — *"Simples artista em busca de conqueista."* 🎨
+Projeto criado por [Rogério Tavares](https://github.com/rogtavares) — 🎨
 
 ---
 
@@ -31,60 +31,61 @@ getavares-strava-api/
 │   │   │   └── com/
 │   │   │       └── rogtavares/
 │   │   │           └── strava/
-│   │   │               ├── StravaApp.java       // class com.rogtavares.strava.StravaApp (main)
-│   │   │               └── StravaService.java   // class com.rogtavares.strava.StravaService
+│   │   │               ├── StravaApp.java
+│   │   │               └── StravaService.java
 │   │   └── resources/
-│   │       └── application.properties (ex.: client id/secret via vars de ambiente)
+│   │       └── application.properties
 │   └── test/
 │       └── java/
-│           └── com/
-│               └── rogtavares/
-│                   └── strava/
-│                       └── StravaServiceTest.java
+│           └── com/rogtavares/strava/
 ├── pom.xml
 └── README.md
 
-Observações:
-- As declarações de package em StravaApp.java e StravaService.java devem ser: package com.rogtavares.strava;
-- Recomendo manter client_id e client_secret fora do repositório (usar variáveis de ambiente ou arquivo fora do controle de versão).
-- Dependências (Maven) ficam no pom.xml — removi o trecho XML do README para evitar confusões.
+Observação: execute StravaApp.java (package com.rogtavares.strava) para iniciar o fluxo local de OAuth.
 
 ---
 
-## 🔑 Criação da Aplicação no Strava
+## 🔧 Criar e configurar o aplicativo Strava
 
-1. Acesse: [https://www.strava.com/settings/api](https://www.strava.com/settings/api)  
-2. Clique em **Create & Manage Your App**
-3. Preencha:
-   - **Application Name:** `StravaLocalApp`
-   - **Website:** `http://localhost`
-   - **Authorization Callback Domain:** `localhost`
-   - **Category:** `Other`
-4. Salve e anote o `Client ID` e `Client Secret`
+1. Faça login e acesse: https://www.strava.com/settings/api  
+2. Clique em "Create & Manage Your App" e preencha os campos.
+
+O que significa cada item na página "Meu Aplicativo de API":
+- Categoria: categoria da sua aplicação no Strava.  
+- Clube: mostra se há um clube associado.  
+- ID do cliente: identifcador público da sua app (use em URLs de autorização).  
+- Segredo do cliente: secreto — mantenha confidencial.  
+- Token de autorização (access token): token temporário usado nas requisições (expira).  
+- Token de atualização (refresh token): usado para renovar o access token.  
+- Limites de taxa: seu rate limit atual.  
+- Domínio de Retorno de Autorização: defina `localhost` (ou `http://localhost:8080/callback`) para testes locais; em produção use seu domínio real.
 
 ---
 
-## 🔐 Autenticação OAuth 2.0
+## ⚙️ Configuração local (recomendada)
 
-A autenticação segue o fluxo padrão do Strava: Autorização → Código → Troca por Token → Uso do Access Token.
+- Use variáveis de ambiente ou um arquivo fora do VCS para credenciais:
+  - STRAVA_CLIENT_ID
+  - STRAVA_CLIENT_SECRET
+  - STRAVA_REDIRECT_URI (ex.: http://localhost:8080/callback)
 
-1️⃣ Obtenha o Código de Autorização  
-- Abra no navegador (substitua YOUR_CLIENT_ID e REDIRECT_URI):
+Exemplo application.properties (somente para referência—não comitar):
+STRAVA_CLIENT_ID=your_client_id
+STRAVA_CLIENT_SECRET=your_client_secret
+STRAVA_REDIRECT_URI=http://localhost:8080/callback
 
-https://www.strava.com/oauth/authorize?client_id=YOUR_CLIENT_ID&response_type=code&redirect_uri=REDIRECT_URI&scope=read,activity:read_all&approval_prompt=auto
+No código Java, leia via System.getenv("STRAVA_CLIENT_ID") ou Properties.
 
-- Parâmetros importantes:
-  - client_id: seu Client ID (da app Strava)
-  - response_type: sempre "code"
-  - redirect_uri: URL de callback registrada (ex.: http://localhost:8080/callback)
-  - scope: escopos necessários (ex.: read, activity:read_all)
-  - approval_prompt: "auto" ou "force"
+---
 
-- Após autorizar, o Strava redireciona para:
-  REDIRECT_URI?code=AUTHORIZATION_CODE
+## ▶️ Fluxo rápido para testar localmente
 
-2️⃣ Troque o código por tokens (access + refresh)  
-- Exemplo cURL (substitua valores):
+1. Gere a URL de autorização no navegador:
+   https://www.strava.com/oauth/authorize?client_id=YOUR_CLIENT_ID&response_type=code&redirect_uri=REDIRECT_URI&scope=read,activity:read_all&approval_prompt=auto
+
+2. Após autorizar você receberá: REDIRECT_URI?code=AUTHORIZATION_CODE
+
+3. Troque o código por tokens:
 ```bash
 curl -X POST https://www.strava.com/oauth/token \
   -d client_id=YOUR_CLIENT_ID \
@@ -92,23 +93,13 @@ curl -X POST https://www.strava.com/oauth/token \
   -d code=AUTHORIZATION_CODE \
   -d grant_type=authorization_code
 ```
-- Resposta JSON típica:
-{
-  "token_type": "Bearer",
-  "access_token": "ACCESS_TOKEN",
-  "expires_at": 1670000000,
-  "refresh_token": "REFRESH_TOKEN",
-  "athlete": { ... }
-}
 
-3️⃣ Usando o Access Token nas requisições  
-- Exemplo para obter perfil do atleta:
+4. Use o access token nas requisições:
 ```bash
 curl -H "Authorization: Bearer ACCESS_TOKEN" https://www.strava.com/api/v3/athlete
 ```
 
-4️⃣ Atualizando (refresh) o Access Token  
-- Access tokens expiram (ver campo expires_at). Para renovar:
+5. Para renovar:
 ```bash
 curl -X POST https://www.strava.com/oauth/token \
   -d client_id=YOUR_CLIENT_ID \
@@ -117,54 +108,6 @@ curl -X POST https://www.strava.com/oauth/token \
   -d refresh_token=REFRESH_TOKEN
 ```
 
-Boas práticas
-- Armazene client_secret e refresh_token de forma segura (não comite no repositório).  
-- Solicite apenas os escopos necessários.  
-- Trate erros e limites de rate-limit (HTTP 429).  
-
 ---
 
-## 📊 Endpoints Utilizados
-
-| Endpoint               | Descrição                                 |
-| ---------------------- | ----------------------------------------- |
-| `/athlete`             | Retorna informações do atleta autenticado |
-| `/athlete/activities`  | Lista atividades recentes do atleta       |
-| `/athletes/{id}/stats` | Estatísticas agregadas do atleta (por período) |
-| `/activities/{id}`     | Detalhes de uma atividade específica      |
-
-Exemplos rápidos (usar Authorization: Bearer <token>):
-
-- Perfil do atleta:
-```bash
-curl -H "Authorization: Bearer ACCESS_TOKEN" https://www.strava.com/api/v3/athlete
-```
-
-- Listar atividades:
-```bash
-curl -G https://www.strava.com/api/v3/athlete/activities \
-  -H "Authorization: Bearer ACCESS_TOKEN" \
-  --data-urlencode "per_page=30" --data-urlencode "page=1"
-```
-
----
-
-## 🔗 Perfil Strava do Autor
-
-Você pode ver meu perfil público no Strava: https://www.strava.com/athletes/3329857
-
-Breve explicação:
-- É um perfil público que mostra atividades, estatísticas básicas e segmentos, conforme as configurações de privacidade do usuário.  
-- Dados públicos podem ser visualizados diretamente no site; para acessar dados via API (especialmente dados privados ou detalhes completos), é preciso autorizar a aplicação via OAuth 2.0 e obter um access token.  
-- Para testes locais você pode usar o athlete id `3329857` em consultas que aceitarem identificadores públicos, mas a maioria das operações úteis requer autenticação do próprio atleta (consentimento).
-
-Uso sugerido no projeto:
-- Linkar para o perfil no README para referência.  
-- Se quiser integrar ou demonstrar com esse perfil, faça o fluxo OAuth com as credenciais do atleta e armazene o refresh_token de forma segura.
-
----
-
-## 📄 Licença
-
-Este projeto é de uso livre para fins educacionais e demonstrações técnicas.  
-© 2025 Rogério Tavares – Todos os direitos reservados.
+Se quiser, atualizo o README aplicando esse bloco no arquivo agora. Quer que eu
