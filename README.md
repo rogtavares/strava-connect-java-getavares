@@ -8,8 +8,6 @@ Projeto criado por [Rogério Tavares](https://github.com/rogtavares) em 2025
 ## 🚀 Objetivo
 Este projeto demonstra como conectar uma aplicação Java local à **API do Strava**, realizar a autenticação do usuário e consumir dados reais do perfil de atleta.
 
-Ele serve como base para futuras integrações com análise de performance, monitoramento via Datadog e extensões com AWS.
-
 ---
 
 ## 🧩 Tecnologias Utilizadas
@@ -130,7 +128,7 @@ A API V3 do Strava utiliza verbos HTTP apropriados para cada ação:
 | ------ | --------- |
 | **200** | Solicitação bem-sucedida |
 | **201** | Recurso criado com sucesso |
-| **401** | Não autorizado |
+| **401** | Não autorizado|
 | **403** | Proibido; você não pode acessar |
 | **404** | Não encontrado; o recurso não existe ou você não está autorizado |
 | **429** | Muitas solicitações; você excedeu os limites de taxa |
@@ -142,3 +140,5 @@ A API V3 do Strava utiliza verbos HTTP apropriados para cada ação:
 
 - [https://developers.strava.com/](https://developers.strava.com/)
 - [https://communityhub.strava.com/](https://communityhub.strava.com/)
+
+versão 1.4.0 - 2025 - Rogério Tavares
