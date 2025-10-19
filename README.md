@@ -110,4 +110,10 @@ curl -X POST https://www.strava.com/oauth/token \
 
 ---
 
-Se quiser, atualizo o README aplicando esse bloco no arquivo agora. Quer que eu
+## 📚 Referências oficiais
+
+- Referência da API (endpoints, parâmetros e exemplos): https://developers.strava.com/docs/reference/  
+- Documentação geral (autenticação, webhooks, escopos): https://developers.strava.com/docs/  
+- Consulte a seção de Rate Limits na documentação para evitar erros 429.
+
+Use esses links para validar endpoints, parâmetros e fluxos ao desenvolver a integração.
