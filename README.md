@@ -1,7 +1,7 @@
 # 🏃♂️ getavares-strava-api
 
 Integração local com a **API do Strava**, desenvolvida em **Java (IntelliJ IDEA)**, para explorar dados de atleta, atividades e estatísticas via autenticação **OAuth 2.0**.  
-Projeto criado por [Rogério Tavares](https://github.com/rogtavares) — *"Simple artist looking for an achievement."* 🎨
+Projeto criado por [Rogério Tavares](https://github.com/rogtavares) — *"Simples artista em busca de conqueista."* 🎨
 
 ---
 
@@ -146,6 +146,21 @@ curl -G https://www.strava.com/api/v3/athlete/activities \
   -H "Authorization: Bearer ACCESS_TOKEN" \
   --data-urlencode "per_page=30" --data-urlencode "page=1"
 ```
+
+---
+
+## 🔗 Perfil Strava do Autor
+
+Você pode ver meu perfil público no Strava: https://www.strava.com/athletes/3329857
+
+Breve explicação:
+- É um perfil público que mostra atividades, estatísticas básicas e segmentos, conforme as configurações de privacidade do usuário.  
+- Dados públicos podem ser visualizados diretamente no site; para acessar dados via API (especialmente dados privados ou detalhes completos), é preciso autorizar a aplicação via OAuth 2.0 e obter um access token.  
+- Para testes locais você pode usar o athlete id `3329857` em consultas que aceitarem identificadores públicos, mas a maioria das operações úteis requer autenticação do próprio atleta (consentimento).
+
+Uso sugerido no projeto:
+- Linkar para o perfil no README para referência.  
+- Se quiser integrar ou demonstrar com esse perfil, faça o fluxo OAuth com as credenciais do atleta e armazene o refresh_token de forma segura.
 
 ---
 
