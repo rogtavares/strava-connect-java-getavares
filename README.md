@@ -24,21 +24,30 @@ Ele serve como base para futuras integrações com análise de performance, moni
 
 ## ⚙️ Estrutura do Projeto
 
-### Dependências Maven
-```xml
-<dependencies>
-    <dependency>
-        <groupId>com.google.code.gson</groupId>
-        <artifactId>gson</artifactId>
-        <version>2.10.1</version>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.httpcomponents.client5</groupId>
-        <artifactId>httpclient5</artifactId>
-        <version>5.2.1</version>
-    </dependency>
-</dependencies>
-```
+getavares-strava-api/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── rogtavares/
+│   │   │           └── strava/
+│   │   │               ├── StravaApp.java       // class com.rogtavares.strava.StravaApp (main)
+│   │   │               └── StravaService.java   // class com.rogtavares.strava.StravaService
+│   │   └── resources/
+│   │       └── application.properties (ex.: client id/secret via vars de ambiente)
+│   └── test/
+│       └── java/
+│           └── com/
+│               └── rogtavares/
+│                   └── strava/
+│                       └── StravaServiceTest.java
+├── pom.xml
+└── README.md
+
+Observações:
+- As declarações de package em StravaApp.java e StravaService.java devem ser: package com.rogtavares.strava;
+- Recomendo manter client_id e client_secret fora do repositório (usar variáveis de ambiente ou arquivo fora do controle de versão).
+- Dependências (Maven) ficam no pom.xml — removi o trecho XML do README para evitar confusões.
 
 ---
 
@@ -57,13 +66,61 @@ Ele serve como base para futuras integrações com análise de performance, moni
 
 ## 🔐 Autenticação OAuth 2.0
 
-A autenticação segue o fluxo padrão do Strava:  
-**Autorização → Código → Token de Acesso**
+A autenticação segue o fluxo padrão do Strava: Autorização → Código → Troca por Token → Uso do Access Token.
 
-### 1️⃣ Obter o Código de Autorização
-Acesse no navegador:
+1️⃣ Obtenha o Código de Autorização  
+- Abra no navegador (substitua YOUR_CLIENT_ID e REDIRECT_URI):
 
-Após autorizar, será redirecionado para:
+https://www.strava.com/oauth/authorize?client_id=YOUR_CLIENT_ID&response_type=code&redirect_uri=REDIRECT_URI&scope=read,activity:read_all&approval_prompt=auto
+
+- Parâmetros importantes:
+  - client_id: seu Client ID (da app Strava)
+  - response_type: sempre "code"
+  - redirect_uri: URL de callback registrada (ex.: http://localhost:8080/callback)
+  - scope: escopos necessários (ex.: read, activity:read_all)
+  - approval_prompt: "auto" ou "force"
+
+- Após autorizar, o Strava redireciona para:
+  REDIRECT_URI?code=AUTHORIZATION_CODE
+
+2️⃣ Troque o código por tokens (access + refresh)  
+- Exemplo cURL (substitua valores):
+```bash
+curl -X POST https://www.strava.com/oauth/token \
+  -d client_id=YOUR_CLIENT_ID \
+  -d client_secret=YOUR_CLIENT_SECRET \
+  -d code=AUTHORIZATION_CODE \
+  -d grant_type=authorization_code
+```
+- Resposta JSON típica:
+{
+  "token_type": "Bearer",
+  "access_token": "ACCESS_TOKEN",
+  "expires_at": 1670000000,
+  "refresh_token": "REFRESH_TOKEN",
+  "athlete": { ... }
+}
+
+3️⃣ Usando o Access Token nas requisições  
+- Exemplo para obter perfil do atleta:
+```bash
+curl -H "Authorization: Bearer ACCESS_TOKEN" https://www.strava.com/api/v3/athlete
+```
+
+4️⃣ Atualizando (refresh) o Access Token  
+- Access tokens expiram (ver campo expires_at). Para renovar:
+```bash
+curl -X POST https://www.strava.com/oauth/token \
+  -d client_id=YOUR_CLIENT_ID \
+  -d client_secret=YOUR_CLIENT_SECRET \
+  -d grant_type=refresh_token \
+  -d refresh_token=REFRESH_TOKEN
+```
+
+Boas práticas
+- Armazene client_secret e refresh_token de forma segura (não comite no repositório).  
+- Solicite apenas os escopos necessários.  
+- Trate erros e limites de rate-limit (HTTP 429).  
 
 ---
 
@@ -72,9 +129,23 @@ Após autorizar, será redirecionado para:
 | Endpoint               | Descrição                                 |
 | ---------------------- | ----------------------------------------- |
 | `/athlete`             | Retorna informações do atleta autenticado |
-| `/athlete/activities`  | Lista as atividades recentes              |
-| `/athletes/{id}/stats` | Estatísticas gerais do atleta             |
+| `/athlete/activities`  | Lista atividades recentes do atleta       |
+| `/athletes/{id}/stats` | Estatísticas agregadas do atleta (por período) |
 | `/activities/{id}`     | Detalhes de uma atividade específica      |
+
+Exemplos rápidos (usar Authorization: Bearer <token>):
+
+- Perfil do atleta:
+```bash
+curl -H "Authorization: Bearer ACCESS_TOKEN" https://www.strava.com/api/v3/athlete
+```
+
+- Listar atividades:
+```bash
+curl -G https://www.strava.com/api/v3/athlete/activities \
+  -H "Authorization: Bearer ACCESS_TOKEN" \
+  --data-urlencode "per_page=30" --data-urlencode "page=1"
+```
 
 ---
 
