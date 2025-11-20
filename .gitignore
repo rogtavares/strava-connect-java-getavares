@@ -1,0 +1,28 @@
+# Java / Maven
+target/
+**/target/
+*.class
+*.jar
+*.war
+*.ear
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+
+# Python
+__pycache__/
+.venv/
+env/
+
+# Node
+node_modules/
+out/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Secrets / tokens
+tokens.json
