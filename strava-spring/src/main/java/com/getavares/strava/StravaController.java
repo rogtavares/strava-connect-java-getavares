@@ -22,8 +22,8 @@ public class StravaController {
     private final ObjectMapper mapper = new ObjectMapper();
     private final HttpClient http = HttpClient.newHttpClient();
 
-    // In-memory simple token store (for example purposes)
-    private Map<String, Object> tokenStore = new HashMap<>();
+    // Simple token store persisted to strava-spring/tokens.json
+    private Map<String, Object> tokenStore = loadTokenStore();
 
     @GetMapping("/authorize")
     public String authorize() {
@@ -49,9 +49,10 @@ public class StravaController {
 
         HttpResponse<String> resp = http.send(req, HttpResponse.BodyHandlers.ofString());
         JsonNode json = mapper.readTree(resp.body());
-        tokenStore.put("access_token", json.path("access_token").asText());
-        tokenStore.put("refresh_token", json.path("refresh_token").asText());
-        tokenStore.put("expires_at", Instant.ofEpochSecond(json.path("expires_at").asLong()));
+    tokenStore.put("access_token", json.path("access_token").asText());
+    tokenStore.put("refresh_token", json.path("refresh_token").asText());
+    tokenStore.put("expires_at", Instant.ofEpochSecond(json.path("expires_at").asLong()).toString());
+    saveTokenStore();
 
         return "Token armazenado. Você pode acessar /activities/export";
     }
@@ -71,7 +72,52 @@ public class StravaController {
                 .build();
 
         HttpResponse<String> resp = http.send(req, HttpResponse.BodyHandlers.ofString());
-        // Return raw response for simplicity; in real code map to DTO
-        return resp.body();
+        // Map to cleaned JSON
+        JsonNode arr = mapper.readTree(resp.body());
+        // Build cleaned array
+        return mapper.writeValueAsString(mapActivities(arr));
+    }
+
+    private void saveTokenStore() {
+        try {
+            mapper.writerWithDefaultPrettyPrinter().writeValue(new java.io.File("strava-spring/tokens.json"), tokenStore);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private Map<String, Object> loadTokenStore() {
+        try {
+            java.io.File f = new java.io.File("strava-spring/tokens.json");
+            if (f.exists()) {
+                return mapper.readValue(f, Map.class);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new HashMap<>();
+    }
+
+    private JsonNode mapActivities(JsonNode arr) {
+        // Create a new ArrayNode with cleaned fields
+        com.fasterxml.jackson.databind.node.ArrayNode out = mapper.createArrayNode();
+        if (arr.isArray()) {
+            for (JsonNode a : arr) {
+                com.fasterxml.jackson.databind.node.ObjectNode node = mapper.createObjectNode();
+                node.put("id", a.path("id").asLong());
+                node.put("name", a.path("name").asText(null));
+                node.put("type", a.path("type").asText(null));
+                node.put("distance", a.path("distance").asDouble(0.0));
+                node.put("moving_time", a.path("moving_time").asInt(0));
+                node.put("start_date", a.path("start_date").asText(null));
+                // start lat/lng
+                if (a.has("start_latlng") && a.path("start_latlng").isArray() && a.path("start_latlng").size() >= 2) {
+                    node.putArray("start_latlng").add(a.path("start_latlng").get(0).asDouble()).add(a.path("start_latlng").get(1).asDouble());
+                }
+                out.add(node);
+            }
+        }
+        return out;
     }
 }
