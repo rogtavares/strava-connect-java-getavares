@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  # Java Spring Backend
+  strava-spring:
+    build:
+      context: ../strava-spring
+      dockerfile: Dockerfile
+    container_name: strava-spring
+    ports:
+      - "8080:8080"
+    environment:
+      STRAVA_CLIENT_ID: ${STRAVA_CLIENT_ID}
+      STRAVA_CLIENT_SECRET: ${STRAVA_CLIENT_SECRET}
+      STRAVA_REDIRECT_URI: ${STRAVA_REDIRECT_URI:-http://localhost:8080/callback}
+    volumes:
+      - ../strava-spring/tokens.json:/app/tokens.json
+    networks:
+      - strava-network
+
+  # Python FastAPI
+  strava-fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: strava-fastapi
+    ports:
+      - "8000:8000"
+    environment:
+      BACKEND_URL: http://strava-spring:8080
+      OPENWEATHER_API_KEY: ${OPENWEATHER_API_KEY}
+    depends_on:
+      - strava-spring
+    networks:
+      - strava-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  strava-network:
+    driver: bridge

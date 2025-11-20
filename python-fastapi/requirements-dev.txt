@@ -1,0 +1,26 @@
+# FastAPI - Python Dependencies
+# Latest versions as of November 2025
+
+# Web Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+
+# HTTP Client
+requests==2.31.0
+httpx==0.25.1
+
+# Data Validation
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# Environment Variables
+python-dotenv==1.0.0
+
+# Development
+pytest==7.4.3
+pytest-asyncio==0.21.1
+black==23.12.0
+flake8==6.1.0
+
+# Optional: For production deployment
+gunicorn==21.2.0
