@@ -1,6 +1,6 @@
-# 🏃♂️ getavares-strava-api
+# 🏃 getavares-strava-api
 
-Integração local com a **API do Strava**, desenvolvida em **Java (IntelliJ IDEA)**, para explorar dados de atleta, atividades e estatísticas via autenticação **OAuth 2.0**.  
+Integração local com a **API do Strava**, desenvolvida em **Java** com suporte para **Visual Studio Code** e **IntelliJ IDEA**, para explorar dados de atleta, atividades e estatísticas via autenticação **OAuth 2.0**.  
 Projeto criado por [Rogério Tavares](https://github.com/rogtavares) em 2025
 
 ---
@@ -157,4 +157,13 @@ A API V3 do Strava utiliza verbos HTTP apropriados para cada ação:
 - [https://developers.strava.com/](https://developers.strava.com/)
 - [https://communityhub.strava.com/](https://communityhub.strava.com/)
 
-versão 1.6.0 - 2025 - Rogério Tavares
+### Exemplos e tutoriais úteis
+
+- Strava Simple OAuth API Example: python & requests-oauthlib
+- Strava Simple OAuth API Example: python & requests-oauthlib
+  - [Documentação de referência do Strava](https://developers.strava.com/docs/reference/)
+  - Português: "Exemplo simples de OAuth com a API do Strava (Python + requests-oauthlib): registramos uma aplicação no Strava, configuramos o ambiente de desenvolvimento, implementamos um exemplo que obtém um código de autorização, troca o código por um token e, por fim, realiza uma chamada à API do Strava para retornar o perfil do atleta."
+
+Use esses recursos como complemento prático para entender o fluxo OAuth e adaptar para este projeto em Java (backend) e Python (enriquecimento/clima).
+
+versão 1.7.0 - 2025 - Rogério Tavares
