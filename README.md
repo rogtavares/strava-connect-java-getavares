@@ -8,16 +8,9 @@ Projeto criado por [Rogério Tavares](https://github.com/rogtavares) em 2025
 ## 🚀 Objetivo
 Este projeto demonstra como conectar uma aplicação Java local à **API do Strava**, realizar a autenticação do usuário e consumir dados reais do perfil de atleta.
 
----
 
 ## 🧩 Tecnologias Utilizadas
-- **Java 17+**
-- **Maven**
-- **IntelliJ IDEA**
-- **Apache HttpClient 5** — comunicação HTTP  
-- **Strava API v3**
 
----
 
 ## ⚙️ Estrutura do Projeto
 
@@ -40,7 +33,30 @@ getavares-strava-api/
 
 Observação: execute StravaApp.java (package com.rogtavares.strava) para iniciar o fluxo local de OAuth.
 
----
+
+## Atualizar Java para JDK 21 (LTS)
+
+Este projeto foi atualizado para usar Java 21. Passos recomendados para configurar o ambiente no Windows:
+
+1. Instalar Temurin (Adoptium) JDK 21 via winget (recomendado):
+
+  winget install --id EclipseAdoptium.Temurin.21.JDK -e --accept-package-agreements --accept-source-agreements
+
+2. Definir JAVA_HOME na sessão ou globalmente (PowerShell):
+
+  $env:JAVA_HOME = 'C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.x'
+  $env:PATH = $env:JAVA_HOME + '\\bin;' + $env:PATH
+
+3. Instalar Apache Maven (recomendado) ou adicionar Maven Wrapper ao projeto:
+
+  - Via winget (se disponível):
+    winget install --id Apache.Maven -e --accept-package-agreements --accept-source-agreements
+
+4. Build do projeto:
+
+  mvn -U package
+
+Se você não tiver Maven instalado, pode instalar manualmente ou adicionar o Maven Wrapper (`mvnw`).
 
 ## 🔧 Criar e configurar o aplicativo Strava
 
@@ -141,4 +157,4 @@ A API V3 do Strava utiliza verbos HTTP apropriados para cada ação:
 - [https://developers.strava.com/](https://developers.strava.com/)
 - [https://communityhub.strava.com/](https://communityhub.strava.com/)
 
-versão 1.4.0 - 2025 - Rogério Tavares
+versão 1.6.0 - 2025 - Rogério Tavares
