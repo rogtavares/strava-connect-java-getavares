@@ -25,29 +25,158 @@ Construir uma **solução integrada** que:
 5. ✅ **Visualiza** em dashboard interativo e profissional
 
 
-## 🧩 Tecnologias Utilizadas
 
+## 📁 Estrutura do Projeto
 
-## ⚙️ Estrutura do Projeto
+```
+strava-connect-java-getavares/
+│
+├── 🔧 CONFIGURAÇÃO E DOCUMENTAÇÃO
+│   ├── README.md                      # Este arquivo (guia principal)
+│   ├── README_NEW.md                  # Documentação expandida
+│   ├── VERSION.md                     # Histórico de versões
+│   ├── ARCHITECTURE.md                # Arquitetura geral do projeto
+│   ├── pom.xml                        # Configuração Maven raiz
+│   ├── LICENSE                        # Licença MIT
+│   └── .gitignore                     # Exclusões Git
+│
+├── 📦 BACKEND - JAVA SPRING
+│   └── strava-spring/
+│       ├── pom.xml                    # Dependências Spring Boot
+│       ├── README.md                  # Setup e guia de uso
+│       └── src/
+│           ├── main/
+│           │   ├── java/com/getavares/strava/
+│           │   │   ├── StravaSpringApplication.java   # App principal
+│           │   │   ├── StravaController.java          # Endpoints REST
+│           │   │   ├── service/
+│           │   │   │   ├── StravaService.java         # Lógica Strava
+│           │   │   │   └── TokenService.java          # Gerenciamento OAuth
+│           │   │   └── exception/                     # Tratamento de erros
+│           │   └── resources/
+│           │       └── application.properties         # Config Spring
+│           └── test/
+│               └── java/               # Testes unitários
+│
+├── 🐍 BACKEND - PYTHON SERVERLESS (AWS Lambda)
+│   └── lambda-backend/
+│       ├── README.md                  # Setup AWS Lambda
+│       ├── README_PT_BR.md            # Versão em português
+│       ├── serverless.yml             # Configuração Serverless
+│       ├── requirements.txt           # Dependências Python
+│       ├── src/
+│       │   ├── auth_handler.py        # Autenticação OAuth
+│       │   ├── activities_handler.py  # Busca atividades
+│       │   ├── athlete_handler.py     # Dados do atleta
+│       │   ├── stats_handler.py       # Estatísticas
+│       │   ├── insights_handler.py    # Insights inteligentes
+│       │   ├── strava_client.py       # Cliente Strava
+│       │   ├── config.py              # Configurações
+│       │   ├── monitoring.py          # Monitoramento
+│       │   └── utils.py               # Utilitários
+│       ├── tests/
+│       │   ├── test_auth.py           # Testes auth
+│       │   ├── unit/                  # Testes unitários
+│       │   ├── integration/           # Testes integração
+│       │   └── performance/           # Testes performance
+│       └── deploy.sh                  # Script deploy AWS
+│
+├── 🌐 API REST - PYTHON FASTAPI
+│   └── python-fastapi/
+│       ├── README.md                  # Setup FastAPI
+│       ├── app.py                     # Aplicação principal
+│       ├── requirements.txt           # Dependências
+│       ├── requirements-dev.txt       # Dev dependencies
+│       ├── Dockerfile                 # Containerização
+│       ├── docker-compose.yml         # Stack local
+│       ├── run.py                     # Script execução
+│       └── test_api.py                # Testes básicos
+│
+├── 📊 DASHBOARD - STREAMLIT
+│   └── python-streamlit/
+│       ├── README.md                  # Setup Streamlit
+│       ├── app.py                     # App principal
+│       ├── config.py                  # Configurações
+│       ├── requirements.txt           # Dependências
+│       ├── modules/
+│       │   ├── api_client.py          # Cliente API
+│       │   ├── charts.py              # Gráficos e visualizações
+│       │   └── filters.py             # Filtros e buscas
+│       └── pages/
+│           ├── 1_📈_Dashboard.py     # Dashboard principal
+│           ├── 2_📊_Analytics.py     # Análises detalhadas
+│           └── 3_🚴_Activities.py    # Detalhes atividades
+│
+├── 🎨 PORTFOLIO - NEXT.JS
+│   └── portfolio-site/
+│       ├── README.md                  # Setup Next.js
+│       ├── package.json               # Dependências Node
+│       ├── tsconfig.json              # Config TypeScript
+│       ├── tailwind.config.js         # Config Tailwind CSS
+│       ├── next.config.js             # Config Next.js
+│       ├── app/
+│       │   ├── layout.tsx             # Layout principal
+│       │   ├── page.tsx               # Home page
+│       │   └── globals.css            # Estilos globais
+│       └── public/                    # Arquivos estáticos
+│
+└── 📚 DOCUMENTAÇÃO COMPLEMENTAR
+    ├── BLOCO2_PLAN.md                 # Plano Bloco 2
+    ├── BLOCO3_PLAN.md                 # Plano Bloco 3
+    ├── EXECUTION_PLAN.md              # Plano execução
+    ├── ROADMAP.md                     # Roadmap do projeto
+    ├── SETUP.md                       # Guia setup completo
+    ├── SUMMARY.md                     # Resumo executivo
+    └── .github/
+        └── workflows/                 # CI/CD GitHub Actions
+```
 
-getavares-strava-api/
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   └── com/
-│   │   │       └── rogtavares/
-│   │   │           └── strava/
-│   │   │               ├── StravaApp.java
-│   │   │               └── StravaService.java
-│   │   └── resources/
-│   │       └── application.properties
-│   └── test/
-│       └── java/
-│           └── com/rogtavares/strava/
-├── pom.xml
-└── README.md
+### 🎯 Componentes Principais
 
-Observação: execute StravaApp.java (package com.rogtavares.strava) para iniciar o fluxo local de OAuth.
+| Componente | Descrição | Stack |
+|-----------|-----------|-------|
+| **strava-spring** | Backend API - Autenticação OAuth | Java 21, Spring Boot 3.2 |
+| **lambda-backend** | Processamento serverless | Python 3.11+, AWS Lambda |
+| **python-fastapi** | API enriquecida com dados | Python, FastAPI |
+| **python-streamlit** | Dashboard interativo | Python, Streamlit |
+| **portfolio-site** | Site profissional | TypeScript, Next.js 14 |
+
+### 🚀 Como Usar Cada Componente
+
+#### 1️⃣ Backend Java (Spring Boot)
+```bash
+cd strava-spring
+mvn spring-boot:run
+# Acessa em http://localhost:8080
+```
+
+#### 2️⃣ Dashboard Streamlit
+```bash
+cd python-streamlit
+streamlit run app.py
+# Acessa em http://localhost:8501
+```
+
+#### 3️⃣ API FastAPI
+```bash
+cd python-fastapi
+python app.py
+# Acessa em http://localhost:8000
+```
+
+#### 4️⃣ Portfolio Next.js
+```bash
+cd portfolio-site
+npm install && npm run dev
+# Acessa em http://localhost:3000
+```
+
+### 📝 Observações Importantes
+
+- **Execução Local**: Execute `StravaApp.java` (package `com.getavares.strava`) para iniciar o fluxo OAuth local
+- **Variáveis de Ambiente**: Configure `STRAVA_CLIENT_ID`, `STRAVA_CLIENT_SECRET` e `STRAVA_REDIRECT_URI`
+- **Banco de Dados**: Projetos Python usam PostgreSQL/Redis quando necessário
+- **Containerização**: Use Docker Compose para stack completo
 
 
 ## Atualizar Java para JDK 21 (LTS)
