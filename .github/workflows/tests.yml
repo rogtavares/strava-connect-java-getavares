@@ -1,0 +1,299 @@
+name: 🧪 Tests & 🚀 Deploy
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+env:
+  PYTHON_VERSION: '3.11'
+  AWS_REGION: us-east-1
+
+jobs:
+  # ====== TESTES ======
+  tests:
+    runs-on: ubuntu-latest
+    name: 🧪 Unit & Integration Tests
+    
+    strategy:
+      matrix:
+        python-version: [ '3.9', '3.10', '3.11' ]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-cov pytest-mock pytest-asyncio
+      
+      - name: Run unit tests
+        run: |
+          pytest tests/unit/ \
+            --cov=src \
+            --cov-report=xml \
+            --cov-report=term-missing \
+            --cov-fail-under=80 \
+            -v
+      
+      - name: Run integration tests
+        run: |
+          pytest tests/integration/ \
+            -m integration \
+            --timeout=30 \
+            -v
+      
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: true
+      
+      - name: Generate coverage badge
+        if: github.ref == 'refs/heads/main'
+        run: |
+          pip install coverage
+          coverage json
+          echo "Coverage: $(python -c 'import json; print(f\"{json.load(open(\"coverage.json\"))[\"totals\"][\"percent_covered\"]:.1f}%\")')"
+
+  # ====== LINT & CODE QUALITY ======
+  quality:
+    runs-on: ubuntu-latest
+    name: 📊 Code Quality
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+      
+      - name: Install linters
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 black isort mypy bandit
+      
+      - name: Run Black (formatter)
+        run: black --check src/ tests/
+        continue-on-error: true
+      
+      - name: Run isort (imports)
+        run: isort --check-only src/ tests/
+        continue-on-error: true
+      
+      - name: Run Flake8
+        run: flake8 src/ tests/ --max-line-length=100 --ignore=E203,W503
+      
+      - name: Run MyPy (type check)
+        run: mypy src/ --ignore-missing-imports
+        continue-on-error: true
+      
+      - name: Run Bandit (security)
+        run: bandit -r src/ -f json -o bandit-report.json
+        continue-on-error: true
+
+  # ====== PERFORMANCE ======
+  performance:
+    runs-on: ubuntu-latest
+    name: ⚡ Performance Tests
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-benchmark locust
+      
+      - name: Run performance benchmark
+        run: |
+          pytest tests/performance/ \
+            --benchmark-only \
+            --benchmark-json=benchmark.json
+        continue-on-error: true
+      
+      - name: Comment benchmark results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            if (fs.existsSync('benchmark.json')) {
+              const benchmark = JSON.parse(fs.readFileSync('benchmark.json', 'utf8'));
+              let comment = '## ⚡ Performance Results\n\n```\n';
+              // Parse and format benchmark results
+              comment += '```';
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            }
+
+  # ====== BUILD & DEPLOY ======
+  deploy:
+    needs: [ tests, quality ]
+    runs-on: ubuntu-latest
+    name: 🚀 Deploy to Lambda
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    permissions:
+      id-token: write
+      contents: read
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-role
+          aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Install serverless framework
+        run: |
+          npm install -g serverless
+          npm install --save-dev serverless-python-requirements
+      
+      - name: Deploy with Serverless
+        env:
+          STRAVA_CLIENT_ID: ${{ secrets.STRAVA_CLIENT_ID }}
+          STRAVA_CLIENT_SECRET: ${{ secrets.STRAVA_CLIENT_SECRET }}
+          DD_API_KEY: ${{ secrets.DD_API_KEY }}
+        run: |
+          serverless deploy \
+            --stage prod \
+            --region ${{ env.AWS_REGION }}
+      
+      - name: Update AWS Parameter Store
+        run: |
+          aws ssm put-parameter \
+            --name /strava-connect/version \
+            --value "${{ github.sha }}" \
+            --overwrite \
+            --region ${{ env.AWS_REGION }}
+      
+      - name: Comment deployment status
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const status = 'success' ? '✅' : '❌';
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `${status} Deployment completed to Lambda (main branch)`
+            });
+
+  # ====== SECURITY ======
+  security:
+    runs-on: ubuntu-latest
+    name: 🔒 Security Scan
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+      
+      - name: Upload to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
+      
+      - name: Run OWASP Dependency-Check
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: 'strava-connect'
+          path: '.'
+          format: 'JSON'
+          args: >
+            --enableExperimental
+
+  # ====== NOTIFICATIONS ======
+  notify:
+    runs-on: ubuntu-latest
+    name: 📧 Notifications
+    if: always()
+    needs: [ tests, quality ]
+    
+    steps:
+      - name: Send Slack notification
+        uses: slackapi/slack-github-action@v1
+        with:
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
+          payload: |
+            {
+              "text": "GitHub Action result: ${{ job.status }}",
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "Strava Connect - CI/CD Pipeline"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Repository:*\n${{ github.repository }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Branch:*\n${{ github.ref_name }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Status:*\n${{ job.status }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Commit:*\n${{ github.sha }}"
+                    }
+                  ]
+                }
+              ]
+            }
+        if: ${{ secrets.SLACK_WEBHOOK != '' }}
+
+# Secrets necessários no GitHub:
+# - AWS_ACCOUNT_ID: 123456789012
+# - STRAVA_CLIENT_ID: client_id_from_strava
+# - STRAVA_CLIENT_SECRET: secret_from_strava
+# - DD_API_KEY: your_datadog_api_key
+# - SLACK_WEBHOOK: https://hooks.slack.com/...

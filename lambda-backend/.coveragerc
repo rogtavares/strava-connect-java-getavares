@@ -1,0 +1,41 @@
+[coverage:run]
+# Configuração de cobertura
+
+branch = True
+source = src
+
+omit =
+    */tests/*
+    */venv/*
+    */__init__.py
+
+[coverage:report]
+# Relatório de cobertura
+
+precision = 2
+show_missing = True
+skip_covered = False
+
+# Excluir linhas do relatório
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    raise AssertionError
+    raise NotImplementedError
+    if __name__ == .__main__.:
+    if TYPE_CHECKING:
+    @abstractmethod
+    @abc.abstractmethod
+
+# Limite mínimo de cobertura
+fail_under = 80
+
+[coverage:html]
+# Configuração de relatório HTML
+
+directory = htmlcov
+
+[coverage:xml]
+# Configuração de relatório XML
+
+output = coverage.xml

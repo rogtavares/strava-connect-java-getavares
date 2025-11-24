@@ -1,12 +1,27 @@
-# 🏃 getavares-strava-api
+# 🏃 Strava Connect - Integração Completa com Análises Inteligentes
 
-Integração local com a **API do Strava**, desenvolvida em **Java** com suporte para **Visual Studio Code** e **IntelliJ IDEA**, para explorar dados de atleta, atividades e estatísticas via autenticação **OAuth 2.0**.  
+![Status](https://img.shields.io/badge/status-active-success)
+![License](https://img.shields.io/badge/license-MIT-blue)
+![Python](https://img.shields.io/badge/python-3.11%2B-blue)
+![Java](https://img.shields.io/badge/java-21-red)
+![FastAPI](https://img.shields.io/badge/fastapi-0.104-green)
+![Spring Boot](https://img.shields.io/badge/spring%20boot-3.2-green)
+![Streamlit](https://img.shields.io/badge/streamlit-latest-red)
+
+> **Integração completa com API do Strava** | **Análises Inteligentes** | **Dashboard Visual** | **100% Gratuito** 🆓
+
 Projeto criado por [Rogério Tavares](https://github.com/rogtavares) em 2025
 
 ---
 
-## 🚀 Objetivo
-Este projeto demonstra como conectar uma aplicação Java local à **API do Strava**, realizar a autenticação do usuário e consumir dados reais do perfil de atleta.
+## 🎯 Objetivo
+
+Construir uma **solução integrada** que:
+1. ✅ **Autentica** com Strava via OAuth 2.0
+2. ✅ **Puxa** atividades do usuário autenticado
+3. ✅ **Enriquece** com dados climáticos históricos (OpenWeather)
+4. ✅ **Gera** insights inteligentes sobre desempenho vs clima
+5. ✅ **Visualiza** em dashboard interativo e profissional
 
 
 ## 🧩 Tecnologias Utilizadas
