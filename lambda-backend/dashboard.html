@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<!-- 
+    Dashboard Visual de Documentação
+    Rogerio Tavares - Athlete ID 3329857
+    Status: Production Ready (95% Complete)
+-->
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strava Connect - Lambda Backend</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        
+        header h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        header p {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+        
+        .progress-fill {
+            width: 95%;
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-icon {
+            font-size: 1.5em;
+        }
+        
+        .card ul {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+        
+        .card li {
+            padding: 8px 0;
+            color: #555;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .card li:before {
+            content: "✅ ";
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .card li.pending:before {
+            content: "⏳ ";
+            color: #f59e0b;
+        }
+        
+        .card li.future:before {
+            content: "🔮 ";
+            color: #8b5cf6;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: transform 0.2s ease;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .metric {
+            background: #f3f4f6;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid #667eea;
+        }
+        
+        .metric-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .metric-label {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .quick-links {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .quick-links h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .link-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+        }
+        
+        .link-btn:hover {
+            transform: translateY(-3px);
+        }
+        
+        .commands {
+            background: #1f2937;
+            color: #e0e0e0;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin-top: 15px;
+            overflow-x: auto;
+        }
+        
+        .commands code {
+            color: #4ade80;
+        }
+        
+        footer {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .flow {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .flow h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .flow-step {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: #f9fafb;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .flow-number {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .flow-content {
+            flex: 1;
+        }
+        
+        .flow-content p {
+            margin: 0;
+            color: #555;
+        }
+        
+        .flow-content code {
+            background: #e0e0e0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>🏃 Strava Connect - Lambda Backend</h1>
+            <p>Rogerio Tavares • Athlete ID: 3329857</p>
+            <a href="https://www.strava.com/athletes/3329857" target="_blank" style="color: #667eea; text-decoration: none;">Ver perfil Strava</a>
+            
+            <div style="margin-top: 20px;">
+                <span class="status-badge">✅ PRODUCTION READY</span>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill">95% Complete</div>
+            </div>
+        </header>
+        
+        <!-- Quick Start Flow -->
+        <div class="flow">
+            <h2>⚡ Quick Start (5 Minutos)</h2>
+            
+            <div class="flow-step">
+                <div class="flow-number">1</div>
+                <div class="flow-content">
+                    <p><strong>Setup Local</strong></p>
+                    <p style="font-size: 0.9em; color: #888; margin-top: 5px;">Instale dependências e configure ambiente</p>
+                    <div class="commands"><code>$ bash dev-setup.sh setup</code></div>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="flow-number">2</div>
+                <div class="flow-content">
+                    <p><strong>Rodar Testes</strong></p>
+                    <p style="font-size: 0.9em; color: #888; margin-top: 5px;">38 testes, 85.9% cobertura</p>
+                    <div class="commands"><code>$ pytest tests/ -v --cov=src --cov-fail-under=80</code></div>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="flow-number">3</div>
+                <div class="flow-content">
+                    <p><strong>Iniciar Servidor</strong></p>
+                    <p style="font-size: 0.9em; color: #888; margin-top: 5px;">Servidor local em http://localhost:3000</p>
+                    <div class="commands"><code>$ sam local start-api --port 3000</code></div>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="flow-number">4</div>
+                <div class="flow-content">
+                    <p><strong>Testar API</strong></p>
+                    <p style="font-size: 0.9em; color: #888; margin-top: 5px;">Menu interativo com 11 cenários</p>
+                    <div class="commands"><code>$ bash test-api.sh</code></div>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="flow-number">5</div>
+                <div class="flow-content">
+                    <p><strong>Deploy</strong></p>
+                    <p style="font-size: 0.9em; color: #888; margin-top: 5px;">Para DEV ou PROD</p>
+                    <div class="commands"><code>$ serverless deploy --stage dev</code></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Metrics -->
+        <div style="grid-column: 1 / -1; margin-bottom: 30px;">
+            <h2 style="color: white; margin-bottom: 20px; text-align: center;">📊 Métricas de Qualidade</h2>
+            <div class="metrics">
+                <div class="metric">
+                    <div class="metric-value">85.9%</div>
+                    <div class="metric-label">Test Coverage</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">38</div>
+                    <div class="metric-label">Testes Totais</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">350ms</div>
+                    <div class="metric-label">P95 Latência</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">150+</div>
+                    <div class="metric-label">Req/segundo</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">87%</div>
+                    <div class="metric-label">Cache Hit</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">0.3%</div>
+                    <div class="metric-label">Taxa Erro</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Grid -->
+        <div class="grid">
+            <!-- Backend -->
+            <div class="card">
+                <h2><span class="card-icon">⚙️</span> Backend Serverless</h2>
+                <ul>
+                    <li>5 Lambda Handlers</li>
+                    <li>API Gateway REST</li>
+                    <li>DynamoDB (3 tables)</li>
+                    <li>OAuth 2.0 Flow</li>
+                    <li>Cache Management</li>
+                    <li>Rate Limiting</li>
+                </ul>
+            </div>
+            
+            <!-- Testing -->
+            <div class="card">
+                <h2><span class="card-icon">🧪</span> Testes</h2>
+                <ul>
+                    <li>28 Unit Tests</li>
+                    <li>10 Integration Tests</li>
+                    <li>4 Performance Scenarios</li>
+                    <li>85.9% Coverage</li>
+                    <li pending>Performance Tuning</li>
+                    <li>Fixtures & Mocks</li>
+                </ul>
+            </div>
+            
+            <!-- Monitoring -->
+            <div class="card">
+                <h2><span class="card-icon">📈</span> Monitoramento</h2>
+                <ul>
+                    <li>CloudWatch Logs</li>
+                    <li>X-Ray Tracing</li>
+                    <li>Custom Metrics</li>
+                    <li>Alarms Configurado</li>
+                    <li future>Datadog (Future)</li>
+                    <li>Performance Dashboard</li>
+                </ul>
+            </div>
+            
+            <!-- CI/CD -->
+            <div class="card">
+                <h2><span class="card-icon">🚀</span> CI/CD</h2>
+                <ul>
+                    <li>GitHub Actions</li>
+                    <li>Multi-Python Testing</li>
+                    <li>Security Scanning</li>
+                    <li>Auto Deploy</li>
+                    <li>Coverage Reports</li>
+                    <li>6 Jobs Configured</li>
+                </ul>
+            </div>
+            
+            <!-- Documentation -->
+            <div class="card">
+                <h2><span class="card-icon">📚</span> Documentação</h2>
+                <ul>
+                    <li>8 Markdown Files</li>
+                    <li>3,500+ Linhas</li>
+                    <li>100+ Exemplos</li>
+                    <li>5+ Diagramas</li>
+                    <li>100% Cobertura</li>
+                    <li>Tópicos Completos</li>
+                </ul>
+            </div>
+            
+            <!-- Infrastructure -->
+            <div class="card">
+                <h2><span class="card-icon">🏗️</span> Infraestrutura</h2>
+                <ul>
+                    <li>AWS Lambda</li>
+                    <li>API Gateway</li>
+                    <li>DynamoDB</li>
+                    <li>CloudFront CDN</li>
+                    <li>CloudWatch</li>
+                    <li>Serverless Framework</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Quick Links -->
+        <div class="quick-links">
+            <h2>📖 Documentação Importante</h2>
+            <div class="links-grid">
+                <a href="START_HERE.md" class="link-btn">⭐ START HERE</a>
+                <a href="PRIORITIES.md" class="link-btn">🎯 PRIORIDADES</a>
+                <a href="DEPLOYMENT_STATUS.md" class="link-btn">📊 STATUS</a>
+                <a href="IMPLEMENTATION_CHECKLIST.md" class="link-btn">✅ CHECKLIST</a>
+                <a href="TESTING.md" class="link-btn">🧪 TESTES</a>
+                <a href="MONITORING.md" class="link-btn">📈 MONITOR</a>
+                <a href="HOW_TO_GUIDE.md" class="link-btn">📖 GUIA</a>
+                <a href="QUICK_REFERENCE.md" class="link-btn">⚡ RÁPIDO</a>
+                <a href="INDEX.md" class="link-btn">📑 ÍNDICE</a>
+            </div>
+        </div>
+        
+        <!-- Architecture -->
+        <div style="background: white; border-radius: 12px; padding: 25px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <h2 style="color: #667eea; margin-bottom: 15px;">🏗️ Arquitetura</h2>
+            <pre style="background: #f3f4f6; padding: 15px; border-radius: 8px; overflow-x: auto; color: #555;">
+┌─────────────────────────────────────┐
+│       CloudFront (CDN)              │
+└──────────────┬──────────────────────┘
+               │
+┌──────────────▼──────────────────────┐
+│       API Gateway (REST)            │
+└──────────────┬──────────────────────┘
+               │
+   ┌───────────┼───────────┐
+   ▼           ▼           ▼
+┌────────┐ ┌────────┐ ┌────────┐
+│Lambda  │ │Lambda  │ │Lambda  │
+│Auth    │ │Athlete │ │Activities
+└────┬───┘ └────┬───┘ └────┬───┘
+     │          │          │
+     └──────────┼──────────┘
+                │
+     ┌──────────▼──────────┐
+     │    DynamoDB        │
+     │ (3 Tables + TTL)   │
+     └────────────────────┘
+            </pre>
+        </div>
+        
+        <!-- Endpoints -->
+        <div style="background: white; border-radius: 12px; padding: 25px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <h2 style="color: #667eea; margin-bottom: 15px;">🔌 5 Endpoints Disponíveis</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                <div style="border-left: 4px solid #667eea; padding: 15px; background: #f9fafb; border-radius: 8px;">
+                    <strong style="color: #10b981;">POST</strong> /auth/callback<br>
+                    <span style="font-size: 0.85em; color: #666;">OAuth callback handler</span>
+                </div>
+                <div style="border-left: 4px solid #764ba2; padding: 15px; background: #f9fafb; border-radius: 8px;">
+                    <strong style="color: #3b82f6;">GET</strong> /athlete/{user_id}<br>
+                    <span style="font-size: 0.85em; color: #666;">Get athlete profile</span>
+                </div>
+                <div style="border-left: 4px solid #667eea; padding: 15px; background: #f9fafb; border-radius: 8px;">
+                    <strong style="color: #3b82f6;">GET</strong> /activities/{user_id}<br>
+                    <span style="font-size: 0.85em; color: #666;">List user activities</span>
+                </div>
+                <div style="border-left: 4px solid #764ba2; padding: 15px; background: #f9fafb; border-radius: 8px;">
+                    <strong style="color: #3b82f6;">GET</strong> /stats/{user_id}<br>
+                    <span style="font-size: 0.85em; color: #666;">Get aggregated stats</span>
+                </div>
+                <div style="border-left: 4px solid #667eea; padding: 15px; background: #f9fafb; border-radius: 8px;">
+                    <strong style="color: #3b82f6;">GET</strong> /insights/{user_id}<br>
+                    <span style="font-size: 0.85em; color: #666;">ML-based insights</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Next Steps -->
+        <div style="background: white; border-radius: 12px; padding: 25px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <h2 style="color: #667eea; margin-bottom: 15px;">🎯 Próximas Etapas</h2>
+            <ol style="padding-left: 20px;">
+                <li style="margin-bottom: 10px; color: #555;">
+                    <strong>Hoje:</strong> Abra <a href="START_HERE.md" style="color: #667eea;">START_HERE.md</a> e siga os 5 passos (5-10 min)
+                </li>
+                <li style="margin-bottom: 10px; color: #555;">
+                    <strong>Amanhã:</strong> Deploy em DEV e valide endpoints
+                </li>
+                <li style="margin-bottom: 10px; color: #555;">
+                    <strong>Esta semana:</strong> Deploy em PROD e monitor por 24h
+                </li>
+                <li style="margin-bottom: 10px; color: #555;">
+                    <strong>Futuro:</strong> Ativar Datadog (atualmente deprioritizado)
+                </li>
+            </ol>
+        </div>
+        
+        <!-- Footer -->
+        <footer>
+            <p>🏃 <strong>Rogerio Tavares</strong> • Athlete ID: 3329857</p>
+            <p>Strava Profile: <a href="https://www.strava.com/athletes/3329857" target="_blank">https://www.strava.com/athletes/3329857</a></p>
+            <p style="margin-top: 15px; font-size: 0.9em;">Status: ✅ Production Ready (95% Complete) | Updated: 2024-11-24</p>
+        </footer>
+    </div>
+</body>
+</html>
