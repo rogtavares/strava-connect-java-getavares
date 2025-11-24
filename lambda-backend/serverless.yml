@@ -1,0 +1,187 @@
+service: strava-connect-backend
+
+provider:
+  name: aws
+  runtime: python3.11
+  region: ${opt:region, 'us-east-1'}
+  stage: ${opt:stage, 'dev'}
+  memorySize: 512
+  timeout: 30
+
+  environment:
+    STRAVA_CLIENT_ID: ${ssm:/strava/client_id}
+    STRAVA_CLIENT_SECRET: ${ssm:/strava/client_secret}
+    STRAVA_REDIRECT_URI: ${ssm:/strava/redirect_uri}
+    DYNAMODB_TABLE_USERS: ${self:custom.usersTableName}
+    DYNAMODB_TABLE_ACTIVITIES: ${self:custom.activitiesTableName}
+    DYNAMODB_TABLE_CACHE: ${self:custom.cacheTableName}
+    AWS_REGION: ${self:provider.region}
+
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource: !GetAtt UsersTable.Arn
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+          Resource: !GetAtt ActivitiesTable.Arn
+        - Effect: Allow
+          Action:
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:DeleteItem
+          Resource: !GetAtt CacheTable.Arn
+
+functions:
+  # Auth
+  authCallback:
+    handler: src/auth_handler.lambda_handler
+    events:
+      - http:
+          path: auth/callback
+          method: post
+          cors: true
+
+  # Athlete
+  getAthlete:
+    handler: src/athlete_handler.lambda_handler
+    events:
+      - http:
+          path: athlete/{user_id}
+          method: get
+          cors: true
+          request:
+            parameters:
+              paths:
+                user_id: true
+
+  # Activities
+  getActivities:
+    handler: src/activities_handler.lambda_handler
+    events:
+      - http:
+          path: activities/{user_id}
+          method: get
+          cors: true
+          request:
+            parameters:
+              paths:
+                user_id: true
+
+  # Stats
+  getStats:
+    handler: src/stats_handler.lambda_handler
+    events:
+      - http:
+          path: stats/{user_id}
+          method: get
+          cors: true
+          request:
+            parameters:
+              paths:
+                user_id: true
+
+  # Insights
+  getInsights:
+    handler: src/insights_handler.lambda_handler
+    events:
+      - http:
+          path: insights/{user_id}
+          method: get
+          cors: true
+          request:
+            parameters:
+              paths:
+                user_id: true
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  usersTableName: strava-users-${self:provider.stage}
+  activitiesTableName: strava-activities-${self:provider.stage}
+  cacheTableName: strava-cache-${self:provider.stage}
+  pythonRequirements:
+    dockerizePip: true
+    layer: true
+
+resources:
+  Resources:
+    # Users Table
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.usersTableName}
+        AttributeDefinitions:
+          - AttributeName: user_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: user_id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
+
+    # Activities Table
+    ActivitiesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.activitiesTableName}
+        AttributeDefinitions:
+          - AttributeName: user_id
+            AttributeType: S
+          - AttributeName: activity_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: user_id
+            KeyType: HASH
+          - AttributeName: activity_id
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+        GlobalSecondaryIndexes:
+          - IndexName: ActivityIdIndex
+            KeySchema:
+              - AttributeName: activity_id
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+
+    # Cache Table
+    CacheTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.cacheTableName}
+        AttributeDefinitions:
+          - AttributeName: cache_key
+            AttributeType: S
+        KeySchema:
+          - AttributeName: cache_key
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TimeToLiveSpecification:
+          AttributeName: expires_at
+          Enabled: true
+
+outputs:
+  AuthCallbackUrl:
+    Value: !Join
+      - ''
+      - - https://
+        - !Ref ApiGatewayRestApi
+        - .execute-api.
+        - ${self:provider.region}
+        - .amazonaws.com/
+        - ${self:provider.stage}
+        - /auth/callback
+    Description: Auth Callback Endpoint
