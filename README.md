@@ -1,5 +1,6 @@
 # 🏃 Strava Connect - Integração Completa com Análises Inteligentes
 
+![Version](https://img.shields.io/badge/version-1.25.0-blue)
 ![Status](https://img.shields.io/badge/status-active-success)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
@@ -10,7 +11,7 @@
 
 > **Integração completa com API do Strava** | **Análises Inteligentes** | **Dashboard Visual** | **100% Gratuito** 🆓
 
-Projeto criado por [Rogério Tavares](https://github.com/rogtavares) em 2025
+**Versão:** 1.25.0 | **Projeto criado por:** [Rogério Tavares](https://github.com/rogtavares) | **Ano:** 2025
 
 ---
 
@@ -170,15 +171,41 @@ A API V3 do Strava utiliza verbos HTTP apropriados para cada ação:
 ## 📚 Documentação Oficial
 
 - [https://developers.strava.com/](https://developers.strava.com/)
-- [https://communityhub.strava.com/](https://communityhub.strava.com/)
-
 ### Exemplos e tutoriais úteis
 
-- Strava Simple OAuth API Example: python & requests-oauthlib
-- Strava Simple OAuth API Example: python & requests-oauthlib
-  - [Documentação de referência do Strava](https://developers.strava.com/docs/reference/)
-  - Português: "Exemplo simples de OAuth com a API do Strava (Python + requests-oauthlib): registramos uma aplicação no Strava, configuramos o ambiente de desenvolvimento, implementamos um exemplo que obtém um código de autorização, troca o código por um token e, por fim, realiza uma chamada à API do Strava para retornar o perfil do atleta."
+- Strava — fluxo OAuth (exemplo prático)
+  - Resumo: registre sua aplicação no painel do Strava, configure variáveis de ambiente (client_id, client_secret, redirect_uri), gere a URL de autorização, troque o código por tokens (access + refresh) e faça chamadas autenticadas à API (/athlete, /activities, etc.).
+  - URL de autorização (modelo):
+    https://www.strava.com/oauth/authorize?client_id=YOUR_CLIENT_ID&response_type=code&redirect_uri=REDIRECT_URI&scope=read,activity:read_all&approval_prompt=auto
+  - Troca de código por tokens (exemplo curl):
+    ```bash
+    curl -X POST https://www.strava.com/oauth/token \
+      -d client_id=YOUR_CLIENT_ID \
+      -d client_secret=YOUR_CLIENT_SECRET \
+      -d code=AUTHORIZATION_CODE \
+      -d grant_type=authorization_code
+    ```
+  - Dicas: valide scopes necessários, armazene refresh_token para renovação automática, trate erros 429 (rate limit).
 
-Use esses recursos como complemento prático para entender o fluxo OAuth e adaptar para este projeto em Java (backend) e Python (enriquecimento/clima).
+- Exemplo Python (requests-oauthlib)
+  - Propósito: fluxo completo para obter authorization_code e trocar por access_token; ideal para testes e para pipelines de enriquecimento/clima.
+  - Fluxo típico: registrar app → abrir URL de autorização → receber ?code no redirect → trocar por token → usar Authorization: Bearer ACCESS_TOKEN.
+  - Use requests-oauthlib para simplificar o handshake OAuth2 em scripts de backend/enriquecimento.
 
-versão 1.7.0 - 2025 - Rogério Tavares
+- Adaptação para Java (Spring Boot)
+  - Recomendações: use WebClient (Spring WebFlux) ou RestTemplate para chamadas HTTP, leia credenciais via System.getenv() ou arquivo externo, implemente endpoint /callback para receber o authorization_code e efetuar a troca por tokens.
+  - Exemplo de passos: criar URL de autorização, redirecionar usuário, receber code, POST para /oauth/token, persistir access/refresh tokens.
+
+- Ferramentas úteis
+  - Strava API Reference: https://developers.strava.com/docs/reference/
+  - Strava API Playground (testes interativos): https://developers.strava.com/playground/ — execute endpoints com tokens e veja respostas reais.
+  - Postman / Insomnia — para testar chamadas e fluxos OAuth rapidamente.
+
+- Uso prático com este projeto
+  - Backend Java: implemente o fluxo OAuth e endpoints que retornem atividades do usuário.
+  - Enriquecimento (Python): consuma as atividades, recupere coordenadas/tempo e chame API de clima (ex.: OpenWeather) para anexar dados climáticos históricos.
+  - Visualização: exporte os dados enriquecidos para o dashboard (Streamlit / front-end) e gere insights comparativos (desempenho vs clima).
+
+Use os links e exemplos acima como complemento prático para entender e adaptar o fluxo OAuth para este projeto em Java (backend) e Python (enriquecimento/clima).
+
+versão 1.25.0 - 2025 - Rogério Tavares
