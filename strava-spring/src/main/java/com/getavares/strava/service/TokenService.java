@@ -2,9 +2,7 @@ package com.getavares.strava.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.getavares.strava.exception.TokenRefreshException;
-import com.getavares.strava.exception.TokenExpiredException;
-import com.getavares.strava.exception.InvalidConfigurationException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -65,7 +63,7 @@ public class TokenService {
             logger.info("Tokens salvos com sucesso. Expira em: {}", formatExpiration(expiresAt));
         } catch (IOException e) {
             logger.error("Erro ao salvar tokens", e);
-            throw new TokenRefreshException("Erro ao salvar tokens", e);
+            throw new RuntimeException("Erro ao salvar tokens", e);
         }
     }
 
@@ -93,7 +91,7 @@ public class TokenService {
     public String getAccessToken() {
         Map<String, Object> tokens = readTokens();
         if (tokens == null) {
-            throw new TokenRefreshException("Nenhum token salvo. Execute autorização primeiro.");
+            throw new RuntimeException("Nenhum token salvo. Execute autorização primeiro.");
         }
 
         long expiresAt = ((Number) tokens.get("expires_at")).longValue();
@@ -123,7 +121,7 @@ public class TokenService {
             Map<String, Object> response = restTemplate.postForObject(url, request, Map.class);
 
             if (response == null || !response.containsKey("access_token")) {
-                throw new TokenRefreshException("Resposta inválida do servidor", refreshToken);
+                throw new RuntimeException("Resposta inválida do servidor");
             }
 
             String newAccessToken = (String) response.get("access_token");
@@ -135,7 +133,7 @@ public class TokenService {
             logger.info("Token refreshado com sucesso");
         } catch (Exception e) {
             logger.error("Erro ao fazer refresh do token", e);
-            throw new TokenRefreshException("Erro ao fazer refresh do token", refreshToken, e);
+            throw new RuntimeException("Erro ao fazer refresh do token", e);
         }
     }
 

@@ -3,7 +3,7 @@ package com.getavares.strava.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.getavares.strava.exception.StravaAPIException;
-import com.getavares.strava.exception.ActivityFetchException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -141,10 +141,10 @@ public class StravaService {
 
         } catch (RestClientException e) {
             logger.error("Erro ao buscar atividades", e);
-            throw new ActivityFetchException("Erro ao buscar atividades", e);
+            throw new RuntimeException("Erro ao buscar atividades", e);
         } catch (Exception e) {
             logger.error("Erro inesperado ao buscar atividades", e);
-            throw new ActivityFetchException("Erro inesperado ao buscar atividades", e);
+            throw new RuntimeException("Erro inesperado ao buscar atividades", e);
         }
     }
 
@@ -178,7 +178,7 @@ public class StravaService {
 
         } catch (RestClientException e) {
             logger.error("Erro ao buscar atividade {}", activityId, e);
-            throw new ActivityFetchException("Erro ao buscar atividade " + activityId, e);
+            throw new RuntimeException("Erro ao buscar atividade " + activityId, e);
         }
     }
 
