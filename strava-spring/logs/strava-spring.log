@@ -240,3 +240,268 @@ Identify and stop the process that's listening on port 8080 or configure this ap
 2025-11-25 20:50:18 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
 2025-11-25 20:50:18 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/api'
 2025-11-25 20:50:18 [main] INFO  c.g.strava.StravaSpringApplication - Started StravaSpringApplication in 1.286 seconds (process running for 1.508)
+2025-11-25 22:59:32 [main] INFO  c.g.strava.StravaSpringApplication - Starting StravaSpringApplication using Java 21.0.9 with PID 17600 (C:\Users\Cliente\Desktop\JAVA\strava-connect-java-getavares\strava-spring\target\classes started by Cliente in C:\Users\Cliente\Desktop\JAVA\strava-connect-java-getavares\strava-spring)
+2025-11-25 22:59:32 [main] DEBUG c.g.strava.StravaSpringApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-25 22:59:32 [main] INFO  c.g.strava.StravaSpringApplication - The following 1 profile is active: "dev"
+2025-11-25 22:59:33 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2025-11-25 22:59:33 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-25 22:59:33 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-25 22:59:33 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-11-25 22:59:33 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 700 ms
+2025-11-25 22:59:33 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 5 mappings in 'requestMappingHandlerMapping'
+2025-11-25 22:59:33 [main] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-11-25 22:59:33 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-25 22:59:33 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-25 22:59:33 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-11-25 22:59:33 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-11-25 22:59:33 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8081 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8081 or configure this application to listen on another port.
+
+2025-11-25 23:01:08 [main] INFO  c.g.strava.StravaSpringApplication - Starting StravaSpringApplication using Java 21.0.9 with PID 2004 (C:\Users\Cliente\Desktop\JAVA\strava-connect-java-getavares\strava-spring\target\classes started by Cliente in c:\Users\Cliente\Desktop\JAVA\strava-connect-java-getavares\strava-spring)
+2025-11-25 23:01:08 [main] DEBUG c.g.strava.StravaSpringApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-25 23:01:08 [main] INFO  c.g.strava.StravaSpringApplication - The following 1 profile is active: "dev"
+2025-11-25 23:01:09 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2025-11-25 23:01:09 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-25 23:01:09 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-25 23:01:09 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-11-25 23:01:09 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 569 ms
+2025-11-25 23:01:09 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 5 mappings in 'requestMappingHandlerMapping'
+2025-11-25 23:01:09 [main] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-11-25 23:01:09 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-25 23:01:09 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-25 23:01:09 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-25 23:01:09 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-11-25 23:01:09 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-11-25 23:01:09 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-11-25 23:01:09 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-11-25 23:01:09 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@2c991465
+2025-11-25 23:01:09 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@5fef2aac
+2025-11-25 23:01:09 [main] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-11-25 23:01:09 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2025-11-25 23:01:09 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/api'
+2025-11-25 23:01:09 [main] INFO  c.g.strava.StravaSpringApplication - Started StravaSpringApplication in 1.203 seconds (process running for 1.422)
+2025-11-25 23:04:37 [main] INFO  c.g.strava.StravaSpringApplication - Starting StravaSpringApplication using Java 21.0.9 with PID 30948 (C:\Users\Cliente\Desktop\JAVA\strava-connect-java-getavares\strava-spring\target\classes started by Cliente in C:\Users\Cliente\Desktop\JAVA\strava-connect-java-getavares\strava-spring)
+2025-11-25 23:04:37 [main] DEBUG c.g.strava.StravaSpringApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-25 23:04:37 [main] INFO  c.g.strava.StravaSpringApplication - The following 1 profile is active: "dev"
+2025-11-25 23:04:37 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2025-11-25 23:04:37 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-25 23:04:37 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-25 23:04:37 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-11-25 23:04:37 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 571 ms
+2025-11-25 23:04:37 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 5 mappings in 'requestMappingHandlerMapping'
+2025-11-25 23:04:38 [main] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-11-25 23:04:38 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-25 23:04:38 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-25 23:04:38 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-11-25 23:04:38 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-11-25 23:04:38 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8081 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8081 or configure this application to listen on another port.
+
+2025-11-25 23:06:05 [main] INFO  c.g.strava.StravaSpringApplication - Starting StravaSpringApplication using Java 21.0.9 with PID 32848 (C:\Users\Cliente\Desktop\JAVA\strava-connect-java-getavares\strava-spring\target\classes started by Cliente in c:\Users\Cliente\Desktop\JAVA\strava-connect-java-getavares\strava-spring)
+2025-11-25 23:06:05 [main] DEBUG c.g.strava.StravaSpringApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-25 23:06:05 [main] INFO  c.g.strava.StravaSpringApplication - The following 1 profile is active: "dev"
+2025-11-25 23:06:06 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2025-11-25 23:06:06 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-25 23:06:06 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-25 23:06:06 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-11-25 23:06:06 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 621 ms
+2025-11-25 23:06:06 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 5 mappings in 'requestMappingHandlerMapping'
+2025-11-25 23:06:06 [main] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-11-25 23:06:06 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-25 23:06:06 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-25 23:06:06 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-25 23:06:06 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-11-25 23:06:06 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-11-25 23:06:06 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-11-25 23:06:06 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-11-25 23:06:06 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@47768e74
+2025-11-25 23:06:06 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@2740e316
+2025-11-25 23:06:06 [main] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-11-25 23:06:06 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-11-25 23:06:06 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/api'
+2025-11-25 23:06:06 [main] INFO  c.g.strava.StravaSpringApplication - Started StravaSpringApplication in 1.318 seconds (process running for 1.538)
+2025-11-25 23:08:21 [main] INFO  c.g.strava.StravaSpringApplication - Starting StravaSpringApplication v0.1.0 using Java 21.0.9 with PID 25228 (C:\Users\Cliente\Desktop\JAVA\strava-connect-java-getavares\strava-spring\target\strava-spring-0.1.0.jar started by Cliente in c:\Users\Cliente\Desktop\JAVA\strava-connect-java-getavares\strava-spring)
+2025-11-25 23:08:21 [main] DEBUG c.g.strava.StravaSpringApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-25 23:08:21 [main] INFO  c.g.strava.StravaSpringApplication - The following 1 profile is active: "dev"
+2025-11-25 23:08:22 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2025-11-25 23:08:22 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-25 23:08:22 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-25 23:08:22 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-11-25 23:08:22 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 840 ms
+2025-11-25 23:08:22 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 5 mappings in 'requestMappingHandlerMapping'
+2025-11-25 23:08:23 [main] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-11-25 23:08:23 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-25 23:08:23 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-25 23:08:23 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-25 23:08:23 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-11-25 23:08:23 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-11-25 23:08:23 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-11-25 23:08:23 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-11-25 23:08:23 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@7bf01cb
+2025-11-25 23:08:23 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@2f382a5e
+2025-11-25 23:08:23 [main] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-11-25 23:08:23 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-11-25 23:08:23 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/api'
+2025-11-25 23:08:23 [main] INFO  c.g.strava.StravaSpringApplication - Started StravaSpringApplication in 1.637 seconds (process running for 1.997)
+2025-11-25 23:10:31 [main] INFO  c.g.strava.StravaSpringApplication - Starting StravaSpringApplication v0.1.0 using Java 21.0.9 with PID 28516 (C:\Users\Cliente\Desktop\JAVA\strava-connect-java-getavares\strava-spring\target\strava-spring-0.1.0.jar started by Cliente in c:\Users\Cliente\Desktop\JAVA\strava-connect-java-getavares\strava-spring)
+2025-11-25 23:10:31 [main] DEBUG c.g.strava.StravaSpringApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-25 23:10:31 [main] INFO  c.g.strava.StravaSpringApplication - The following 1 profile is active: "dev"
+2025-11-25 23:10:32 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2025-11-25 23:10:32 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-25 23:10:32 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-25 23:10:32 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-11-25 23:10:32 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 840 ms
+2025-11-25 23:10:32 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 5 mappings in 'requestMappingHandlerMapping'
+2025-11-25 23:10:32 [main] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-11-25 23:10:32 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-25 23:10:32 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-25 23:10:32 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-25 23:10:32 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-11-25 23:10:32 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-11-25 23:10:32 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-11-25 23:10:32 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-11-25 23:10:32 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@465b38e6
+2025-11-25 23:10:32 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@4b960b5b
+2025-11-25 23:10:32 [main] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-11-25 23:10:32 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2025-11-25 23:10:32 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/api'
+2025-11-25 23:10:32 [main] INFO  c.g.strava.StravaSpringApplication - Started StravaSpringApplication in 1.707 seconds (process running for 2.177)
+2025-11-25 23:11:03 [main] INFO  c.g.strava.StravaSpringApplication - Starting StravaSpringApplication using Java 21.0.9 with PID 21936 (C:\Users\Cliente\Desktop\JAVA\strava-connect-java-getavares\strava-spring\target\classes started by Cliente in c:\Users\Cliente\Desktop\JAVA\strava-connect-java-getavares\strava-spring)
+2025-11-25 23:11:03 [main] DEBUG c.g.strava.StravaSpringApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-25 23:11:03 [main] INFO  c.g.strava.StravaSpringApplication - The following 1 profile is active: "dev"
+2025-11-25 23:11:03 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2025-11-25 23:11:03 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-25 23:11:03 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-25 23:11:03 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-11-25 23:11:03 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 558 ms
+2025-11-25 23:11:03 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 5 mappings in 'requestMappingHandlerMapping'
+2025-11-25 23:11:03 [main] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-11-25 23:11:04 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-25 23:11:04 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-25 23:11:04 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-11-25 23:11:04 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-11-25 23:11:04 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8081 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8081 or configure this application to listen on another port.
+
+2025-11-25 23:17:48 [main] INFO  c.g.strava.StravaSpringApplication - Starting StravaSpringApplication using Java 21.0.9 with PID 17376 (C:\Users\Cliente\Desktop\JAVA\strava-connect-java-getavares\strava-spring\target\classes started by Cliente in C:\Users\Cliente\Desktop\JAVA\strava-connect-java-getavares\strava-spring)
+2025-11-25 23:17:48 [main] DEBUG c.g.strava.StravaSpringApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-25 23:17:48 [main] INFO  c.g.strava.StravaSpringApplication - The following 1 profile is active: "dev"
+2025-11-25 23:17:48 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2025-11-25 23:17:48 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-25 23:17:48 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-25 23:17:48 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-11-25 23:17:48 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 562 ms
+2025-11-25 23:17:49 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 6 mappings in 'requestMappingHandlerMapping'
+2025-11-25 23:17:49 [main] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-11-25 23:17:49 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-25 23:17:49 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-25 23:17:49 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-11-25 23:17:49 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-11-25 23:17:49 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8081 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8081 or configure this application to listen on another port.
+
+2025-11-25 23:20:04 [main] INFO  c.g.strava.StravaSpringApplication - Starting StravaSpringApplication v0.1.0 using Java 21.0.9 with PID 10688 (C:\Users\Cliente\Desktop\JAVA\strava-connect-java-getavares\strava-spring\target\strava-spring-0.1.0.jar started by Cliente in C:\Users\Cliente\Desktop\JAVA\strava-connect-java-getavares\strava-spring)
+2025-11-25 23:20:04 [main] DEBUG c.g.strava.StravaSpringApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-25 23:20:04 [main] INFO  c.g.strava.StravaSpringApplication - The following 1 profile is active: "dev"
+2025-11-25 23:20:05 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2025-11-25 23:20:05 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-25 23:20:05 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-25 23:20:05 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-11-25 23:20:05 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 730 ms
+2025-11-25 23:20:05 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 5 mappings in 'requestMappingHandlerMapping'
+2025-11-25 23:20:05 [main] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-11-25 23:20:05 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-25 23:20:05 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-25 23:20:06 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-11-25 23:20:06 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-11-25 23:20:06 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8081 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8081 or configure this application to listen on another port.
+
+2025-11-25 23:30:29 [main] INFO  c.g.strava.StravaSpringApplication - Starting StravaSpringApplication v0.1.0 using Java 21.0.9 with PID 5160 (C:\Users\Cliente\Desktop\JAVA\strava-connect-java-getavares\strava-spring\target\strava-spring-0.1.0.jar started by Cliente in c:\Users\Cliente\Desktop\JAVA\strava-connect-java-getavares\strava-spring)
+2025-11-25 23:30:29 [main] DEBUG c.g.strava.StravaSpringApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-25 23:30:29 [main] INFO  c.g.strava.StravaSpringApplication - The following 1 profile is active: "dev"
+2025-11-25 23:30:30 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2025-11-25 23:30:30 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-25 23:30:30 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-25 23:30:30 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-11-25 23:30:30 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 815 ms
+2025-11-25 23:30:30 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 6 mappings in 'requestMappingHandlerMapping'
+2025-11-25 23:30:30 [main] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-11-25 23:30:30 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-25 23:30:31 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-25 23:30:31 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-25 23:30:31 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-11-25 23:30:31 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-11-25 23:30:31 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-11-25 23:30:31 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-11-25 23:30:31 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@42505474
+2025-11-25 23:30:31 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@7b477141
+2025-11-25 23:30:31 [main] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-11-25 23:30:31 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-11-25 23:30:31 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/api'
+2025-11-25 23:30:31 [main] INFO  c.g.strava.StravaSpringApplication - Started StravaSpringApplication in 1.589 seconds (process running for 1.912)
