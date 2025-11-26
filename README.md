@@ -1,6 +1,6 @@
 # 🏃 Strava Connect - Integração Completa com Análises Inteligentes
 
-![Version](https://img.shields.io/badge/version-1.25.0-blue)
+![Version](https://img.shields.io/badge/version-4.11.25-blue)
 ![Status](https://img.shields.io/badge/status-active-success)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
@@ -11,7 +11,7 @@
 
 > **Integração completa com API do Strava** | **Análises Inteligentes** | **Dashboard Visual** | **100% Gratuito** 🆓
 
-**Versão:** 1.25.0 | **Projeto criado por:** [Rogério Tavares](https://github.com/rogtavares) | **Ano:** 2025
+**Versão:** 4.11.25 | **Projeto criado por:** [Rogério Tavares](https://github.com/rogtavares) | **Ano:** 2025
 
 ---
 
@@ -22,70 +22,36 @@ Solução integrada: **OAuth 2.0** → **Atividades Strava** → **Enriqueciment
 ## 📁 Estrutura
 
 ```
-strava-spring/      # Java 21 + Spring Boot 3.2
-python-fastapi/     # Python + FastAPI
+strava-spring/      # Backend Java 21 + Spring Boot
+python-fastapi/     # API Python + FastAPI
 python-streamlit/   # Dashboard Streamlit
-portfolio-site/     # Next.js 14
+portfolio-site/     # Site Next.js
 ```
 
 ## 🚀 Quick Start
 
 ```bash
-# Backend Java (porta 8081)
+# Backend (8081)
 cd strava-spring && mvn spring-boot:run
 
-# API FastAPI (porta 8000)
+# API (8000)
 cd python-fastapi && python app.py
 
-# Dashboard (porta 8501)
+# Dashboard (8501)
 cd python-streamlit && streamlit run app.py
-
-# Portfolio (porta 3000)
-cd portfolio-site && npm install && npm run dev
 ```
 
-
-## ⚡ Setup Rápido - Java 21
+## 🔧 Setup
 
 ```bash
-# 1. Instalar Java 21
+# Java 21 + Maven
 winget install EclipseAdoptium.Temurin.21.JDK
-
-# 2. Instalar Maven
 winget install Apache.Maven
 
-# 3. Build
-mvn clean package
-```
-
-## 🔧 Configuração Strava
-
-1. Acesse: https://www.strava.com/settings/api
-2. Crie app e configure variáveis:
-
-```bash
-STRAVA_CLIENT_ID=your_client_id
-STRAVA_CLIENT_SECRET=your_client_secret
+# Strava API: https://www.strava.com/settings/api
+STRAVA_CLIENT_ID=your_id
+STRAVA_CLIENT_SECRET=your_secret
 STRAVA_REDIRECT_URI=http://localhost:8081/callback
-```
-
----
-
-## 🔄 Fluxo OAuth 2.0
-
-```bash
-# 1. Autorizar
-https://www.strava.com/oauth/authorize?client_id=YOUR_CLIENT_ID&response_type=code&redirect_uri=REDIRECT_URI&scope=read,activity:read_all
-
-# 2. Trocar código por token
-curl -X POST https://www.strava.com/oauth/token \
-  -d client_id=YOUR_CLIENT_ID \
-  -d client_secret=YOUR_CLIENT_SECRET \
-  -d code=AUTHORIZATION_CODE \
-  -d grant_type=authorization_code
-
-# 3. Usar token
-curl -H "Authorization: Bearer ACCESS_TOKEN" https://www.strava.com/api/v3/athlete
 ```
 
 ## 📚 Documentação
@@ -96,4 +62,4 @@ curl -H "Authorization: Bearer ACCESS_TOKEN" https://www.strava.com/api/v3/athle
 
 ---
 
-**versão 1.25.0 - 2025 - Rogério Tavares**
+**versão 4.11.25 - 2025 - Rogério Tavares**
