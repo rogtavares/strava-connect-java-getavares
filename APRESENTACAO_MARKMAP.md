@@ -5,11 +5,7 @@
 - Objetivo: estudar APIs, OAuth, Python e Java
 - Aplicação real conectada ao dia a dia como atleta
 
-## 2. Motivação
-- Consolidar estudos em APIs e OAuth
-- Entrega concreta para PDI. nov./2025
-
-## 3. Objetivos do Projeto
+## 2. Objetivos do Projeto
 - Integrar com API do Strava (OAuth 2.0)
 - Consumir dados reais de treinos
 - Criar análises automatizadas
@@ -19,7 +15,7 @@
   - Insights inteligentes
 - Preparar para IA futura
 
-## 4. Arquitetura Geral
+## 3. Arquitetura Geral
 - Cliente
   - Navegador / Postman
 - OAuth 2.0
@@ -35,7 +31,7 @@
 - Dashboard
   - datadog (futuro)
 
-## 5. Tecnologias Utilizadas
+## 4. Tecnologias Utilizadas
 - Backend
   - Java 21
   - Spring Boot 3.2
@@ -54,7 +50,7 @@
   - Maven
   - Docker
 
-## 6. Fluxo OAuth 2.0
+## 5. Fluxo OAuth 2.0
 - Passo 1: Usuário acessa endpoint
 - Passo 2: Redirecionamento para Strava
 - Passo 3: Usuário autoriza aplicação
@@ -62,7 +58,7 @@
 - Passo 5: Backend troca código por token
 - Passo 6: Chamadas autenticadas à API
 
-## 7. Funcionalidades Implementadas
+## 6. Funcionalidades Implementadas
 - Autenticação OAuth completa
 - Busca de dados do atleta
 - Listagem de atividades
@@ -76,7 +72,7 @@
   - Zonas cardíacas
   - Distribuição de ritmo
 
-## 8. Exemplo de Dados
+## 7. Exemplo de Dados
 - Perfil do Atleta
   - ID: 3329857
   - Nome e foto
@@ -92,7 +88,7 @@
   - "Vento reduz seu pace em 8.5%"
   - "Melhor horário: manhã"
 
-## 9. Análises Inteligentes
+## 8. Análises Inteligentes
 - Rule-based (atual)
   - Zonas cardíacas
   - Distribuição de ritmo
@@ -103,7 +99,7 @@
   - Insights personalizados
   - Recomendações automáticas
 
-## 10. Próximos Passos
+## 9. Próximos Passos
 - Frontend
   - Dashboard HTML + Python E dataDog
   - Interface responsiva
@@ -118,7 +114,7 @@
   - Amazon Bedrock
   - Análises preditivas
 
-## 11. Resultados Alcançados
+## 10. Resultados Alcançados
 - Backend Java funcionando
 - API FastAPI rodando
 - OAuth 2.0 implementado
@@ -127,7 +123,7 @@
 - Ambiente completo configurado
 - Pronto para demonstração
 
-## 12. Conclusão
+## 11. Conclusão
 - Integra tecnologia e performance
 
 - Desenvolvimento em:
@@ -137,5 +133,4 @@
   - Integrações
   - IA (futuro)
 - Obrigado!
-  - Perguntas?
   - GitHub: rogtavares/strava-connect-java-getavares
