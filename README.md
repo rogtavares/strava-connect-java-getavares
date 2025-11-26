@@ -92,8 +92,8 @@ curl -H "Authorization: Bearer ACCESS_TOKEN" https://www.strava.com/api/v3/athle
 
 - [Strava API Reference](https://developers.strava.com/docs/reference/)
 - [OAuth 2.0 Guide](./OAUTH2_GUIDE.md)
-- [Apresentação Markmap](./APRESENTACAO_MARKMAP.md)oard (Streamlit / front-end) e gere insights comparativos (desempenho vs clima).
+- [Apresentação Markmap](./APRESENTACAO_MARKMAP.md)
 
-Use os links e exemplos acima como complemento prático para entender e adaptar o fluxo OAuth para este projeto em Java (backend) e Python (enriquecimento/clima).
+---
 
-versão 1.25.0 - 2025 - Rogério Tavares
+**versão 1.25.0 - 2025 - Rogério Tavares**
