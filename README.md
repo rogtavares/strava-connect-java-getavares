@@ -57,6 +57,10 @@ STRAVA_REDIRECT_URI=http://localhost:8081/callback
 ## 📚 Documentação
 
 - [Strava API Reference](https://developers.strava.com/docs/reference/)
+- [Strava Playground - Testes](https://developers.strava.com/playground/)
+- [Perfil Atleta](https://www.strava.com/athletes/3329857)
+- [Portfólio AWS - Projetos Cloud](https://rogtavares.github.io/AWS_getavares.github.io/)
+- [Portfólio Artes - Gé Tavares](https://rogeriotavares.myportfolio.com/)
 - [OAuth 2.0 Guide](./OAUTH2_GUIDE.md)
 - [Apresentação Markmap](./APRESENTACAO_MARKMAP.md)
 
