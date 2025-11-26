@@ -121,16 +121,9 @@
 - 10 guias de documentação
 - Código no GitHub
 - Ambiente completo configurado
-- Pronto para demonstração
 
 ## 11. Conclusão
 - Integra tecnologia e performance
-
-- Desenvolvimento em:
-  - APIs REST
-  - OAuth 2.0
-  - AWS
-  - Integrações
-  - IA (futuro)
+- IA (futuro)
 - Obrigado!
   - GitHub: rogtavares/strava-connect-java-getavares
