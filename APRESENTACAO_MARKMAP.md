@@ -7,9 +7,7 @@
 
 ## 2. Motivação
 - Consolidar estudos em APIs e OAuth
-- Criar produto real para portfólio
-- Demonstrar em entrevistas e LinkedIn
-- Entrega concreta para PDI
+- Entrega concreta para PDI. nov./2025
 
 ## 3. Objetivos do Projeto
 - Integrar com API do Strava (OAuth 2.0)
@@ -23,8 +21,8 @@
 
 ## 4. Arquitetura Geral
 - Cliente
-  - Navegador
-  - Mobile (futuro)
+  - Navegador / Postman
+- OAuth 2.0
 - OAuth Strava
   - Autorização
   - Tokens
@@ -33,10 +31,9 @@
   - Python FastAPI
 - Processamento
   - Análises
-  - Enriquecimento com clima
+  - Enriquecimento com clima ( futuro)
 - Dashboard
-  - Streamlit
-  - Next.js (portfólio)
+  - datadog (futuro)
 
 ## 5. Tecnologias Utilizadas
 - Backend
@@ -47,10 +44,7 @@
 - Autenticação
   - OAuth 2.0
   - Requests-OAuthlib
-- Análises
-  - Pandas
-  - Matplotlib
-  - Jupyter
+
 - Cloud (futuro)
   - AWS Lambda
   - API Gateway
@@ -111,7 +105,7 @@
 
 ## 10. Próximos Passos
 - Frontend
-  - Dashboard HTML + Python
+  - Dashboard HTML + Python E dataDog
   - Interface responsiva
 - Cloud
   - Deploy AWS Lambda
@@ -120,9 +114,6 @@
 - Integrações
   - Notificações personalizadas
   - Datadog (logs e métricas)
-- Social
-  - Publicação automática
-  - Instagram/Strava feed
 - IA
   - Amazon Bedrock
   - Análises preditivas
@@ -138,8 +129,7 @@
 
 ## 12. Conclusão
 - Integra tecnologia e performance
-- Dados reais e aplicáveis
-- Portfólio concreto
+
 - Desenvolvimento em:
   - APIs REST
   - OAuth 2.0
