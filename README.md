@@ -179,29 +179,18 @@ npm install && npm run dev
 - **Containerização**: Use Docker Compose para stack completo
 
 
-## Atualizar Java para JDK 21 (LTS)
+## ⚡ Setup Rápido - Java 21
 
-Este projeto foi atualizado para usar Java 21. Passos recomendados para configurar o ambiente no Windows:
+```bash
+# 1. Instalar Java 21
+winget install EclipseAdoptium.Temurin.21.JDK
 
-1. Instalar Temurin (Adoptium) JDK 21 via winget (recomendado):
+# 2. Instalar Maven
+winget install Apache.Maven
 
-  winget install --id EclipseAdoptium.Temurin.21.JDK -e --accept-package-agreements --accept-source-agreements
-
-2. Definir JAVA_HOME na sessão ou globalmente (PowerShell):
-
-  $env:JAVA_HOME = 'C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.x'
-  $env:PATH = $env:JAVA_HOME + '\\bin;' + $env:PATH
-
-3. Instalar Apache Maven (recomendado) ou adicionar Maven Wrapper ao projeto:
-
-  - Via winget (se disponível):
-    winget install --id Apache.Maven -e --accept-package-agreements --accept-source-agreements
-
-4. Build do projeto:
-
-  mvn -U package
-
-Se você não tiver Maven instalado, pode instalar manualmente ou adicionar o Maven Wrapper (`mvnw`).
+# 3. Build
+mvn clean package
+```
 
 ## 🔧 Criar e configurar o aplicativo Strava
 
