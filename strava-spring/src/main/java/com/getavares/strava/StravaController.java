@@ -25,6 +25,13 @@ public class StravaController {
     // Simple token store persisted to strava-spring/tokens.json
     private Map<String, Object> tokenStore = loadTokenStore();
 
+    public StravaController() {
+        System.out.println("\n\n========================================");
+        System.out.println("✅ StravaController LOADED!");
+        System.out.println("Endpoints: /, /authorize, /callback, /activities/export");
+        System.out.println("========================================\n\n");
+    }
+
     @GetMapping("/")
     public String home() {
         return "Strava API is running! Access /authorize to start OAuth flow.";
