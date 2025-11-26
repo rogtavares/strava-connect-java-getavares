@@ -5,8 +5,9 @@ echo ========================================
 echo.
 
 REM Configurar variáveis de ambiente
-set STRAVA_CLIENT_ID=181788
-set STRAVA_CLIENT_SECRET=9b73316f1bad61de6e0be4822afc55c4278b20f2
+REM IMPORTANTE: Substitua com suas NOVAS credenciais
+set STRAVA_CLIENT_ID=seu_novo_client_id
+set STRAVA_CLIENT_SECRET=seu_novo_client_secret
 set STRAVA_REDIRECT_URI=http://localhost:8081/callback
 
 echo Variáveis configuradas:
