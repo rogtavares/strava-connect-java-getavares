@@ -1,0 +1,211 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2025-12-16T00:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v2023.5.8",
+  "resources": [
+    {
+      "_id": "wrk_strava_connect",
+      "_type": "workspace",
+      "name": "Strava Connect - Case de Estudos",
+      "description": "Integração completa com API do Strava + Análises Inteligentes",
+      "scope": "collection"
+    },
+    {
+      "_id": "env_base",
+      "_type": "environment",
+      "name": "Base Environment",
+      "data": {
+        "backend_url": "http://localhost:8080",
+        "fastapi_url": "http://localhost:8000",
+        "streamlit_url": "http://localhost:8501"
+      },
+      "parentId": "wrk_strava_connect"
+    },
+    {
+      "_id": "fld_spring_boot",
+      "_type": "request_group",
+      "name": "1️⃣ Backend Spring Boot (8080)",
+      "description": "API Java com OAuth 2.0 e integração Strava",
+      "parentId": "wrk_strava_connect"
+    },
+    {
+      "_id": "req_spring_home",
+      "_type": "request",
+      "name": "GET / - Home",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/",
+      "description": "Verifica se o backend está rodando",
+      "parentId": "fld_spring_boot"
+    },
+    {
+      "_id": "req_spring_authorize",
+      "_type": "request",
+      "name": "GET /authorize - Iniciar OAuth",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/authorize",
+      "description": "Retorna link HTML para autorizar com Strava. Copie o link e abra no navegador.",
+      "parentId": "fld_spring_boot"
+    },
+    {
+      "_id": "req_spring_callback",
+      "_type": "request",
+      "name": "GET /callback - Callback OAuth",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/callback",
+      "description": "Recebe código de autorização e troca por token. Substitua CODE_AQUI pelo código obtido.",
+      "parameters": [
+        {
+          "name": "code",
+          "value": "CODE_AQUI",
+          "description": "Código de autorização do Strava"
+        }
+      ],
+      "parentId": "fld_spring_boot"
+    },
+    {
+      "_id": "req_spring_activities",
+      "_type": "request",
+      "name": "GET /activities/export - Exportar Atividades",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/activities/export",
+      "description": "Retorna suas atividades do Strava (últimas 50). Requer token válido.",
+      "parentId": "fld_spring_boot"
+    },
+    {
+      "_id": "fld_fastapi",
+      "_type": "request_group",
+      "name": "2️⃣ API FastAPI (8000)",
+      "description": "API Python com análises inteligentes e dados climáticos",
+      "parentId": "wrk_strava_connect"
+    },
+    {
+      "_id": "req_fastapi_root",
+      "_type": "request",
+      "name": "GET / - Info da API",
+      "method": "GET",
+      "url": "{{ _.fastapi_url }}/",
+      "description": "Informações sobre a API de insights",
+      "parentId": "fld_fastapi"
+    },
+    {
+      "_id": "req_fastapi_health",
+      "_type": "request",
+      "name": "GET /health - Health Check",
+      "method": "GET",
+      "url": "{{ _.fastapi_url }}/health",
+      "description": "Verifica se a API está saudável",
+      "parentId": "fld_fastapi"
+    },
+    {
+      "_id": "req_fastapi_enrich",
+      "_type": "request",
+      "name": "GET /enrich - Atividades Enriquecidas",
+      "method": "GET",
+      "url": "{{ _.fastapi_url }}/enrich",
+      "description": "Retorna atividades com dados climáticos do OpenWeather. Requer backend Spring rodando e token válido.",
+      "parentId": "fld_fastapi"
+    },
+    {
+      "_id": "req_fastapi_insights",
+      "_type": "request",
+      "name": "GET /insights - Insights Inteligentes",
+      "method": "GET",
+      "url": "{{ _.fastapi_url }}/insights",
+      "description": "Análises de performance baseadas no clima (pace, vento, temperatura). Requer backend Spring rodando e token válido.",
+      "parentId": "fld_fastapi"
+    },
+    {
+      "_id": "fld_streamlit",
+      "_type": "request_group",
+      "name": "3️⃣ Dashboard Streamlit (8501)",
+      "description": "Interface visual do dashboard (abrir no navegador)",
+      "parentId": "wrk_strava_connect"
+    },
+    {
+      "_id": "req_streamlit_home",
+      "_type": "request",
+      "name": "GET / - Dashboard",
+      "method": "GET",
+      "url": "{{ _.streamlit_url }}/",
+      "description": "Interface visual do dashboard. Melhor abrir no navegador ao invés do Insomnia.",
+      "parentId": "fld_streamlit"
+    },
+    {
+      "_id": "fld_workflow",
+      "_type": "request_group",
+      "name": "🔄 Fluxo Completo (Sequencial)",
+      "description": "Execute na ordem para testar o fluxo completo",
+      "parentId": "wrk_strava_connect"
+    },
+    {
+      "_id": "req_workflow_1",
+      "_type": "request",
+      "name": "1. Verificar Backend Spring",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/",
+      "description": "Passo 1: Verificar se backend está rodando",
+      "parentId": "fld_workflow"
+    },
+    {
+      "_id": "req_workflow_2",
+      "_type": "request",
+      "name": "2. Verificar FastAPI",
+      "method": "GET",
+      "url": "{{ _.fastapi_url }}/health",
+      "description": "Passo 2: Verificar se FastAPI está rodando",
+      "parentId": "fld_workflow"
+    },
+    {
+      "_id": "req_workflow_3",
+      "_type": "request",
+      "name": "3. Iniciar OAuth",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/authorize",
+      "description": "Passo 3: Copiar link e abrir no navegador para autorizar",
+      "parentId": "fld_workflow"
+    },
+    {
+      "_id": "req_workflow_4",
+      "_type": "request",
+      "name": "4. Callback (substituir CODE)",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/callback",
+      "description": "Passo 4: Substituir CODE_AQUI pelo código obtido no navegador",
+      "parameters": [
+        {
+          "name": "code",
+          "value": "CODE_AQUI"
+        }
+      ],
+      "parentId": "fld_workflow"
+    },
+    {
+      "_id": "req_workflow_5",
+      "_type": "request",
+      "name": "5. Buscar Atividades",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/activities/export",
+      "description": "Passo 5: Buscar atividades do Strava",
+      "parentId": "fld_workflow"
+    },
+    {
+      "_id": "req_workflow_6",
+      "_type": "request",
+      "name": "6. Enriquecer com Clima",
+      "method": "GET",
+      "url": "{{ _.fastapi_url }}/enrich",
+      "description": "Passo 6: Adicionar dados climáticos às atividades",
+      "parentId": "fld_workflow"
+    },
+    {
+      "_id": "req_workflow_7",
+      "_type": "request",
+      "name": "7. Gerar Insights",
+      "method": "GET",
+      "url": "{{ _.fastapi_url }}/insights",
+      "description": "Passo 7: Gerar análises inteligentes de performance",
+      "parentId": "fld_workflow"
+    }
+  ]
+}

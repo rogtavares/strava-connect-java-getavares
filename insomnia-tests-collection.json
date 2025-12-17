@@ -1,0 +1,319 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2025-12-16T12:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v2023.5.8",
+  "resources": [
+    {
+      "_id": "wrk_strava_tests",
+      "_type": "workspace",
+      "name": "Strava Connect - Test Suite",
+      "description": "Testes unitários, integração e mutação para Strava API",
+      "scope": "collection"
+    },
+    {
+      "_id": "env_test",
+      "_type": "environment",
+      "name": "Test Environment",
+      "data": {
+        "backend_url": "http://localhost:8080",
+        "fastapi_url": "http://localhost:8000",
+        "streamlit_url": "http://localhost:8501",
+        "test_code": "REPLACE_WITH_REAL_CODE",
+        "invalid_token": "INVALID_TOKEN_12345"
+      },
+      "parentId": "wrk_strava_tests"
+    },
+    {
+      "_id": "fld_unit_spring",
+      "_type": "request_group",
+      "name": "🧪 Unit Tests - Spring Boot",
+      "description": "Testes unitários para cada endpoint do backend Java",
+      "parentId": "wrk_strava_tests"
+    },
+    {
+      "_id": "req_test_home_1",
+      "_type": "request",
+      "name": "Home - Test 1: Status 200",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/",
+      "description": "Verifica se retorna status 200 OK",
+      "tests": "const response = await insomnia.send();\nexpect(response.status, 'Backend deve retornar 200 OK').to.equal(200);",
+      "parentId": "fld_unit_spring"
+    },
+    {
+      "_id": "req_test_home_2",
+      "_type": "request",
+      "name": "Home - Test 2: Content-Type",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/",
+      "description": "Verifica se Content-Type é text/plain",
+      "tests": "const response = await insomnia.send();\nexpect(response.headers['content-type'], 'Deve retornar text/plain').to.include('text/plain');",
+      "parentId": "fld_unit_spring"
+    },
+    {
+      "_id": "req_test_home_3",
+      "_type": "request",
+      "name": "Home - Test 3: Mensagem Strava",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/",
+      "description": "Verifica se mensagem contém 'Strava'",
+      "tests": "const response = await insomnia.send();\nexpect(response.data, 'Mensagem deve mencionar Strava').to.include('Strava');",
+      "parentId": "fld_unit_spring"
+    },
+    {
+      "_id": "req_test_home_4",
+      "_type": "request",
+      "name": "Home - Test 4: Performance < 500ms",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/",
+      "description": "Verifica se responde em menos de 500ms",
+      "tests": "const start = Date.now();\nconst response = await insomnia.send();\nconst duration = Date.now() - start;\nexpect(duration, 'Deve responder em menos de 500ms').to.be.below(500);",
+      "parentId": "fld_unit_spring"
+    },
+    {
+      "_id": "req_test_home_5",
+      "_type": "request",
+      "name": "Home - Test 5: Sem Erros",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/",
+      "description": "Verifica se não retorna mensagens de erro",
+      "tests": "const response = await insomnia.send();\nexpect(response.data, 'Não deve conter erro').to.not.include('error');\nexpect(response.data, 'Não deve conter exception').to.not.include('exception');",
+      "parentId": "fld_unit_spring"
+    },
+    {
+      "_id": "req_test_authorize_1",
+      "_type": "request",
+      "name": "Authorize - Test 1: Status 200",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/authorize",
+      "description": "Verifica se retorna 200",
+      "tests": "const response = await insomnia.send();\nexpect(response.status, 'Deve retornar 200').to.equal(200);",
+      "parentId": "fld_unit_spring"
+    },
+    {
+      "_id": "req_test_authorize_2",
+      "_type": "request",
+      "name": "Authorize - Test 2: Retorna HTML",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/authorize",
+      "description": "Verifica se retorna HTML",
+      "tests": "const response = await insomnia.send();\nexpect(response.headers['content-type'], 'Deve retornar HTML').to.include('text/html');",
+      "parentId": "fld_unit_spring"
+    },
+    {
+      "_id": "req_test_authorize_3",
+      "_type": "request",
+      "name": "Authorize - Test 3: Link Strava",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/authorize",
+      "description": "Verifica se contém link do Strava",
+      "tests": "const response = await insomnia.send();\nexpect(response.data, 'Deve conter URL do Strava').to.include('strava.com/oauth/authorize');",
+      "parentId": "fld_unit_spring"
+    },
+    {
+      "_id": "req_test_authorize_4",
+      "_type": "request",
+      "name": "Authorize - Test 4: Client ID presente",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/authorize",
+      "description": "Verifica se contém client_id",
+      "tests": "const response = await insomnia.send();\nexpect(response.data, 'Deve conter client_id').to.include('client_id=');",
+      "parentId": "fld_unit_spring"
+    },
+    {
+      "_id": "req_test_authorize_5",
+      "_type": "request",
+      "name": "Authorize - Test 5: Redirect URI presente",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/authorize",
+      "description": "Verifica se contém redirect_uri",
+      "tests": "const response = await insomnia.send();\nexpect(response.data, 'Deve conter redirect_uri').to.include('redirect_uri=');",
+      "parentId": "fld_unit_spring"
+    },
+    {
+      "_id": "req_test_authorize_6",
+      "_type": "request",
+      "name": "Authorize - Test 6: Scope Correto",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/authorize",
+      "description": "Verifica se contém scope activity:read_all",
+      "tests": "const response = await insomnia.send();\nexpect(response.data, 'Deve conter scope correto').to.include('activity:read_all');",
+      "parentId": "fld_unit_spring"
+    },
+    {
+      "_id": "req_test_authorize_7",
+      "_type": "request",
+      "name": "Authorize - Test 7: URL Válida",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/authorize",
+      "description": "Verifica se URL é válida (HTTPS)",
+      "tests": "const response = await insomnia.send();\nconst urlMatch = response.data.match(/href=\"([^\"]+)\"/);\nexpect(urlMatch, 'Deve conter URL válida').to.not.be.null;\nconst url = urlMatch[1];\nexpect(url, 'URL deve ser HTTPS').to.match(/^https:\\/\\//);",
+      "parentId": "fld_unit_spring"
+    },
+    {
+      "_id": "req_test_authorize_8",
+      "_type": "request",
+      "name": "Authorize - Test 8: Não Expõe Secret",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/authorize",
+      "description": "Verifica se não expõe client_secret",
+      "tests": "const response = await insomnia.send();\nexpect(response.data, 'Não deve expor client_secret').to.not.include('client_secret');",
+      "parentId": "fld_unit_spring"
+    },
+    {
+      "_id": "fld_exception_tests",
+      "_type": "request_group",
+      "name": "❌ Exception Tests",
+      "description": "Testes de cenários de erro e exceção",
+      "parentId": "wrk_strava_tests"
+    },
+    {
+      "_id": "req_exception_1",
+      "_type": "request",
+      "name": "Exception - Callback sem código",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/callback",
+      "description": "Testa callback sem parâmetro code",
+      "tests": "const response = await insomnia.send();\nexpect(response.status, 'Deve retornar erro 400').to.equal(400);",
+      "parentId": "fld_exception_tests"
+    },
+    {
+      "_id": "req_exception_2",
+      "_type": "request",
+      "name": "Exception - Código inválido",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/callback?code=INVALID_CODE_12345",
+      "description": "Testa callback com código inválido",
+      "tests": "const response = await insomnia.send();\nexpect(response.status, 'Deve retornar 400 ou 401').to.be.oneOf([400, 401]);",
+      "parentId": "fld_exception_tests"
+    },
+    {
+      "_id": "req_exception_3",
+      "_type": "request",
+      "name": "Exception - Activities sem token",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/activities/export",
+      "description": "Testa buscar atividades sem token válido",
+      "tests": "const response = await insomnia.send();\nconst data = JSON.parse(response.data);\nexpect(data, 'Deve retornar erro no_token').to.have.property('error', 'no_token');",
+      "parentId": "fld_exception_tests"
+    },
+    {
+      "_id": "req_exception_4",
+      "_type": "request",
+      "name": "Exception - Token inválido",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/activities/export",
+      "description": "Testa com token inválido no header",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.invalid_token }}"
+        }
+      ],
+      "tests": "const response = await insomnia.send();\nexpect(response.status, 'Deve retornar 401 Unauthorized').to.equal(401);",
+      "parentId": "fld_exception_tests"
+    },
+    {
+      "_id": "fld_unit_fastapi",
+      "_type": "request_group",
+      "name": "🧪 Unit Tests - FastAPI",
+      "description": "Testes unitários para API Python",
+      "parentId": "wrk_strava_tests"
+    },
+    {
+      "_id": "req_test_health_1",
+      "_type": "request",
+      "name": "Health - Test 1: Status 200",
+      "method": "GET",
+      "url": "{{ _.fastapi_url }}/health",
+      "description": "Verifica se health check retorna 200",
+      "tests": "const response = await insomnia.send();\nexpect(response.status, 'Health check deve retornar 200').to.equal(200);",
+      "parentId": "fld_unit_fastapi"
+    },
+    {
+      "_id": "req_test_health_2",
+      "_type": "request",
+      "name": "Health - Test 2: Retorna JSON",
+      "method": "GET",
+      "url": "{{ _.fastapi_url }}/health",
+      "description": "Verifica se retorna JSON",
+      "tests": "const response = await insomnia.send();\nexpect(response.headers['content-type'], 'Deve retornar JSON').to.include('application/json');",
+      "parentId": "fld_unit_fastapi"
+    },
+    {
+      "_id": "req_test_health_3",
+      "_type": "request",
+      "name": "Health - Test 3: Status Healthy",
+      "method": "GET",
+      "url": "{{ _.fastapi_url }}/health",
+      "description": "Verifica se status é 'healthy'",
+      "tests": "const response = await insomnia.send();\nexpect(response.data, 'Status deve ser healthy').to.have.property('status', 'healthy');",
+      "parentId": "fld_unit_fastapi"
+    },
+    {
+      "_id": "req_test_health_4",
+      "_type": "request",
+      "name": "Health - Test 4: Performance < 200ms",
+      "method": "GET",
+      "url": "{{ _.fastapi_url }}/health",
+      "description": "Verifica se responde em menos de 200ms",
+      "tests": "const start = Date.now();\nconst response = await insomnia.send();\nconst duration = Date.now() - start;\nexpect(duration, 'Health check deve ser rápido (<200ms)').to.be.below(200);",
+      "parentId": "fld_unit_fastapi"
+    },
+    {
+      "_id": "fld_integration",
+      "_type": "request_group",
+      "name": "🔄 Integration Tests",
+      "description": "Testes de fluxo completo end-to-end",
+      "parentId": "wrk_strava_tests"
+    },
+    {
+      "_id": "req_integration_1",
+      "_type": "request",
+      "name": "Integration - 1. Verificar Backends",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/",
+      "description": "Passo 1: Verificar se backends estão rodando",
+      "tests": "const springResponse = await insomnia.send();\nexpect(springResponse.status, 'Spring Boot deve estar rodando').to.equal(200);\n\nconst fastapiResponse = await insomnia.send({ url: '{{ _.fastapi_url }}/health' });\nexpect(fastapiResponse.status, 'FastAPI deve estar rodando').to.equal(200);",
+      "parentId": "fld_integration"
+    },
+    {
+      "_id": "fld_mutation",
+      "_type": "request_group",
+      "name": "🧬 Mutation Tests",
+      "description": "Testes de mutação para validar robustez",
+      "parentId": "wrk_strava_tests"
+    },
+    {
+      "_id": "req_mutation_1",
+      "_type": "request",
+      "name": "Mutation - Status Code Alterado",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/",
+      "description": "Testa se detecta mudança de status code",
+      "tests": "const response = await insomnia.send();\n// Se mudarmos o código para retornar 201, este teste deve FALHAR\nexpect(response.status, 'Deve ser exatamente 200, não 201 ou outro').to.equal(200);",
+      "parentId": "fld_mutation"
+    },
+    {
+      "_id": "req_mutation_2",
+      "_type": "request",
+      "name": "Mutation - Campo Removido",
+      "method": "GET",
+      "url": "{{ _.fastapi_url }}/health",
+      "description": "Testa se detecta campo faltando",
+      "tests": "const response = await insomnia.send();\n// Se removermos 'status' da resposta, este teste deve FALHAR\nexpect(response.data, 'Campo status é obrigatório').to.have.property('status');\nexpect(response.data.status, 'Status não pode ser vazio').to.not.be.empty;",
+      "parentId": "fld_mutation"
+    },
+    {
+      "_id": "req_mutation_3",
+      "_type": "request",
+      "name": "Mutation - Tipo de Dado Alterado",
+      "method": "GET",
+      "url": "{{ _.backend_url }}/activities/export",
+      "description": "Testa se detecta tipo de dado incorreto",
+      "tests": "const response = await insomnia.send();\nif (response.status === 200) {\n  const data = JSON.parse(response.data);\n  if (data.length > 0) {\n    // Se mudarmos distance de number para string, deve FALHAR\n    expect(data[0].distance, 'Distance deve ser número').to.be.a('number');\n    expect(data[0].id, 'ID deve ser número').to.be.a('number');\n  }\n}",
+      "parentId": "fld_mutation"
+    }
+  ]
+}
