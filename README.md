@@ -1,69 +1,118 @@
-# 🏃 Strava Connect - Integração Completa com Análises Inteligentes
+# 🏃 Strava Connect
 
-![Version](https://img.shields.io/badge/version-4.11.25-blue)
+![Version](https://img.shields.io/badge/version-1.25.0-blue)
 ![Status](https://img.shields.io/badge/status-active-success)
 ![License](https://img.shields.io/badge/license-MIT-blue)
-![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 ![Java](https://img.shields.io/badge/java-21-red)
-![FastAPI](https://img.shields.io/badge/fastapi-0.104-green)
-![Spring Boot](https://img.shields.io/badge/spring%20boot-3.2-green)
-![Streamlit](https://img.shields.io/badge/streamlit-latest-red)
+![Python](https://img.shields.io/badge/python-3.11+-blue)
+![Private](https://img.shields.io/badge/repo-private-important)
 
-> **Integração completa com API do Strava** | **Análises Inteligentes** | **Dashboard Visual** | **100% Gratuito** 🆓
+> 🔐 **Repositório Privado - Case de Estudos**
 
-**Versão:** 4.11.25 | **Projeto criado por:** [Rogério Tavares](https://github.com/rogtavares) | **Ano:** 2025
+Integração completa com API do Strava + Análises Inteligentes + Dashboard Visual
+
+**Versão:** 1.25.0 | **Autor:** Rogério Tavares | **Data:** 16/12/2025
 
 ---
 
-## 🎯 Objetivo
+## 🎯 O que é?
 
-Solução integrada: **OAuth 2.0** → **Atividades Strava** → **Enriquecimento Climático** → **Insights** → **Dashboard**
+Solução completa que:
+1. ✅ Autentica com Strava (OAuth 2.0)
+2. ✅ Busca atividades do usuário
+3. ✅ Enriquece com dados climáticos
+4. ✅ Gera insights inteligentes
+5. ✅ Visualiza em dashboard interativo
+
+---
+
+## 🚀 Quick Start
+
+### Backend Java
+```bash
+cd strava-spring
+mvn spring-boot:run
+# Acessa em http://localhost:8080
+```
+
+### Dashboard Streamlit
+```bash
+cd python-streamlit
+streamlit run app.py
+# Acessa em http://localhost:8501
+```
+
+### API FastAPI
+```bash
+cd python-fastapi
+python app.py
+# Acessa em http://localhost:8000
+```
+
+---
+
+## 📚 Documentação
+
+**[→ Ver Documentação Completa](./docs/)**
+
+### Principais:
+- 📖 [Case Study](./docs/CASE_STUDY.md)
+- 🔐 [OAuth 2.0](./docs/OAUTH2/)
+- 🔧 [Scripts](./scripts/)
+
+---
+
+## 🏗️ Arquitetura
+
+```
+Frontend (Streamlit/Next.js)
+        ↓
+API Gateway (Spring Boot)
+        ↓
+Backend (Java/Python/Lambda)
+        ↓
+Strava API + OpenWeather
+```
+
+---
+
+## 🔧 Stack
+
+| Camada | Tecnologia |
+|--------|-----------|
+| Backend | Java 21, Spring Boot 3.2 |
+| APIs | FastAPI, Python 3.11+ |
+| Serverless | AWS Lambda |
+| Frontend | Streamlit, Next.js 14 |
+| Database | PostgreSQL |
+
+---
 
 ## 📁 Estrutura
 
 ```
-strava-spring/      # Backend Java 21 + Spring Boot
-python-fastapi/     # API Python + FastAPI
-python-streamlit/   # Dashboard Streamlit
-portfolio-site/     # Site Next.js
+📁 strava-spring/        Backend Java
+📁 python-fastapi/       API FastAPI
+📁 lambda-backend/       AWS Lambda
+📁 python-streamlit/     Dashboard
+📁 portfolio-site/       Site (Next.js)
+📁 docs/                 Documentação
+📁 scripts/              Scripts automação
 ```
-
-## 🚀 Quick Start
-
-```bash
-# Backend (8081)
-cd strava-spring && mvn spring-boot:run
-
-# API (8000)
-cd python-fastapi && python app.py
-
-# Dashboard (8501)
-cd python-streamlit && streamlit run app.py
-```
-
-## 🔧 Setup
-
-```bash
-# Java 21 + Maven
-winget install EclipseAdoptium.Temurin.21.JDK
-winget install Apache.Maven
-
-# Strava API: https://www.strava.com/settings/api
-STRAVA_CLIENT_ID=your_id
-STRAVA_CLIENT_SECRET=your_secret
-STRAVA_REDIRECT_URI=http://localhost:8081/callback
-```
-
-## 📚 Documentação
-
-- [Strava API Reference](https://developers.strava.com/docs/reference/)
-- [Strava Playground - Testes](https://developers.strava.com/playground/)
-- [Perfil Atleta](https://www.strava.com/athletes/3329857)
-- [Portfólio AWS - Projetos Cloud](https://rogtavares.github.io/AWS_getavares.github.io/)
-- [Portfólio Artes - Gé Tavares](https://rogeriotavares.myportfolio.com/)
-- [OAuth 2.0 Guide](./OAUTH2_GUIDE.md)
-- [Apresentação Markmap](./APRESENTACAO_MARKMAP.md)
 
 ---
 
-**versão 4.11.25 - 2025 - Rogério Tavares**
+## 🤝 Colaboradores
+
+- **Rogério Tavares** (Autor)
+- **Lucas Pajarita** (Colaborador)
+
+---
+
+## 📄 Licença
+
+MIT - Veja [LICENSE](./LICENSE)
+
+---
+
+**Status:** 🟢 Ativo | **Acesso:** 🔒 Privado | **Último Update:** 16/12/2025
