@@ -23,6 +23,11 @@
 
 ---
 
+## 🔧 Testes e APIs
+
+- **[INSOMNIA_SETUP.md](./INSOMNIA_SETUP.md)** - Configuração completa do Insomnia
+- **[INSOMNIA_QUICK_START.md](./INSOMNIA_QUICK_START.md)** - Guia rápido de início
+
 ## 📁 Exemplos
 
 Pasta com código de exemplo para implementações
