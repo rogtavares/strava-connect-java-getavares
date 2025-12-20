@@ -20,6 +20,10 @@ jobs:
       matrix:
         python-version: [ '3.9', '3.10', '3.11' ]
     
+    defaults:
+      run:
+        working-directory: lambda-backend
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -72,6 +76,10 @@ jobs:
     runs-on: ubuntu-latest
     name: 📊 Code Quality
     
+    defaults:
+      run:
+        working-directory: lambda-backend
+    
     steps:
       - uses: actions/checkout@v4
       
@@ -110,6 +118,10 @@ jobs:
     runs-on: ubuntu-latest
     name: ⚡ Performance Tests
     if: github.event_name == 'pull_request'
+    
+    defaults:
+      run:
+        working-directory: lambda-backend
     
     steps:
       - uses: actions/checkout@v4
@@ -162,6 +174,10 @@ jobs:
     permissions:
       id-token: write
       contents: read
+    
+    defaults:
+      run:
+        working-directory: lambda-backend
     
     steps:
       - uses: actions/checkout@v4
