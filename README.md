@@ -141,8 +141,5 @@ Strava API + OpenWeather
 - **Rogério Tavares** (Autor)
 - **Lucas Pajarita** (Colaborador)
 
----
 
----
-
-**Status:** 🟢 Ativo | **Acesso:** 🔒 Privado | **Último Update:** 16/12/2025
+**Status:** 🟢 Ativo | **Último Update:** 16/12/2025

@@ -33,17 +33,10 @@ public class StravaService {
 
     public String exchangeCodeForToken(String code) {
         try {
-            HttpPost post = new HttpPost("https://www.strava.com/oauth/token");
-            
-            JsonObject jsonBody = new JsonObject();
-            jsonBody.addProperty("client_id", clientId);
-            jsonBody.addProperty("client_secret", clientSecret);
-            jsonBody.addProperty("code", code);
-            jsonBody.addProperty("grant_type", "authorization_code");
-            
-            String json = gson.toJson(jsonBody);
-            post.setEntity(new StringEntity(json));
-            post.setHeader("Content-Type", "application/json");
+            // Strava requer parâmetros via Query String ou Form Data para o token, JSON costuma falhar.
+            String url = String.format("https://www.strava.com/oauth/token?client_id=%s&client_secret=%s&code=%s&grant_type=authorization_code",
+                    clientId, clientSecret, code);
+            HttpPost post = new HttpPost(url);
 
             try (CloseableHttpResponse response = httpClient.execute(post)) {
                 String body = EntityUtils.toString(response.getEntity());
