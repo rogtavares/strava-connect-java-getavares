@@ -3,7 +3,9 @@ package com.getavares.strava;
 import java.util.Scanner;
 
 public class StravaApp {
+
     public static void main(String[] args) {
+        // Variáveis de ambiente para as credenciais da API Strava
         String clientId = System.getenv("STRAVA_CLIENT_ID");
         String clientSecret = System.getenv("STRAVA_CLIENT_SECRET");
         String redirectUri = "http://localhost";
