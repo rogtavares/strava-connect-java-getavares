@@ -9,9 +9,11 @@ public class StravaApp {
         String redirectUri = "http://localhost";
 
         if (clientId == null || clientSecret == null) {
-            System.err.println("Configure STRAVA_CLIENT_ID e STRAVA_CLIENT_SECRET como variáveis de ambiente");
+            System.err.println("❌ Erro: Configure STRAVA_CLIENT_ID e STRAVA_CLIENT_SECRET como variáveis de ambiente.");
             return;
         }
+
+        System.out.println("🚀 Iniciando StravaApp com Client ID: " + clientId);
 
         StravaService service = new StravaService(clientId, clientSecret, redirectUri);
 

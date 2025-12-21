@@ -1,18 +1,13 @@
 # 🏃 Strava Connect
 
-![Version](https://img.shields.io/badge/version-1.25.0-blue)
-![Status](https://img.shields.io/badge/status-active-success)
-![License](https://img.shields.io/badge/license-MIT-blue)
 ![Java](https://img.shields.io/badge/java-21-red)
 ![Python](https://img.shields.io/badge/python-3.11+-blue)
-![Private](https://img.shields.io/badge/repo-private-important)
 
-> 🔐 **Repositório Privado - Case de Estudos**
 
 Integração completa com API do Strava + Análises Inteligentes + Dashboard Visual
 Uma arquitetura híbrida demonstrando interoperabilidade entre Java (Spring Boot) e Python (FastAPI/Streamlit).
 
-**Versão:** 1.25.0 | **Autor:** Rogério Tavares | **Data:** 16/12/2025
+**Versão:** 14.25.0 | **Autor:** Rogério Tavares | **Data:** 16/12/2025
 
 ---
 
@@ -23,7 +18,7 @@ O **Strava Connect** é uma solução de engenharia de software projetada para i
 1.  **Ingestão:** Autenticação OAuth 2.0 e coleta de dados via API do Strava.
 2.  **Enriquecimento:** Cruzamento de dados de atividades com condições climáticas (OpenWeather).
 3.  **Processamento:** Geração de insights e estatísticas agregadas.
-4.  **Visualização:** Dashboard interativo para análise de performance.
+4.  **Visualização:** Dashboard interativo para análise de performance (Futuro).
 
 ---
 
@@ -110,10 +105,6 @@ Strava API + OpenWeather
 - **Lucas Pajarita** (Colaborador)
 
 ---
-
-## 📄 Licença
-
-MIT - Veja [LICENSE](./LICENSE)
 
 ---
 
