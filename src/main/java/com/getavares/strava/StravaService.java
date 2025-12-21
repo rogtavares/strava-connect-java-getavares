@@ -10,16 +10,20 @@ import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 
+import java.io.IOException;
+
 public class StravaService {
     private final String clientId;
     private final String clientSecret;
     private final String redirectUri;
     private final Gson gson = new Gson();
+    private final CloseableHttpClient httpClient;
 
     public StravaService(String clientId, String clientSecret, String redirectUri) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.redirectUri = redirectUri;
+        this.httpClient = HttpClients.createDefault();
     }
 
     public String getAuthorizationUrl() {
@@ -28,14 +32,20 @@ public class StravaService {
     }
 
     public String exchangeCodeForToken(String code) {
-        try (CloseableHttpClient client = HttpClients.createDefault()) {
+        try {
             HttpPost post = new HttpPost("https://www.strava.com/oauth/token");
-            String json = String.format("{\"client_id\":\"%s\",\"client_secret\":\"%s\",\"code\":\"%s\",\"grant_type\":\"authorization_code\"}",
-                    clientId, clientSecret, code);
+            
+            JsonObject jsonBody = new JsonObject();
+            jsonBody.addProperty("client_id", clientId);
+            jsonBody.addProperty("client_secret", clientSecret);
+            jsonBody.addProperty("code", code);
+            jsonBody.addProperty("grant_type", "authorization_code");
+            
+            String json = gson.toJson(jsonBody);
             post.setEntity(new StringEntity(json));
             post.setHeader("Content-Type", "application/json");
 
-            try (CloseableHttpResponse response = client.execute(post)) {
+            try (CloseableHttpResponse response = httpClient.execute(post)) {
                 String body = EntityUtils.toString(response.getEntity());
                 JsonObject obj = gson.fromJson(body, JsonObject.class);
                 return obj.get("access_token").getAsString();
@@ -47,11 +57,11 @@ public class StravaService {
     }
 
     public void getAthleteInfo(String accessToken) {
-        try (CloseableHttpClient client = HttpClients.createDefault()) {
+        try {
             HttpGet get = new HttpGet("https://www.strava.com/api/v3/athlete");
             get.setHeader("Authorization", "Bearer " + accessToken);
 
-            try (CloseableHttpResponse response = client.execute(get)) {
+            try (CloseableHttpResponse response = httpClient.execute(get)) {
                 String body = EntityUtils.toString(response.getEntity());
                 System.out.println("\n📊 Informações do Atleta:\n" + body);
             }
@@ -61,11 +71,11 @@ public class StravaService {
     }
 
     public void getAthleteActivities(String accessToken) {
-        try (CloseableHttpClient client = HttpClients.createDefault()) {
+        try {
             HttpGet get = new HttpGet("https://www.strava.com/api/v3/athlete/activities?per_page=5");
             get.setHeader("Authorization", "Bearer " + accessToken);
 
-            try (CloseableHttpResponse response = client.execute(get)) {
+            try (CloseableHttpResponse response = httpClient.execute(get)) {
                 String body = EntityUtils.toString(response.getEntity());
                 System.out.println("\n🏃 Atividades Recentes:\n" + body);
             }

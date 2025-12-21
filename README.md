@@ -10,19 +10,20 @@
 > 🔐 **Repositório Privado - Case de Estudos**
 
 Integração completa com API do Strava + Análises Inteligentes + Dashboard Visual
+Uma arquitetura híbrida demonstrando interoperabilidade entre Java (Spring Boot) e Python (FastAPI/Streamlit).
 
 **Versão:** 1.25.0 | **Autor:** Rogério Tavares | **Data:** 16/12/2025
 
 ---
 
-## 🎯 O que é?
+## 🎯 Sobre o Projeto
 
-Solução completa que:
-1. ✅ Autentica com Strava (OAuth 2.0)
-2. ✅ Busca atividades do usuário
-3. ✅ Enriquece com dados climáticos
-4. ✅ Gera insights inteligentes
-5. ✅ Visualiza em dashboard interativo
+O **Strava Connect** é uma solução de engenharia de software projetada para ingerir, processar e visualizar dados de performance atlética. O sistema orquestra múltiplos serviços para:
+
+1.  **Ingestão:** Autenticação OAuth 2.0 e coleta de dados via API do Strava.
+2.  **Enriquecimento:** Cruzamento de dados de atividades com condições climáticas (OpenWeather).
+3.  **Processamento:** Geração de insights e estatísticas agregadas.
+4.  **Visualização:** Dashboard interativo para análise de performance.
 
 ---
 
@@ -30,9 +31,10 @@ Solução completa que:
 
 ### Backend Java
 ```bash
+# Certifique-se de configurar as variáveis de ambiente antes (veja abaixo)
 cd strava-spring
 mvn spring-boot:run
-# Acessa em http://localhost:8080
+# 📡 API rodando em: http://localhost:8080
 ```
 
 ### Dashboard Streamlit
