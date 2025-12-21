@@ -25,9 +25,10 @@ jobs:
 
       - name: Build with Maven
         run: mvn -B -U -DskipTests=false package
+        working-directory: strava-spring
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: strava-api-jar
-          path: target/*.jar
+          path: strava-spring/target/*.jar
