@@ -2,6 +2,8 @@ package com.getavares.strava;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,7 +48,13 @@ public class StravaController {
         System.out.println("✅ StravaController INICIANDO...");
         this.tokenStore = loadTokenStore();
         System.out.println("Status do Token: " + (tokenStore.containsKey("access_token") ? "CARREGADO OK" : "NÃO ENCONTRADO"));
-        System.out.println("Novos Endpoints: /athlete, /activities/{id}");
+        System.out.println("Endpoints Disponíveis:");
+        System.out.println(" - GET / (Home)");
+        System.out.println(" - GET /authorize (Login)");
+        System.out.println(" - GET /athlete (Perfil)");
+        System.out.println(" - GET /activities/export (Lista Simples)");
+        System.out.println(" - GET /activities/{id} (Detalhes)");
+        System.out.println(" - GET /stats/custom (ATIV.GE TAVARES 2025)");
         System.out.println("========================================\n\n");
     }
 
@@ -90,27 +100,98 @@ public class StravaController {
         }
     }
 
-    // --- ENDPOINT ORIGINAL ---
     @GetMapping(value = "/activities/export", produces = MediaType.APPLICATION_JSON_VALUE)
     public String exportActivities() {
         return makeStravaRequest("https://www.strava.com/api/v3/athlete/activities?per_page=50", true);
     }
 
-    // --- NOVO: PERFIL DO ATLETA ---
     @GetMapping(value = "/athlete", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getProfile() {
-        // Documentação: https://developers.strava.com/docs/reference/#api-Athletes-getLoggedInAthlete
         return makeStravaRequest("https://www.strava.com/api/v3/athlete", false);
     }
 
-    // --- NOVO: DETALHES DA ATIVIDADE ---
     @GetMapping(value = "/activities/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getActivityDetail(@PathVariable Long id) {
-        // Documentação: https://developers.strava.com/docs/reference/#api-Activities-getActivityById
         return makeStravaRequest("https://www.strava.com/api/v3/activities/" + id, false);
     }
 
-    // Método auxiliar para evitar repetição de código
+    // --- ATIV.GE TAVARES 2025 (01/08/2025 a 31/12/2026) ---
+    @GetMapping(value = "/stats/custom", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getCustomStats() {
+        try {
+            Object token = tokenStore.get("access_token");
+            if (token == null) {
+                tokenStore = loadTokenStore();
+                token = tokenStore.get("access_token");
+                if (token == null) return "{\"error\":\"no_token\"}";
+            }
+
+            // Datas em Timestamp (Epoch)
+            long startEpoch = LocalDateTime.of(2025, 8, 1, 0, 0).toEpochSecond(ZoneOffset.UTC);
+            long endEpoch = LocalDateTime.of(2026, 12, 31, 23, 59).toEpochSecond(ZoneOffset.UTC);
+
+            double totalDistance = 0;
+            long totalMovingTime = 0;
+            int totalActivities = 0;
+            int page = 1;
+            boolean keepFetching = true;
+
+            System.out.println(">>> Iniciando cálculo de estatísticas...");
+
+            while (keepFetching) {
+                // Busca 200 atividades por página
+                String url = String.format("https://www.strava.com/api/v3/athlete/activities?after=%d&before=%d&page=%d&per_page=200",
+                                         startEpoch, endEpoch, page);
+
+                HttpRequest req = HttpRequest.newBuilder()
+                        .uri(URI.create(url))
+                        .header("Authorization", "Bearer " + token.toString())
+                        .GET()
+                        .build();
+
+                HttpResponse<String> resp = http.send(req, HttpResponse.BodyHandlers.ofString());
+
+                if (resp.statusCode() != 200) {
+                    return "{\"error\":\"api_error\", \"status\": " + resp.statusCode() + "}";
+                }
+
+                JsonNode activities = mapper.readTree(resp.body());
+
+                if (activities.isArray() && activities.size() > 0) {
+                    System.out.println(">>> Página " + page + ": processando " + activities.size() + " atividades.");
+                    for (JsonNode a : activities) {
+                        totalDistance += a.path("distance").asDouble(0.0);
+                        totalMovingTime += a.path("moving_time").asLong(0);
+                        totalActivities++;
+                    }
+                    page++;
+                } else {
+                    keepFetching = false; // Acabou
+                }
+            }
+
+            // Monta o JSON de resposta
+            ObjectNode stats = mapper.createObjectNode();
+            stats.put("titulo", "ATIV.GE TAVARES 2025"); // <--- MUDANÇA AQUI
+            stats.put("total_atividades", totalActivities);
+            stats.put("distancia_total_km", Math.round(totalDistance / 1000.0 * 100.0) / 100.0);
+
+            long hours = totalMovingTime / 3600;
+            long minutes = (totalMovingTime % 3600) / 60;
+            stats.put("tempo_total", String.format("%dh %02dm", hours, minutes));
+
+            if (totalActivities > 0) {
+                stats.put("media_km_por_atividade", Math.round((totalDistance / 1000.0 / totalActivities) * 100.0) / 100.0);
+            }
+
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(stats);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "{\"error\":\"internal_error\", \"message\": \"" + e.getMessage() + "\"}";
+        }
+    }
+
     private String makeStravaRequest(String url, boolean mapList) {
         try {
             Object token = tokenStore.get("access_token");
@@ -132,8 +213,6 @@ public class StravaController {
                  return "{\"error\":\"api_error\", \"status\": " + resp.statusCode() + ", \"body\": " + mapper.writeValueAsString(resp.body()) + "}";
             }
 
-            // Se for a lista de atividades, aplicamos o filtro (mapList = true)
-            // Se for perfil ou detalhe, retornamos o JSON puro do Strava
             if (mapList) {
                 JsonNode arr = mapper.readTree(resp.body());
                 return mapper.writeValueAsString(mapActivities(arr));
@@ -175,10 +254,10 @@ public class StravaController {
     }
 
     private JsonNode mapActivities(JsonNode arr) {
-        com.fasterxml.jackson.databind.node.ArrayNode out = mapper.createArrayNode();
+        ArrayNode out = mapper.createArrayNode();
         if (arr.isArray()) {
             for (JsonNode a : arr) {
-                com.fasterxml.jackson.databind.node.ObjectNode node = mapper.createObjectNode();
+                ObjectNode node = mapper.createObjectNode();
                 node.put("id", a.path("id").asLong());
                 node.put("name", a.path("name").asText(null));
                 node.put("type", a.path("type").asText(null));
