@@ -1,4 +1,4 @@
-# 🏃 Strava Connect
+# 🏃 Strava Connect - GE TAVARES
 
 ![Java](https://img.shields.io/badge/java-21-red)
 ![Python](https://img.shields.io/badge/python-3.11+-blue)
@@ -26,47 +26,53 @@ O projeto é dividido em 3 partes que trabalham juntas:
 - Faz a conexão segura com o Strava
 - Autentica sua conta usando OAuth 2.0
 - Busca e organiza seus dados de atividades
-- Disponibiliza APIs para outras partes do sistema
+- **Novos Endpoints:** Perfil e Detalhes de Atividades
 
 ### 🐍 Análises Python (FastAPI)
 - Processa os dados dos seus treinos
 - Calcula métricas como ritmo médio, evolução e tendências
-- Gera insights sobre sua performance
+- Gera insights sobre sua performance e clima (OpenWeather)
 
 ### 📊 Dashboard (Streamlit) - Em desenvolvimento
 - Interface visual para ver seus dados
-- Gráficos de evolução e performance
-- Insights fáceis de entender
-
----
-
-## 🧠 O que você pode fazer?
-
-- 📊 Ver volume e intensidade dos seus treinos
-- 📈 Acompanhar sua evolução ao longo do tempo
-- 🔍 Identificar padrões nos seus treinos
-- 💪 Entender melhor sua performance
 
 ---
 
 ## 🚀 Como rodar?
 
-### 1. Backend Java
+### 1. Backend Java (Porta 8080)
 ```bash
 cd strava-spring
 mvn spring-boot:run
 ```
-📡 Acesse: http://localhost:8081
+📡 **Endpoints Principais:**
+- `http://localhost:8080/authorize` (Login/Autenticação)
+- `http://localhost:8080/activities/export` (Lista de Atividades)
 
-### 2. API Python
+### 2. API Python (Porta 8000)
 ```bash
 cd python-fastapi
 pip install -r requirements.txt
-python app.py
+uvicorn app:app --reload --port 8000
 ```
-⚡ Acesse: http://localhost:8000
+⚡ **Endpoints Principais:**
+- `http://localhost:8000/insights` (Análise Inteligente + Clima)
 
-> **Importante:** Configure as variáveis de ambiente do Strava antes (veja a documentação)
+---
+
+## 🔒 Segurança e Configuração
+
+Este projeto segue boas práticas de segurança. **NUNCA** commite arquivos de tokens ou chaves de API.
+
+### Arquivos Ignorados (.gitignore)
+- `strava-spring/strava_tokens.json`: Armazena seus tokens de acesso do Strava.
+- `python-fastapi/.env`: Armazena sua chave do OpenWeatherMap.
+- `application.properties` (com senhas reais): Use variáveis de ambiente ou configure localmente sem commitar.
+
+### Configuração Local
+Para rodar, você precisará configurar suas credenciais localmente:
+1. **Java:** Configure `strava.client-id` e `strava.client-secret` no `application.properties` ou via variáveis de ambiente.
+2. **Python:** Crie um arquivo `.env` na pasta `python-fastapi` com `OPENWEATHER_API_KEY`.
 
 ---
 
@@ -81,22 +87,8 @@ python app.py
 ## 🔧 Tecnologias
 
 - **Backend:** Java 21 + Spring Boot 3.2
-- **Análises:** Python 3.11+ + FastAPI
+- **Análises:** Python 3.11+ + FastAPI + HTTPX (Async)
 - **Dashboard:** Streamlit (em desenvolvimento)
-- **Cloud:** AWS Lambda (planejado)
-- **Banco:** PostgreSQL (planejado)
-
----
-
-## 📁 Estrutura do Projeto
-
-```
-📁 strava-spring/        → Backend Java (integração Strava)
-📁 python-fastapi/       → API Python (análises)
-📁 python-streamlit/     → Dashboard visual
-📁 docs/                 → Documentação
-📁 scripts/              → Scripts úteis
-```
 
 ---
 
@@ -106,4 +98,4 @@ python app.py
 - **Lucas Pajarita** (Colaborador)
 
 
-**versao v34.25:** 16/12/2025
+**Versão Atual:** v26.1 (Janeiro/2026)
