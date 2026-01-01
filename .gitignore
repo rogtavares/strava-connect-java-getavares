@@ -5,6 +5,7 @@ target/
 *.jar
 *.war
 *.ear
+*.log
 
 # IDEs
 .idea/
@@ -15,6 +16,7 @@ target/
 __pycache__/
 .venv/
 env/
+python-fastapi/.env
 
 # Node
 node_modules/
@@ -26,3 +28,5 @@ Thumbs.db
 
 # Secrets / tokens
 tokens.json
+strava_tokens.json
+setup_tokens.bat

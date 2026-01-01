@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
-import requests
+import httpx
+import asyncio
 import os
 from datetime import datetime
 from statistics import mean, median, stdev
@@ -231,6 +232,35 @@ class StravaInsights:
         return self.enriched_activities
 
 
+async def fetch_weather_for_activity(client, activity):
+    """Async helper to fetch weather for a single activity"""
+    item = dict(activity)
+    latlng = activity.get("start_latlng")
+
+    if latlng and len(latlng) >= 2 and OPENWEATHER_KEY:
+        lat, lon = latlng[0], latlng[1]
+        ts = activity.get("start_date")
+        try:
+            dt = datetime.fromisoformat(ts.replace('Z', '+00:00'))
+            unix = int(dt.timestamp())
+            ow_url = f"https://api.openweathermap.org/data/2.5/onecall/timemachine?lat={lat}&lon={lon}&dt={unix}&appid={OPENWEATHER_KEY}&units=metric"
+
+            resp = await client.get(ow_url, timeout=5.0)
+            if resp.status_code == 200:
+                item['weather'] = resp.json()
+        except Exception as e:
+            logger.warning(f"Failed to fetch weather: {e}")
+            item['weather_error'] = str(e)
+
+    return item
+
+async def enrich_activities_data(activities):
+    """Enrich a list of activities with weather data concurrently"""
+    async with httpx.AsyncClient() as client:
+        tasks = [fetch_weather_for_activity(client, a) for a in activities]
+        return await asyncio.gather(*tasks)
+
+
 @app.get("/")
 def root():
     """Root endpoint with API info"""
@@ -252,42 +282,24 @@ def health_check():
 
 
 @app.get("/enrich")
-def enrich_activities():
+async def enrich_activities():
     """
     Enrich activities with weather data and calculate performance metrics.
     Returns activities with weather info and pace calculations.
     """
     try:
         # Fetch activities from Java backend
-        r = requests.get(f"{BACKEND_URL}/activities/export", timeout=10)
+        async with httpx.AsyncClient() as client:
+            r = await client.get(f"{BACKEND_URL}/activities/export", timeout=10.0)
+
         if r.status_code != 200:
             raise HTTPException(status_code=502, detail="Failed to fetch activities from backend")
         
         activities = r.json()
         logger.info(f"Fetched {len(activities)} activities from backend")
         
-        # Enrich with weather
-        enriched = []
-        for a in activities:
-            item = dict(a)
-            
-            # Fetch weather if coordinates available
-            latlng = a.get("start_latlng")
-            if latlng and len(latlng) >= 2 and OPENWEATHER_KEY:
-                lat, lon = latlng[0], latlng[1]
-                ts = a.get("start_date")
-                try:
-                    dt = datetime.fromisoformat(ts.replace('Z', '+00:00'))
-                    unix = int(dt.timestamp())
-                    ow_url = f"https://api.openweathermap.org/data/2.5/onecall/timemachine?lat={lat}&lon={lon}&dt={unix}&appid={OPENWEATHER_KEY}&units=metric"
-                    w = requests.get(ow_url, timeout=5)
-                    if w.status_code == 200:
-                        item['weather'] = w.json()
-                except Exception as e:
-                    logger.warning(f"Failed to fetch weather: {e}")
-                    item['weather_error'] = str(e)
-            
-            enriched.append(item)
+        # Enrich with weather concurrently
+        enriched = await enrich_activities_data(activities)
         
         return enriched
     
@@ -297,44 +309,27 @@ def enrich_activities():
 
 
 @app.get("/insights")
-def get_insights():
+async def get_insights():
     """
     Generate intelligent insights about your performance based on weather conditions.
     Analyzes pace variations, wind impact, and optimal training conditions.
     """
     try:
         # Fetch activities
-        r = requests.get(f"{BACKEND_URL}/activities/export", timeout=10)
+        async with httpx.AsyncClient() as client:
+            r = await client.get(f"{BACKEND_URL}/activities/export", timeout=10.0)
+
         if r.status_code != 200:
             raise HTTPException(status_code=502, detail="Failed to fetch activities from backend")
         
         activities = r.json()
         logger.info(f"Analyzing {len(activities)} activities for insights")
+
+        # Enrich activities with weather concurrently
+        enriched = await enrich_activities_data(activities)
         
         # Create insights processor
-        processor = StravaInsights(activities)
-        
-        # Enrich activities with weather
-        enriched = []
-        for a in activities:
-            item = dict(a)
-            
-            latlng = a.get("start_latlng")
-            if latlng and len(latlng) >= 2 and OPENWEATHER_KEY:
-                lat, lon = latlng[0], latlng[1]
-                ts = a.get("start_date")
-                try:
-                    dt = datetime.fromisoformat(ts.replace('Z', '+00:00'))
-                    unix = int(dt.timestamp())
-                    ow_url = f"https://api.openweathermap.org/data/2.5/onecall/timemachine?lat={lat}&lon={lon}&dt={unix}&appid={OPENWEATHER_KEY}&units=metric"
-                    w = requests.get(ow_url, timeout=5)
-                    if w.status_code == 200:
-                        item['weather'] = w.json()
-                except Exception as e:
-                    logger.warning(f"Failed to fetch weather: {e}")
-            
-            enriched.append(item)
-        
+        processor = StravaInsights(activities) # Pass original activities, but we will overwrite
         processor.activities = enriched
         processor.process()
         
