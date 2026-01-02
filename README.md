@@ -79,21 +79,6 @@ Tratamos dados pessoais com seriedade. Este projeto foi desenhado com **Privacy 
 
 ---
 
-## 📚 Central de Conhecimento
-
-Para quem deseja entender a engenharia e as decisões de negócio por trás do código:
-
-- 📖 **[Estudo de Caso (Business Case)](./docs/CASE_STUDY.md)**
-  *Entenda o problema que resolvemos, as escolhas arquiteturais e o roadmap do produto.*
-  
-- 🔐 **[Guia de Autenticação (OAuth 2.0)](./docs/OAUTH2/)**
-  *Uma explicação didática sobre como garantimos o acesso seguro aos dados do usuário.*
-
-- 🔧 **[Ferramentas e Scripts](./scripts/)**
-  *Utilitários para automação e manutenção.*
-
----
-
 ## 🛠️ Ecossistema Tecnológico
 
 - **Integração:** Java 21 + Spring Boot 3.2
@@ -106,4 +91,4 @@ Para quem deseja entender a engenharia e as decisões de negócio por trás do c
 
 - **Rogério Tavares** 
 
-**Versão Atual:** v26.7 (Janeiro/2026)
+**Versão Atual:** v26.8 (Janeiro/2026)
