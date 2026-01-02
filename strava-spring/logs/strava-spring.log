@@ -385,3 +385,101 @@ Identify and stop the process that's listening on port 8080 or configure this ap
 2026-01-01T15:25:41.918-03:00 DEBUG 26560 --- [strava-spring] [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json]
 2026-01-01T15:25:41.919-03:00 DEBUG 26560 --- [strava-spring] [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Writing ["[{"id":16895635372,"name":"10K Zwift- [2025 Portal -FIM]  16(4'/i1'30\") ((129.25))","type":"Virtual (truncated)..."]
 2026-01-01T15:25:41.925-03:00 DEBUG 26560 --- [strava-spring] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-01-01T20:36:54.856-03:00  INFO 22292 --- [strava-spring] [main] c.g.strava.StravaSpringApplication       : Starting StravaSpringApplication using Java 21.0.9 with PID 22292 (C:\Users\Cliente\Desktop\JAVA\strava-connect-java-getavares\strava-spring\target\classes started by Cliente in C:\Users\Cliente\Desktop\JAVA\strava-connect-java-getavares\strava-spring)
+2026-01-01T20:36:54.857-03:00 DEBUG 22292 --- [strava-spring] [main] c.g.strava.StravaSpringApplication       : Running with Spring Boot v3.2.0, Spring v6.1.1
+2026-01-01T20:36:54.857-03:00  INFO 22292 --- [strava-spring] [main] c.g.strava.StravaSpringApplication       : The following 1 profile is active: "dev"
+2026-01-01T20:36:55.489-03:00  INFO 22292 --- [strava-spring] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-01-01T20:36:55.497-03:00  INFO 22292 --- [strava-spring] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-01T20:36:55.497-03:00  INFO 22292 --- [strava-spring] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-01-01T20:36:55.543-03:00  INFO 22292 --- [strava-spring] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-01-01T20:36:55.544-03:00  INFO 22292 --- [strava-spring] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 657 ms
+2026-01-01T20:36:55.818-03:00 DEBUG 22292 --- [strava-spring] [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 9 mappings in 'requestMappingHandlerMapping'
+2026-01-01T20:36:55.836-03:00 DEBUG 22292 --- [strava-spring] [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-01-01T20:36:55.851-03:00 DEBUG 22292 --- [strava-spring] [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-01-01T20:36:55.874-03:00 DEBUG 22292 --- [strava-spring] [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-01-01T20:36:55.923-03:00  INFO 22292 --- [strava-spring] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2026-01-01T20:36:55.927-03:00  INFO 22292 --- [strava-spring] [main] c.g.strava.StravaSpringApplication       : Started StravaSpringApplication in 1.383 seconds (process running for 1.641)
+2026-01-01T20:38:07.343-03:00  INFO 22292 --- [strava-spring] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-01T20:38:07.343-03:00  INFO 22292 --- [strava-spring] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-01-01T20:38:07.343-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2026-01-01T20:38:07.344-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2026-01-01T20:38:07.344-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2026-01-01T20:38:07.344-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@6f0aea38
+2026-01-01T20:38:07.344-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@77688b7c
+2026-01-01T20:38:07.345-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-01-01T20:38:07.345-03:00  INFO 22292 --- [strava-spring] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-01-01T20:38:07.349-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/activities/export", parameters={}
+2026-01-01T20:38:07.356-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.getavares.strava.StravaController#exportActivities()
+2026-01-01T20:38:07.741-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json]
+2026-01-01T20:38:07.742-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Writing ["{"error":"api_error", "status": 401, "body": "{\"message\":\"Authorization Error\",\"errors\":[{\"re (truncated)..."]
+2026-01-01T20:38:07.749-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-01-01T20:38:32.801-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/activities/export", parameters={}
+2026-01-01T20:38:32.801-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.getavares.strava.StravaController#exportActivities()
+2026-01-01T20:38:32.956-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json]
+2026-01-01T20:38:32.956-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Writing ["{"error":"api_error", "status": 401, "body": "{\"message\":\"Authorization Error\",\"errors\":[{\"re (truncated)..."]
+2026-01-01T20:38:32.957-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-01-01T20:39:08.957-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/authorize", parameters={}
+2026-01-01T20:39:08.958-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.getavares.strava.StravaController#authorize()
+2026-01-01T20:39:08.960-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-6] m.m.a.RequestResponseBodyMethodProcessor : Using 'text/html', given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7] and supported [text/plain, */*, application/json, application/*+json]
+2026-01-01T20:39:08.960-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-6] m.m.a.RequestResponseBodyMethodProcessor : Writing ["<html><body><a href="https://www.strava.com/oauth/authorize?client_id=181788&response_type=code&redi (truncated)..."]
+2026-01-01T20:39:08.961-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-01-01T20:39:08.980-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/favicon.ico", parameters={}
+2026-01-01T20:39:08.982-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-4] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-01-01T20:39:08.984-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-4] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2026-01-01T20:39:08.986-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-4] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico.]
+2026-01-01T20:39:08.986-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2026-01-01T20:39:08.989-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2026-01-01T20:39:08.989-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2026-01-01T20:39:08.994-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json;q=0.8', given [image/avif, image/webp, image/apng, image/svg+xml, image/*, */*;q=0.8] and supported [application/json, application/*+json]
+2026-01-01T20:39:08.996-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Jan 01 20:39:08 BRT 2026, status=404, error=Not Found, message=No static resource fav (truncated)...]
+2026-01-01T20:39:09.016-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2026-01-01T20:39:27.141-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/callback?state=&code=a641dd1be224043674f3b3ef8213cb373fcbb792&scope=read,activity:read_all,profile:read_all", parameters={masked}
+2026-01-01T20:39:27.142-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.getavares.strava.StravaController#callback(String)
+2026-01-01T20:39:27.380-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Using 'text/html', given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7] and supported [text/plain, */*, application/json, application/*+json]
+2026-01-01T20:39:27.381-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Writing ["Token armazenado com sucesso! Você pode acessar /activities/export"]
+2026-01-01T20:39:27.381-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-01-01T20:39:35.023-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/activities/export", parameters={}
+2026-01-01T20:39:35.024-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.getavares.strava.StravaController#exportActivities()
+2026-01-01T20:39:36.259-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-7] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json]
+2026-01-01T20:39:36.260-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-7] m.m.a.RequestResponseBodyMethodProcessor : Writing ["[{"id":16906528031,"name":"#1 REGENERATIVO 5K Parque RT   PRIMEIRO TREINO de 2026 ((T.C 01.26))","ty (truncated)..."]
+2026-01-01T20:39:36.261-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-01-01T20:41:19.052-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/stats/custom", parameters={}
+2026-01-01T20:41:19.053-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.getavares.strava.StravaController#getCustomStats()
+2026-01-01T20:41:20.860-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json;q=0.8', given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7] and supported [application/json]
+2026-01-01T20:41:20.861-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Writing ["{<EOL><EOL>  "titulo" : "ATIV.GE TAVARES 2025",<EOL><EOL>  "total_atividades" : 105,<EOL><EOL>  "distancia_total_km" : 299.9 (truncated)..."]
+2026-01-01T20:41:20.861-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-01-01T20:44:43.538-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/stats/custom", parameters={}
+2026-01-01T20:44:43.538-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.getavares.strava.StravaController#getCustomStats()
+2026-01-01T20:44:45.107-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-4] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json]
+2026-01-01T20:44:45.107-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-4] m.m.a.RequestResponseBodyMethodProcessor : Writing ["{<EOL><EOL>  "titulo" : "ATIV.GE TAVARES 2025",<EOL><EOL>  "total_atividades" : 105,<EOL><EOL>  "distancia_total_km" : 299.9 (truncated)..."]
+2026-01-01T20:44:45.108-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-01-01T20:47:15.777-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/stats/custom", parameters={}
+2026-01-01T20:47:15.777-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.getavares.strava.StravaController#getCustomStats()
+2026-01-01T20:47:17.573-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json]
+2026-01-01T20:47:17.574-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Writing ["{<EOL><EOL>  "titulo" : "ATIV.GE TAVARES 2025",<EOL><EOL>  "total_atividades" : 105,<EOL><EOL>  "distancia_total_km" : 299.9 (truncated)..."]
+2026-01-01T20:47:17.574-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-01-01T20:48:59.325-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/stats/custom", parameters={}
+2026-01-01T20:48:59.326-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.getavares.strava.StravaController#getCustomStats()
+2026-01-01T20:49:00.961-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-8] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json]
+2026-01-01T20:49:00.961-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-8] m.m.a.RequestResponseBodyMethodProcessor : Writing ["{<EOL><EOL>  "titulo" : "ATIV.GE TAVARES 2025",<EOL><EOL>  "total_atividades" : 105,<EOL><EOL>  "distancia_total_km" : 299.9 (truncated)..."]
+2026-01-01T20:49:00.962-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-01-01T20:59:35.662-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/activities/export", parameters={}
+2026-01-01T20:59:35.663-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.getavares.strava.StravaController#exportActivities()
+2026-01-01T20:59:36.309-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-10] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json]
+2026-01-01T20:59:36.309-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-10] m.m.a.RequestResponseBodyMethodProcessor : Writing ["[{"id":16906528031,"name":"#1 REGENERATIVO 5K Parque RT   PRIMEIRO TREINO de 2026 ((T.C 01.26))","ty (truncated)..."]
+2026-01-01T20:59:36.310-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-01-01T21:00:36.682-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/activities/export", parameters={}
+2026-01-01T21:00:36.682-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.getavares.strava.StravaController#exportActivities()
+2026-01-01T21:00:37.484-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json]
+2026-01-01T21:00:37.485-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Writing ["[{"id":16906528031,"name":"#1 REGENERATIVO 5K Parque RT   PRIMEIRO TREINO de 2026 ((T.C 01.26))","ty (truncated)..."]
+2026-01-01T21:00:37.486-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-01-01T21:01:35.577-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/activities/export", parameters={}
+2026-01-01T21:01:35.578-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.getavares.strava.StravaController#exportActivities()
+2026-01-01T21:01:36.253-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json]
+2026-01-01T21:01:36.254-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Writing ["[{"id":16906528031,"name":"#1 REGENERATIVO 5K Parque RT   PRIMEIRO TREINO de 2026 ((T.C 01.26))","ty (truncated)..."]
+2026-01-01T21:01:36.255-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-01-01T21:04:12.407-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/stats/custom", parameters={}
+2026-01-01T21:04:12.408-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.getavares.strava.StravaController#getCustomStats()
+2026-01-01T21:04:14.020-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-4] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json]
+2026-01-01T21:04:14.020-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-4] m.m.a.RequestResponseBodyMethodProcessor : Writing ["{<EOL><EOL>  "titulo" : "ATIV.GE TAVARES 2025",<EOL><EOL>  "total_atividades" : 105,<EOL><EOL>  "distancia_total_km" : 299.9 (truncated)..."]
+2026-01-01T21:04:14.021-03:00 DEBUG 22292 --- [strava-spring] [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK

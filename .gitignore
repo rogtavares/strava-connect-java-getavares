@@ -30,3 +30,5 @@ Thumbs.db
 tokens.json
 strava_tokens.json
 setup_tokens.bat
+application.properties
+strava-spring/src/main/resources/application.properties
