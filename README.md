@@ -4,7 +4,7 @@
 ![Python](https://img.shields.io/badge/python-3.11+-blue)
 ![Private](https://img.shields.io/badge/repo-private-important)
 
-> **Transforme seu suor em dados e seus dados em resultados.**
+> **Arquitetura Híbrida: Coleta Segura com Java e Inteligência de Dados com Python**
 
 ---
 
@@ -43,28 +43,30 @@ O "cérebro" analítico.
 
 ---
 
-## 🚀 Guia de Uso Rápido
+## 🚀 Guia de Desenvolvimento Local
 
-Para ver a mágica acontecer na sua máquina local:
+Para executar o ambiente de desenvolvimento (Dev) e testar as APIs (recomendado uso do **Insomnia** ou **Postman**):
 
-### Passo 1: Iniciar o Motor de Integração
-Responsável por logar e buscar os dados.
+### Passo 1: Iniciar o Motor de Integração (Java)
+*Responsável pela autenticação OAuth 2.0 e coleta bruta dos dados.*
 ```bash
 cd strava-spring
 mvn spring-boot:run
 ```
-📍 **Acesse no navegador:**
-- `http://localhost:8080/authorize` (Para conectar sua conta Strava)
+📍 **Fluxo de Autenticação:**
+1. Acesse `http://localhost:8080/authorize` no navegador.
+2. Autorize o aplicativo no Strava.
+3. O token será salvo automaticamente para uso das APIs.
 
-### Passo 2: Ativar a Inteligência
-Responsável por processar e analisar.
+### Passo 2: Ativar a Inteligência (Python)
+*Responsável pelo processamento, enriquecimento e endpoints de análise.*
 ```bash
 cd python-fastapi
 pip install -r requirements.txt
 uvicorn app:app --reload --port 8000
 ```
-📍 **Acesse no navegador:**
-- `http://localhost:8000/insights` (Para ver a análise climática e de performance)
+📍 **Testar Endpoints (Insomnia/Browser):**
+- `GET http://localhost:8000/insights` (Retorna JSON com análise climática e de performance)
 
 ---
 
@@ -91,4 +93,4 @@ Tratamos dados pessoais com seriedade. Este projeto foi desenhado com **Privacy 
 
 - **Rogério Tavares** 
 
-**Versão Atual:** v26.8 (Janeiro/2026)
+**Versão Atual:** v26.10 (Janeiro/2026)
