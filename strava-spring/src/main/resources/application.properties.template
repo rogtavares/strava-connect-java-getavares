@@ -1,0 +1,24 @@
+# ============================================================================
+# STRAVA SPRING APPLICATION CONFIGURATION (TEMPLATE)
+# ============================================================================
+
+# Server Configuration
+server.port=8080
+
+# Application Profile
+spring.application.name=strava-spring
+spring.profiles.active=dev
+
+# ============================================================================
+# STRAVA API CONFIGURATION
+# ============================================================================
+# Substitua pelos seus dados ou use variáveis de ambiente
+strava.client-id=${STRAVA_CLIENT_ID}
+strava.client-secret=${STRAVA_CLIENT_SECRET}
+strava.redirect-uri=http://localhost:8080/callback
+
+# ============================================================================
+# LOGGING CONFIGURATION
+# ============================================================================
+logging.level.root=INFO
+logging.level.com.getavares.strava=DEBUG
