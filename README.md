@@ -8,17 +8,17 @@
 
 ---
 
-## 💡 A Proposta de Valor
+## 💡 Proposta de Estudo e Código
 
-Este projeto não é apenas sobre conectar APIs. É sobre **entender a jornada do atleta**.
+Este projeto não é apenas sobre conectar APIs. É um laboratório para **unir engenharia de software e regras de negócio**.
 
-Criamos uma ponte inteligente entre seus esforços físicos (registrados no Strava) e a ciência de dados. O objetivo é responder perguntas que o aplicativo padrão não responde:
+Criamos uma ponte inteligente entre esforços físicos (Strava) e ciência de dados, com o objetivo de responder perguntas que exigem processamento customizado:
 - *"Como o clima impactou meu rendimento hoje?"*
+- *"Qual tênis está associado aos meus melhores treinos?"*
+- *"Qual dispositivo (relógio/GPS) ou app de terceiro registrou essa atividade?"*
 - *"Qual é a tendência real da minha evolução?"*
 
-Utilizamos a robustez do **Java** para garantir que seus dados sejam coletados com segurança e a agilidade do **Python** para gerar inteligência competitiva.
-
-🔗 **Repositório:** [github.com/rogtavares/strava-connect-java-getavares](https://github.com/rogtavares/strava-connect-java-getavares)
+Utilizamos a robustez do **Java** para garantir a integridade da coleta de dados e a agilidade do **Python** para gerar inteligência, demonstrando uma arquitetura poliglota na prática.
 
 ---
 
@@ -101,7 +101,9 @@ Para quem deseja entender a engenharia e as decisões de negócio por trás do c
 - **Frontend & Visualização:** Streamlit (Roadmap)
 
 ---
-## 🤝
-- **Rogério Tavares**
 
-**Versão Atual:** v26.4 (Janeiro/2026)
+## 🤝 
+
+- **Rogério Tavares** 
+
+**Versão Atual:** v26.7 (Janeiro/2026)
