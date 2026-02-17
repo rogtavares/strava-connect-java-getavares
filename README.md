@@ -1,96 +1,96 @@
-# 🏃 Strava Connect - GE TAVARES
+# 🏃 Strava Connect - Python Edition
 
-![Java](https://img.shields.io/badge/java-21-red)
 ![Python](https://img.shields.io/badge/python-3.11+-blue)
-![Private](https://img.shields.io/badge/repo-private-important)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.109+-green)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.31+-red)
+![AWS Lambda](https://img.shields.io/badge/AWS_Lambda-Serverless-orange)
 
-> **Arquitetura Híbrida: Coleta Segura com Java e Inteligência de Dados com Python**
+> **Foco Total em Dados: Coleta, Processamento e Visualização com Python**
 
 ---
 
-## 💡 Proposta de Estudo e Código
+## 💡 Sobre o Projeto
 
-Este projeto não é apenas sobre conectar APIs. É um laboratório para **unir engenharia de software e regras de negócio**.
+Este projeto é um laboratório avançado de **Engenharia de Dados e Backend com Python**. 
+Migramos de uma arquitetura híbrida para uma solução **100% Python** para maximizar a agilidade na análise de dados e desenvolvimento de funcionalidades.
 
-Criamos uma ponte inteligente entre esforços físicos (Strava) e ciência de dados, com o objetivo de responder perguntas que exigem processamento customizado:
-- *"Como o clima impactou meu rendimento hoje?"*
-- *"Qual tênis está associado aos meus melhores treinos?"*
-- *"Qual dispositivo (relógio/GPS) ou app de terceiro registrou essa atividade?"*
-- *"Qual é a tendência real da minha evolução?"*
-
-Utilizamos a robustez do **Java** para garantir a integridade da coleta de dados e a agilidade do **Python** para gerar inteligência, demonstrando uma arquitetura poliglota na prática.
+O objetivo é conectar aos dados do Strava, processar métricas avançadas (como impacto do clima no rendimento) e visualizar tudo em dashboards interativos.
 
 ---
 
 ## 🏗️ Arquitetura da Solução
 
-O sistema opera como uma linha de produção de dados em três estágios:
+O sistema é composto por três pilares principais:
 
-### 1. Coleta e Segurança (Java Spring Boot)
-Atua como o "porteiro" seguro da aplicação.
-- Gerencia sua identidade e permissões (OAuth 2.0).
-- Busca o histórico de atividades diretamente da fonte.
-- **Foco:** Segurança, Estabilidade e Integração.
+### 1. API de Integração e Inteligência (FastAPI)
+Localizado em `/api-RT`
+- Gerencia a autenticação OAuth 2.0 com o Strava.
+- Expõe endpoints RESTful para consumo de dados.
+- Realiza o enriquecimento de dados (ex: cruzar treino com dados meteorológicos).
 
-### 2. Inteligência de Dados (Python FastAPI)
-O "cérebro" analítico.
-- Recebe os dados brutos e aplica regras de negócio.
-- Cruza informações de treino com dados meteorológicos (OpenWeather).
-- **Foco:** Ciência de Dados, Insights e Enriquecimento.
+### 2. Processamento Serverless (AWS Lambda)
+Localizado em `/lambda-backend`
+- Processamento assíncrono de atividades.
+- Webhooks para receber notificações de novas atividades do Strava em tempo real.
+- Arquitetura escalável e orientada a eventos.
 
-### 3. Visualização (Streamlit)
-*Em construção.* Será o painel de controle onde o atleta toma decisões baseadas em gráficos intuitivos.
+### 3. Visualização Interativa (Streamlit)
+Localizado em `/dashboard`
+- Dashboards interativos para análise de performance.
+- Gráficos de evolução, comparação de equipamentos e análise climática.
+- Interface amigável para o usuário final.
 
 ---
 
-## 🚀 Guia de Desenvolvimento Local
+## 🚀 Guia de Início Rápido
 
-Para executar o ambiente de desenvolvimento (Dev) e testar as APIs (recomendado uso do **Insomnia** ou **Postman**):
+### Pré-requisitos
+- Python 3.11 ou superior
+- Conta no Strava Developers (para obter Client ID e Secret)
 
-### Passo 1: Iniciar o Motor de Integração (Java)
-*Responsável pela autenticação OAuth 2.0 e coleta bruta dos dados.*
+### 1. Configurando a API (FastAPI)
 ```bash
-cd strava-spring
-mvn spring-boot:run
-```
-📍 **Fluxo de Autenticação:**
-1. Acesse `http://localhost:8080/authorize` no navegador.
-2. Autorize o aplicativo no Strava.
-3. O token será salvo automaticamente para uso das APIs.
-
-### Passo 2: Ativar a Inteligência (Python)
-*Responsável pelo processamento, enriquecimento e endpoints de análise.*
-```bash
-cd python-fastapi
+cd api-RT
+# Crie um ambiente virtual (recomendado)
+python -m venv .venv
+# Ative o ambiente (Windows)
+.venv\Scripts\activate
+# Instale as dependências
 pip install -r requirements.txt
-uvicorn app:app --reload --port 8000
+
+# Configure as variáveis de ambiente (.env)
+cp .env.example .env
+# Edite o arquivo .env com suas credenciais do Strava
+
+# Execute o servidor
+uvicorn app:app --reload
 ```
-📍 **Testar Endpoints (Insomnia/Browser):**
-- `GET http://localhost:8000/insights` (Retorna JSON com análise climática e de performance)
+Acesse a documentação da API em: `http://localhost:8000/docs`
+
+### 2. Executando o Dashboard (Streamlit)
+```bash
+cd dashboard
+pip install -r requirements.txt
+streamlit run app.py
+```
 
 ---
 
-## 🔒 Privacidade e Segurança
+## 📂 Estrutura do Projeto
 
-Tratamos dados pessoais com seriedade. Este projeto foi desenhado com **Privacy by Design**:
-
-- **Credenciais Locais:** Suas senhas e tokens ficam apenas no seu computador.
-- **Arquivos Protegidos:** O sistema ignora automaticamente arquivos sensíveis (`.env`, `tokens.json`) para evitar vazamentos acidentais.
-
-> **Nota para Desenvolvedores:** Configure suas chaves (`strava.client-id`, `OPENWEATHER_API_KEY`) apenas em variáveis de ambiente ou arquivos locais não versionados.
-
----
-
-## 🛠️ Ecossistema Tecnológico
-
-- **Integração:** Java 21 + Spring Boot 3.2
-- **Analytics:** Python 3.11+ + FastAPI
-- **Frontend & Visualização:** Streamlit (Roadmap)
+```
+/
+├── api-RT/              # Backend API (FastAPI)
+├── dashboard/           # Frontend Dashboard (Streamlit)
+├── lambda-backend/      # Funções Serverless (AWS Lambda)
+├── scripts/             # Scripts utilitários e automação
+└── archived/            # Código legado (Java, versões antigas)
+```
 
 ---
 
-## 🤝 
+## 🤝 Autor
 
-- **Rogério Tavares** 
+- **Rogério Tavares**
 
-**Versão Atual:** v26.10 (Janeiro/2026)
+**Versão Atual:** Python Focus v1.0 (Janeiro/2026)

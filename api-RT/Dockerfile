@@ -1,0 +1,25 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application
+COPY . .
+
+# Environment
+ENV PYTHONUNBUFFERED=1
+ENV FASTAPI_HOST=0.0.0.0
+ENV FASTAPI_PORT=8000
+
+# Expose port
+EXPOSE 8000
+
+# Health check (using root endpoint)
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD python -c "import requests; requests.get('http://localhost:8000/')"
+
+# Start server
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]

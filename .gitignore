@@ -1,4 +1,4 @@
-# Java / Maven
+# Java / Maven (Legacy)
 target/
 **/target/
 *.class
@@ -16,7 +16,9 @@ target/
 __pycache__/
 .venv/
 env/
-python-fastapi/.env
+api/.env
+dashboard/.env
+lambda-backend/.env
 
 # Node
 node_modules/
