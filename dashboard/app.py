@@ -5,7 +5,8 @@ Dashboard interativo para análise inteligente de atividades de treino
 
 import streamlit as st
 import logging
-from config import SIDEBAR_TITLE, PAGE_NAMES
+import os
+from config import SIDEBAR_TITLE, API_URL
 
 # Configurar logging
 logging.basicConfig(
@@ -59,6 +60,9 @@ st.markdown("""
 if 'authenticated' not in st.session_state:
     st.session_state.authenticated = False
 
+if 'access_token' not in st.session_state:
+    st.session_state.access_token = None
+
 if 'activities' not in st.session_state:
     st.session_state.activities = []
 
@@ -83,18 +87,30 @@ with st.sidebar:
             st.info("Sincronizando... (implementado nas páginas)")
         if st.button("🚪 Logout", use_container_width=True):
             st.session_state.authenticated = False
+            st.session_state.access_token = None
             st.session_state.activities = []
             st.session_state.insights = {}
             st.rerun()
     else:
         st.warning("❌ Não autenticado")
-        if st.button("🔗 Conectar ao Strava", use_container_width=True, type="primary"):
-            st.info("Redirecionando para autenticação... (implementado nas páginas)")
+
+        # Simple Token Input for Demo
+        token_input = st.text_input("Insira seu Access Token:", type="password")
+        if st.button("🔗 Conectar", use_container_width=True, type="primary"):
+            if token_input:
+                st.session_state.access_token = token_input
+                st.session_state.authenticated = True
+                st.success("Token salvo! Carregue as atividades.")
+                st.rerun()
+            else:
+                st.error("Por favor, insira um token válido.")
+
+        st.caption("Obtenha seu token em: https://www.strava.com/settings/api")
     
     st.markdown("---")
     
     # Info
-    st.markdown("""
+    st.markdown(f"""
     ### ℹ️ Sobre
     
     Dashboard inteligente para análise de atividades Strava com insights sobre:
@@ -104,8 +120,7 @@ with st.sidebar:
     - 📊 Análise detalhada de performance
     
     ### 🔧 Requisitos
-    - Spring Boot rodando (porta 8080)
-    - FastAPI rodando (porta 8000)
+    - API Python rodando em: `{API_URL}`
     - Autenticação Strava
     
     ### 📖 Documentação
@@ -114,7 +129,7 @@ with st.sidebar:
     """)
     
     st.markdown("---")
-    st.caption("Strava Insights v1.0 | 2025")
+    st.caption("Strava Insights v2.0 (Python) | 2026")
 
 # ============================================================================
 # MAIN PAGE
@@ -146,7 +161,7 @@ else:
     
     col1, col2 = st.columns([2, 1])
     with col1:
-        st.markdown("""
+        st.markdown(f"""
         ## Bem-vindo ao Strava Insights! 🎉
         
         Dashboard inteligente para análise de seus treinos com insights sobre:
@@ -172,36 +187,26 @@ else:
         
         ### 🚀 Como Começar
         
-        1. Clique em "Conectar ao Strava" no menu lateral
-        2. Autorize o acesso às suas atividades
-        3. Explore o dashboard, analytics e atividades
-        4. Veja seus insights gerados automaticamente
+        1. Insira seu **Access Token** no menu lateral.
+        2. Clique em **Conectar**.
+        3. Explore o dashboard!
         
-        ### 🔧 Requisitos
-        - Spring Boot rodando em `http://localhost:8080`
-        - FastAPI rodando em `http://localhost:8000`
-        - Credenciais Strava OAuth 2.0
+        ### 🔧 Status da API
+        Conectado a: `{API_URL}`
         """)
     
     with col2:
         st.image(
-            "https://www.strava.com/logo.png" if False else None,
+            "https://d3nn82uaxijpm6.cloudfront.net/assets/strava/logo-strava-40194db3766117548c92742e9015d2d0.png" if False else None,
             width=200,
             use_column_width=True
-        )
-        
-        st.button(
-            "🔗 Conectar ao Strava",
-            use_container_width=True,
-            type="primary",
-            key="main_connect_btn"
         )
     
     # Footer
     st.markdown("---")
     st.markdown("""
     <p style="text-align: center; color: gray;">
-    Made with ❤️ using Streamlit | 
+    Made with ❤️ using Streamlit & FastAPI |
     <a href="https://github.com">GitHub</a> | 
     <a href="https://developers.strava.com">Strava Docs</a>
     </p>

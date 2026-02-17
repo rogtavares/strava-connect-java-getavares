@@ -1,10 +1,12 @@
+import os
+
 # ============================================================================
 # STREAMLIT CONFIGURATION
 # ============================================================================
 
 # API URLs
-STRAVA_API_URL = "http://localhost:8080/api"
-FASTAPI_URL = "http://localhost:8000"
+# Tenta pegar da variável de ambiente (útil para Docker), senão usa localhost
+API_URL = os.getenv("API_URL", "http://localhost:8000")
 
 # Timeouts
 REQUEST_TIMEOUT = 10

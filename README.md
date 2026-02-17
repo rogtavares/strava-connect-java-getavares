@@ -23,7 +23,7 @@ O objetivo é conectar aos dados do Strava, processar métricas avançadas (como
 O sistema é composto por três pilares principais:
 
 ### 1. API de Integração e Inteligência (FastAPI)
-Localizado em `/python-fastapi`
+Localizado em `/api-RT`
 - Gerencia a autenticação OAuth 2.0 com o Strava.
 - Expõe endpoints RESTful para consumo de dados.
 - Realiza o enriquecimento de dados (ex: cruzar treino com dados meteorológicos).
@@ -35,7 +35,7 @@ Localizado em `/lambda-backend`
 - Arquitetura escalável e orientada a eventos.
 
 ### 3. Visualização Interativa (Streamlit)
-Localizado em `/python-streamlit`
+Localizado em `/dashboard`
 - Dashboards interativos para análise de performance.
 - Gráficos de evolução, comparação de equipamentos e análise climática.
 - Interface amigável para o usuário final.
@@ -50,7 +50,7 @@ Localizado em `/python-streamlit`
 
 ### 1. Configurando a API (FastAPI)
 ```bash
-cd python-fastapi
+cd api-RT
 # Crie um ambiente virtual (recomendado)
 python -m venv .venv
 # Ative o ambiente (Windows)
@@ -69,7 +69,7 @@ Acesse a documentação da API em: `http://localhost:8000/docs`
 
 ### 2. Executando o Dashboard (Streamlit)
 ```bash
-cd python-streamlit
+cd dashboard
 pip install -r requirements.txt
 streamlit run app.py
 ```
@@ -80,8 +80,8 @@ streamlit run app.py
 
 ```
 /
-├── python-fastapi/      # Backend API (FastAPI)
-├── python-streamlit/    # Frontend Dashboard (Streamlit)
+├── api-RT/              # Backend API (FastAPI)
+├── dashboard/           # Frontend Dashboard (Streamlit)
 ├── lambda-backend/      # Funções Serverless (AWS Lambda)
 ├── scripts/             # Scripts utilitários e automação
 └── archived/            # Código legado (Java, versões antigas)

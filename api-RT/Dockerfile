@@ -7,20 +7,19 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application
-COPY app.py .
+COPY . .
 
 # Environment
 ENV PYTHONUNBUFFERED=1
-ENV BACKEND_URL=http://host.docker.internal:8080
 ENV FASTAPI_HOST=0.0.0.0
 ENV FASTAPI_PORT=8000
 
 # Expose port
 EXPOSE 8000
 
-# Health check
+# Health check (using root endpoint)
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD python -c "import requests; requests.get('http://localhost:8000/health')"
+    CMD python -c "import requests; requests.get('http://localhost:8000/')"
 
 # Start server
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
