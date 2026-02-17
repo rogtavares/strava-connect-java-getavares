@@ -1,22 +1,38 @@
-from fastapi import FastAPI, HTTPException
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI, HTTPException, Request, Depends
+from fastapi.responses import JSONResponse, RedirectResponse
+from fastapi.middleware.cors import CORSMiddleware
 import httpx
 import asyncio
 import os
 from datetime import datetime
-from statistics import mean, median, stdev
+from statistics import mean, median
 from collections import defaultdict
 import logging
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app = FastAPI(title="Strava Insights API", version="1.0.0")
+app = FastAPI(title="Strava Insights API", version="2.2.0")
 
-BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8080")
+# CORS Configuration
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Configuration
+STRAVA_CLIENT_ID = os.getenv("STRAVA_CLIENT_ID")
+STRAVA_CLIENT_SECRET = os.getenv("STRAVA_CLIENT_SECRET")
 OPENWEATHER_KEY = os.getenv("OPENWEATHER_API_KEY")
-
+REDIRECT_URI = os.getenv("REDIRECT_URI", "http://localhost:8000/callback")
 
 class StravaInsights:
     """Generate intelligent insights from Strava activities and weather data"""
@@ -53,10 +69,6 @@ class StravaInsights:
         pace_min_per_km = minutes / km if km > 0 else None
         return pace_min_per_km
     
-    def calculate_heart_rate_avg(self, activity):
-        """Extract average heart rate if available"""
-        return activity.get('average_heartrate')
-    
     def get_activity_conditions(self, activity):
         """Classify activity weather conditions"""
         weather = self.extract_weather(activity)
@@ -64,8 +76,6 @@ class StravaInsights:
             return "unknown"
         
         temp = weather.get('temperature', 0)
-        humidity = weather.get('humidity', 50)
-        wind = weather.get('wind_speed', 0)
         
         if temp < 5:
             return "cold"
@@ -260,43 +270,112 @@ async def enrich_activities_data(activities):
         tasks = [fetch_weather_for_activity(client, a) for a in activities]
         return await asyncio.gather(*tasks)
 
+# --- Auth Helpers ---
+def get_token(request: Request):
+    """Retrieve token from Cookie, Authorization Header, or Query Param"""
+    # 1. Try Query Param (Easiest for browser testing)
+    token = request.query_params.get("access_token")
+    if token:
+        return token
+
+    # 2. Try Cookie
+    token = request.cookies.get("access_token")
+    if token:
+        return token
+    
+    # 3. Try Authorization Header (Bearer <token>)
+    auth_header = request.headers.get("Authorization")
+    if auth_header and auth_header.startswith("Bearer "):
+        return auth_header.split(" ")[1]
+        
+    raise HTTPException(status_code=401, detail="Not authenticated. Please login at /login or provide Bearer token.")
+
+# --- Routes ---
 
 @app.get("/")
 def root():
     """Root endpoint with API info"""
     return {
-        "name": "Strava Insights API",
-        "version": "1.0.0",
+        "name": "Strava Insights API (Python Edition)",
+        "version": "2.2.0",
         "endpoints": {
+            "/login": "Start OAuth flow",
+            "/callback": "OAuth callback",
+            "/activities": "Get raw activities from Strava",
             "/enrich": "Get enriched activities with weather and insights",
             "/insights": "Get AI-generated insights about your performance",
-            "/health": "Health check"
         }
     }
 
+@app.get("/login")
+def login():
+    """Redirect user to Strava for authentication"""
+    scope = "activity:read_all"
+    auth_url = (
+        f"https://www.strava.com/oauth/authorize"
+        f"?client_id={STRAVA_CLIENT_ID}"
+        f"&response_type=code"
+        f"&redirect_uri={REDIRECT_URI}"
+        f"&approval_prompt=auto"
+        f"&scope={scope}"
+    )
+    return RedirectResponse(auth_url)
 
-@app.get("/health")
-def health_check():
-    """Health check endpoint"""
-    return {"status": "healthy"}
+@app.get("/callback")
+async def callback(code: str, scope: str = None):
+    """Handle Strava OAuth callback"""
+    token_url = "https://www.strava.com/oauth/token"
+    payload = {
+        "client_id": STRAVA_CLIENT_ID,
+        "client_secret": STRAVA_CLIENT_SECRET,
+        "code": code,
+        "grant_type": "authorization_code"
+    }
+    
+    async with httpx.AsyncClient() as client:
+        response = await client.post(token_url, data=payload)
+        
+    if response.status_code != 200:
+        raise HTTPException(status_code=400, detail="Failed to retrieve token")
+    
+    data = response.json()
+    access_token = data.get("access_token")
+    
+    response = RedirectResponse(url="/insights")
+    response.set_cookie(key="access_token", value=access_token, httponly=True)
+    return response
 
+@app.get("/activities")
+async def get_activities(access_token: str = Depends(get_token)):
+    """Fetch activities directly from Strava"""
+    headers = {"Authorization": f"Bearer {access_token}"}
+    url = "https://www.strava.com/api/v3/athlete/activities?per_page=30"
+    
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url, headers=headers)
+        
+    if response.status_code != 200:
+        raise HTTPException(status_code=response.status_code, detail="Failed to fetch activities from Strava")
+        
+    return response.json()
 
 @app.get("/enrich")
-async def enrich_activities():
+async def enrich_activities_endpoint(access_token: str = Depends(get_token)):
     """
     Enrich activities with weather data and calculate performance metrics.
-    Returns activities with weather info and pace calculations.
     """
     try:
-        # Fetch activities from Java backend
+        # Fetch activities from Strava
+        headers = {"Authorization": f"Bearer {access_token}"}
+        url = "https://www.strava.com/api/v3/athlete/activities?per_page=30"
+        
         async with httpx.AsyncClient() as client:
-            r = await client.get(f"{BACKEND_URL}/activities/export", timeout=10.0)
+            r = await client.get(url, headers=headers)
 
         if r.status_code != 200:
-            raise HTTPException(status_code=502, detail="Failed to fetch activities from backend")
+            raise HTTPException(status_code=502, detail="Failed to fetch activities from Strava")
         
         activities = r.json()
-        logger.info(f"Fetched {len(activities)} activities from backend")
         
         # Enrich with weather concurrently
         enriched = await enrich_activities_data(activities)
@@ -307,29 +386,29 @@ async def enrich_activities():
         logger.error(f"Error in /enrich: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-
 @app.get("/insights")
-async def get_insights():
+async def get_insights(access_token: str = Depends(get_token)):
     """
     Generate intelligent insights about your performance based on weather conditions.
-    Analyzes pace variations, wind impact, and optimal training conditions.
     """
     try:
         # Fetch activities
+        headers = {"Authorization": f"Bearer {access_token}"}
+        url = "https://www.strava.com/api/v3/athlete/activities?per_page=30"
+        
         async with httpx.AsyncClient() as client:
-            r = await client.get(f"{BACKEND_URL}/activities/export", timeout=10.0)
+            r = await client.get(url, headers=headers)
 
         if r.status_code != 200:
-            raise HTTPException(status_code=502, detail="Failed to fetch activities from backend")
+            raise HTTPException(status_code=502, detail="Failed to fetch activities from Strava")
         
         activities = r.json()
-        logger.info(f"Analyzing {len(activities)} activities for insights")
-
+        
         # Enrich activities with weather concurrently
         enriched = await enrich_activities_data(activities)
         
         # Create insights processor
-        processor = StravaInsights(activities) # Pass original activities, but we will overwrite
+        processor = StravaInsights(activities)
         processor.activities = enriched
         processor.process()
         
@@ -342,7 +421,7 @@ async def get_insights():
             "wind_impact": processor.find_wind_impact(),
             "total_activities_analyzed": len(processor.enriched_activities),
         })
-    
+
     except Exception as e:
         logger.error(f"Error in /insights: {e}")
         raise HTTPException(status_code=500, detail=str(e))

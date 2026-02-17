@@ -16,6 +16,7 @@ CLASSIFICAÇÃO:
 ```
 
 **Estatísticas Calculadas:**
+
 - **Pace Médio**: Valor médio do pace em min/km
 - **Pace Mediano**: Valor central (resistente a outliers)
 - **Melhor Pace**: Mínimo registrado
@@ -23,6 +24,7 @@ CLASSIFICAÇÃO:
 - **Count**: Número de atividades nessa faixa
 
 **Insight Gerado:**
+
 ```
 "🏃 Você corre melhor em dias {condition}! Pace médio: {avg_pace} min/km"
 ```
@@ -43,6 +45,7 @@ FAIXAS:
 ```
 
 **Métricas:**
+
 - `avg_pace`: Pace médio para a faixa
 - `count`: Quantidade de atividades
 - `best_pace`: Melhor performance nessa faixa
@@ -62,16 +65,19 @@ CLASSIFICAÇÃO:
 ```
 
 **Cálculo:**
+
 ```
 impact_percent = ((avg_pace_high_wind - avg_pace_low_wind) / avg_pace_low_wind) * 100
 ```
 
 **Insight:**
+
 ```
 "💨 Vento reduz seu pace em ~{impact_percent}%"
 ```
 
 **Interpretação:**
+
 - Valor positivo = vento piora seu pace
 - Valor negativo = vento melhora seu pace (raro!)
 
@@ -82,6 +88,7 @@ impact_percent = ((avg_pace_high_wind - avg_pace_low_wind) / avg_pace_low_wind) 
 Encontra a faixa de temperatura onde você tem melhor desempenho:
 
 **Algoritmo:**
+
 ```python
 best_condition = min(
     performance_by_condition.items(),
@@ -90,6 +97,7 @@ best_condition = min(
 ```
 
 **Retorna:**
+
 ```json
 {
   "condition": "ideal",
@@ -104,17 +112,21 @@ best_condition = min(
 ## 🔢 Métricas Estatísticas
 
 ### Pace (min/km)
+
 Calculado como:
+
 ```
 pace_min_per_km = (moving_time_seconds / 60) / (distance_meters / 1000)
 ```
 
 Exemplo:
+
 - Distância: 10 km (10.000 metros)
 - Tempo: 45 minutos (2.700 segundos)
 - Pace: 45 / 10 = **4.5 min/km**
 
 ### Classificação de Performance
+
 ```
 Pacers:
 ├── Excelente: < 4:00 min/km
@@ -129,6 +141,7 @@ Pacers:
 ## 📈 Exemplos de Insights Gerados
 
 ### Exemplo 1: Melhor Condição
+
 ```json
 {
   "insight": "🏃 Você corre melhor em dias ideal! Pace médio: 4.35 min/km",
@@ -141,6 +154,7 @@ Pacers:
 **Interpretação:** Em dias com temperatura entre 15-22°C, você tem seu melhor desempenho.
 
 ### Exemplo 2: Impacto do Vento
+
 ```json
 {
   "insight": "💨 Vento reduz seu pace em ~8.5% (comparado a dias com pouco vento)",
@@ -153,6 +167,7 @@ Pacers:
 **Interpretação:** Em dias ventosos, seu pace piora de 4.38 para 4.75 min/km (~8.5% pior).
 
 ### Exemplo 3: Performance por Temperatura
+
 ```json
 {
   "ideal_15_to_22": {
@@ -218,6 +233,7 @@ class StravaInsights:
 ## 💡 Futuros Insights Inteligentes
 
 ### Análise de Umidade
+
 ```python
 def analyze_humidity_impact():
     """
@@ -229,6 +245,7 @@ def analyze_humidity_impact():
 ```
 
 ### Análise por Hora do Dia
+
 ```python
 def analyze_performance_by_hour():
     """
@@ -239,6 +256,7 @@ def analyze_performance_by_hour():
 ```
 
 ### Análise de Tendência
+
 ```python
 def analyze_performance_trend():
     """
@@ -249,6 +267,7 @@ def analyze_performance_trend():
 ```
 
 ### Comparação com Média Pessoal
+
 ```python
 def compare_with_personal_average():
     """
@@ -259,6 +278,7 @@ def compare_with_personal_average():
 ```
 
 ### Recomendações Climáticas
+
 ```python
 def recommend_training_conditions():
     """
@@ -273,12 +293,14 @@ def recommend_training_conditions():
 ## 🚀 Performance
 
 ### Complexidade Computacional
+
 - **Análise por Condição**: O(n) onde n = número de atividades
 - **Análise por Temperatura**: O(n)
 - **Impacto Vento**: O(n)
 - **Total**: O(n) - Linear, muito eficiente!
 
 ### Tempo de Execução Típico
+
 ```
 50 atividades: ~100-200ms
 100 atividades: ~200-400ms
@@ -290,6 +312,7 @@ def recommend_training_conditions():
 ## 🔐 Validação de Dados
 
 ### Dados Requeridos
+
 ```json
 {
   "distance": 10000,          // metros, > 0
@@ -300,6 +323,7 @@ def recommend_training_conditions():
 ```
 
 ### Dados Opcionais
+
 ```json
 {
   "average_heartrate": 165,   // bpm, se disponível
@@ -308,6 +332,7 @@ def recommend_training_conditions():
 ```
 
 ### Tratamento de Erros
+
 - Atividades sem distância/tempo: Ignoradas
 - Atividades sem clima: Analisadas com dados disponíveis
 - Valores nulos: Filtrados automaticamente

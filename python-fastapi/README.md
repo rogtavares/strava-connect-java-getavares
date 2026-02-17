@@ -1,16 +1,19 @@
 # 🏃 Strava Insights API (FastAPI)
 
-API inteligente que enriquece dados de atividades do Strava com dados climáticos e gera insights automáticos sobre seu desempenho.
+API inteligente que enriquece dados de atividades do Strava com dados climáticos e gera insights automáticos sobre seu
+desempenho.
 
 ## 🚀 Features
 
 ### ✅ Enriquecimento de Dados
+
 - Busca clima histórico via OpenWeather API (free tier)
 - Calcula pace (min/km) automaticamente
 - Classifica condições climáticas (frio, ideal, quente)
 - Extrai dados de temperatura, umidade, vento, pressão
 
 ### ✅ Insights Inteligentes (100% Gratuito)
+
 - **Análise por Condição Climática**: Seu melhor pace é em dias frios ou quentes?
 - **Análise por Temperatura**: Performance em 5 faixas diferentes
 - **Impacto do Vento**: Como o vento afeta seu desempenho?
@@ -20,16 +23,19 @@ API inteligente que enriquece dados de atividades do Strava com dados climático
 ## 📦 Instalação
 
 ### 1. Pré-requisitos
+
 - Python 3.8+
 - Pip
 - OpenWeather API Key (grátis em https://openweathermap.org/api)
 
 ### 2. Instalação de Dependências
+
 ```bash
 pip install -r requirements.txt
 ```
 
 ### 3. Configurar Variáveis de Ambiente
+
 ```bash
 # Copiar arquivo de exemplo
 cp .env.example .env
@@ -42,6 +48,7 @@ cp .env.example .env
 ## 🏃 Como Usar
 
 ### Iniciar o servidor de desenvolvimento
+
 ```bash
 python run.py
 # ou
@@ -49,17 +56,20 @@ uvicorn app:app --reload --host 127.0.0.1 --port 8000
 ```
 
 ### Acessar a API
+
 - **Documentação Interativa**: http://localhost:8000/docs
 - **Documentação (ReDoc)**: http://localhost:8000/redoc
 
 ## 📡 Endpoints
 
 ### `GET /` - Info da API
+
 ```bash
 curl http://localhost:8000/
 ```
 
 **Response:**
+
 ```json
 {
   "name": "Strava Insights API",
@@ -75,11 +85,13 @@ curl http://localhost:8000/
 ---
 
 ### `GET /health` - Health Check
+
 ```bash
 curl http://localhost:8000/health
 ```
 
 **Response:**
+
 ```json
 {
   "status": "healthy"
@@ -89,6 +101,7 @@ curl http://localhost:8000/health
 ---
 
 ### `GET /enrich` - Enriquecer Atividades com Clima
+
 Busca atividades do backend Java, adiciona dados climáticos históricos e calcula métricas de performance.
 
 ```bash
@@ -96,6 +109,7 @@ curl http://localhost:8000/enrich
 ```
 
 **Response Example:**
+
 ```json
 [
   {
@@ -136,6 +150,7 @@ curl http://localhost:8000/enrich
 ---
 
 ### `GET /insights` - Insights Inteligentes 🧠
+
 Analisa padrões de desempenho em relação às condições climáticas e gera insights automáticos.
 
 ```bash
@@ -143,6 +158,7 @@ curl http://localhost:8000/insights
 ```
 
 **Response Example:**
+
 ```json
 {
   "summary": [
@@ -222,7 +238,6 @@ OPENWEATHER_API_KEY=sua_chave_aqui
 FASTAPI_HOST=127.0.0.1
 FASTAPI_PORT=8000
 ```
-
 
 ## 🔐 Segurança
 

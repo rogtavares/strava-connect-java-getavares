@@ -11,6 +11,7 @@
 ### 1. **API FastAPI Melhorada** (`app.py`)
 
 #### ✅ Novos Endpoints:
+
 ```
 GET /              → Info da API
 GET /health        → Health check
@@ -19,6 +20,7 @@ GET /insights      → Gera insights inteligentes 🧠
 ```
 
 #### ✅ Classe `StravaInsights`:
+
 ```python
 - extract_weather()                      # Extrai dados de clima
 - calculate_pace()                       # Calcula pace em min/km
@@ -35,6 +37,7 @@ GET /insights      → Gera insights inteligentes 🧠
 ### 2. **Insights Inteligentes Implementados**
 
 #### 📊 1. Análise por Condição Climática
+
 ```json
 {
   "cold": {
@@ -49,9 +52,11 @@ GET /insights      → Gera insights inteligentes 🧠
   }
 }
 ```
+
 **Insight Gerado:** "🏃 Você corre melhor em dias ideal! Pace médio: 4.35 min/km"
 
 #### 🌡️ 2. Análise por Faixa de Temperatura
+
 ```
 cold_below_5        (< 5°C)
 cool_5_to_15        (5-15°C)
@@ -61,6 +66,7 @@ hot_above_28        (> 28°C)
 ```
 
 #### 💨 3. Impacto do Vento
+
 ```json
 {
   "avg_pace_low_wind": 4.38,
@@ -71,7 +77,9 @@ hot_above_28        (> 28°C)
 ```
 
 #### 🎯 4. Melhores Condições
+
 Identifica automaticamente quando você rende mais:
+
 ```
 "🏃 Você corre melhor em dias ideal! 
  Pace médio: 4.35 min/km (25 atividades)"
@@ -81,25 +89,25 @@ Identifica automaticamente quando você rende mais:
 
 ### 3. **Documentação Completa**
 
-| Arquivo | Descrição |
-|---------|-----------|
-| `README.md` | Guia de uso da API |
-| `INSIGHTS.md` | Documentação técnica dos algoritmos |
-| `requirements.txt` | Dependências (FastAPI, Requests, Pydantic) |
-| `requirements-dev.txt` | Dependências de desenvolvimento |
-| `.env.example` | Template de variáveis de ambiente |
+| Arquivo                | Descrição                                  |
+|------------------------|--------------------------------------------|
+| `README.md`            | Guia de uso da API                         |
+| `INSIGHTS.md`          | Documentação técnica dos algoritmos        |
+| `requirements.txt`     | Dependências (FastAPI, Requests, Pydantic) |
+| `requirements-dev.txt` | Dependências de desenvolvimento            |
+| `.env.example`         | Template de variáveis de ambiente          |
 
 ---
 
 ### 4. **Ferramentas de Desenvolvimento**
 
-| Ferramenta | Descrição |
-|-----------|-----------|
-| `run.py` | Script de inicialização com auto-reload |
-| `test_api.py` | Suite completa de testes |
-| `setup.sh` | Script de configuração automática |
-| `Dockerfile` | Containerização da aplicação |
-| `docker-compose.yml` | Orquestração Spring + FastAPI |
+| Ferramenta           | Descrição                               |
+|----------------------|-----------------------------------------|
+| `run.py`             | Script de inicialização com auto-reload |
+| `test_api.py`        | Suite completa de testes                |
+| `setup.sh`           | Script de configuração automática       |
+| `Dockerfile`         | Containerização da aplicação            |
+| `docker-compose.yml` | Orquestração Spring + FastAPI           |
 
 ---
 
@@ -150,11 +158,13 @@ python test_api.py
 ## 📊 Exemplo de Resposta Completa
 
 ### Request:
+
 ```bash
 curl http://localhost:8000/insights
 ```
 
 ### Response:
+
 ```json
 {
   "summary": [
@@ -221,7 +231,7 @@ curl http://localhost:8000/insights
 ✅ **OpenWeather Free API** - Histórico climático sem limite  
 ✅ **Python** - Linguagem gratuita  
 ✅ **Algoritmos Próprios** - Sem dependência de IA paga (ChatGPT, etc)  
-✅ **Docker** - Containerização gratuita  
+✅ **Docker** - Containerização gratuita
 
 **Custo Total: R$ 0,00** 🎉
 
@@ -269,6 +279,7 @@ curl http://localhost:8000/insights
 ## ✅ Checklist de Implementação
 
 ### FastAPI
+
 - ✅ 2 novos endpoints (`/enrich`, `/insights`)
 - ✅ Classe `StravaInsights` com 8 métodos
 - ✅ Análise por condição climática
@@ -281,6 +292,7 @@ curl http://localhost:8000/insights
 - ✅ Timeouts em requisições
 
 ### Documentação
+
 - ✅ README.md completo
 - ✅ INSIGHTS.md (documentação técnica)
 - ✅ .env.example
@@ -288,6 +300,7 @@ curl http://localhost:8000/insights
 - ✅ Exemplos de responses
 
 ### DevOps
+
 - ✅ requirements.txt (produção)
 - ✅ requirements-dev.txt (desenvolvimento)
 - ✅ Dockerfile
@@ -296,6 +309,7 @@ curl http://localhost:8000/insights
 - ✅ setup.sh (configuração)
 
 ### Testes
+
 - ✅ test_api.py (suite completa)
 
 ---
@@ -303,17 +317,20 @@ curl http://localhost:8000/insights
 ## 🎓 Conceitos Implementados
 
 ### 🏃 Estatística de Performance
+
 - **Pace**: min/km calculado corretamente
 - **Média Aritmética**: Valor típico
 - **Mediana**: Resistente a outliers
 - **Min/Max**: Melhor e pior performance
 
 ### 🌍 Análise Climática
+
 - **Condições**: 5 categorias por temperatura
 - **Faixas**: Análise granular em 5 ranges
 - **Vento**: Impacto quantificado em percentual
 
 ### 💡 Insights
+
 - **Geração automática** de textos amigáveis
 - **Emojis** para melhor visualização
 - **Estatísticas** de sample size (count)
@@ -323,32 +340,34 @@ curl http://localhost:8000/insights
 ## 🚀 Próximos Passos
 
 1. **Streamlit Dashboard** (Você estava pedindo!)
-   - Gráficos Pace × Temperatura
-   - Gráficos Desempenho × Vento
-   - Tabelas interativas
-   - Filtros por período
+    - Gráficos Pace × Temperatura
+    - Gráficos Desempenho × Vento
+    - Tabelas interativas
+    - Filtros por período
 
 2. **Mais Insights**
-   - Análise por hora do dia
-   - Análise por dia da semana
-   - Análise de umidade
-   - Tendência de desempenho
+    - Análise por hora do dia
+    - Análise por dia da semana
+    - Análise de umidade
+    - Tendência de desempenho
 
 3. **Otimizações**
-   - Cache de requisições
-   - Banco de dados (SQLite/PostgreSQL)
-   - Agendamento de sincronização
+    - Cache de requisições
+    - Banco de dados (SQLite/PostgreSQL)
+    - Agendamento de sincronização
 
 ---
 
 ## 📞 Suporte
 
 **Documentação Interativa:**
+
 ```
 http://localhost:8000/docs
 ```
 
 **Testar Endpoints:**
+
 ```bash
 python test_api.py
 ```
@@ -360,6 +379,7 @@ python test_api.py
 Você agora tem uma **API profissional de insights** completamente **funcional e gratuita**!
 
 A lógica inteligente já está pronta para:
+
 - Identificar melhores condições de treino
 - Quantificar impacto do clima
 - Gerar recomendações personalizadas
